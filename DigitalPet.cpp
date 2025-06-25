@@ -1,5 +1,5 @@
 /*
-* @Author: Õ½ÂÔ½ÌÊÚ
+* @Author: Wang Ziyan
 * @Date:   2025-06-08 22:35:12
 * @Last Modified by:   Wang Ziyan
 * @Last Modified time: 2025-06-20 13:08:32
@@ -18,109 +18,109 @@
 
 using namespace std;
 
-int lifespan;//³èÎïÊÙÃüÌìÊı£¬¿ÉÔö¼Ó£¡
-int Mlifespan;//¼«ÏŞ×î´óÊÙÃü
-int Llifespan;//×î¶ÌÊÙÃü
+int lifespan;//å® ç‰©å¯¿å‘½å¤©æ•°ï¼Œå¯å¢åŠ ï¼
+int Mlifespan;//æé™æœ€å¤§å¯¿å‘½
+int Llifespan;//æœ€çŸ­å¯¿å‘½
 
-const int pers = 2; //ĞÔ¸ñËæ»úÊı
-const int events = 6; //Ëæ»úÊÂ¼şµÄ¸öÊı
-int randomnum;//Ëæ»úÊıµÄ·µ»ØÖµ
-int days = 1; //ÌìÊı
+const int pers = 2; //æ€§æ ¼éšæœºæ•°
+const int events = 6; //éšæœºäº‹ä»¶çš„ä¸ªæ•°
+int randomnum;//éšæœºæ•°çš„è¿”å›å€¼
+int days = 1; //å¤©æ•°
 bool died = false;
 
 
-int turns = 1; //Ã¿Ò»ÌìÓĞ8´Î²Ù×÷»ú»á
-//×÷±×Âë±äÁ¿
+int turns = 1; //æ¯ä¸€å¤©æœ‰8æ¬¡æ“ä½œæœºä¼š
+//ä½œå¼Šç å˜é‡
 string cheating;
 const bool cheatable = true;
 int Mopluse;
-bool Bband = false; //ÊÇ·ñÒÑ¾­Íê³ÉÁËËæ»úÊÂ¼ş4
+bool Bband = false; //æ˜¯å¦å·²ç»å®Œæˆäº†éšæœºäº‹ä»¶4
 
 
-//Ëæ»úÊÂ¼ş¶ş±äÁ¿£º
+//éšæœºäº‹ä»¶äºŒå˜é‡ï¼š
 bool cheat = false;
 bool loser = false;
-bool invest = false; //Ëæ»úÊÂ¼ş¶şµÄ±äÁ¿£¬ÊÇ·ñÍ¶×Ê
-int Iinvest;//Í¶×ÊµÄ½ğ¶î
+bool invest = false; //éšæœºäº‹ä»¶äºŒçš„å˜é‡ï¼Œæ˜¯å¦æŠ•èµ„
+int Iinvest;//æŠ•èµ„çš„é‡‘é¢
 int IINVEST;
-int Dinvest;//Í¶×ÊµÈ´ıµÄÌìÊı
-float Einvest;//Í¶×ÊµÄÊÕÒæÂÊ
-//Ëæ»úÊÂ¼şÈı±äÁ¿
+int Dinvest;//æŠ•èµ„ç­‰å¾…çš„å¤©æ•°
+float Einvest;//æŠ•èµ„çš„æ”¶ç›Šç‡
+//éšæœºäº‹ä»¶ä¸‰å˜é‡
 const int price_mouse = 90, price_slipper = 20, price_heartsaver = 10000, price_lone = 10;
 
-//µÀ¾ß-¼Û¸ñ
+//é“å…·-ä»·æ ¼
 const int price_pbutter = 35, price_mbutter = 50;
 
-//Åëâ¿±äÁ¿-¼Û¸ñ
+//çƒ¹é¥ªå˜é‡-ä»·æ ¼
 const int price_sug = 8, price_sod = 9, price_wat = 0, price_flo = 6;
-//Åëâ¿±äÁ¿-ÓµÓĞ
-long long sug;//ÌÇ
-long long sul;//ÑÎ
-long long sod;//ËÕ´ò
-long long wat;//Ë®
-long long flo;//Ãæ·Û
-//Åëâ¿±äÁ¿-¼ÓÈë
-long long Isug;//ÌÇ
-long long Isul;//ÑÎ
-long long Isod;//ËÕ´ò
-long long Iwat;//Ë®
-long long Iflo;//Ãæ·Û
+//çƒ¹é¥ªå˜é‡-æ‹¥æœ‰
+long long sug;//ç³–
+long long sul;//ç›
+long long sod;//è‹æ‰“
+long long wat;//æ°´
+long long flo;//é¢ç²‰
+//çƒ¹é¥ªå˜é‡-åŠ å…¥
+long long Isug;//ç³–
+long long Isul;//ç›
+long long Isod;//è‹æ‰“
+long long Iwat;//æ°´
+long long Iflo;//é¢ç²‰
 
-//Åëâ¿±äÁ¿
-int calr;//ÈÈÁ¿
-string Meal;//Åëâ¿Æ·×ÜÃû³Æ£¨¿ÚÎ¶+Ãû³Æ£©
-map<int, string> meal;//Åëâ¿Æ·Ãû³Æ
-map<int, string> Tmeal;//Åëâ¿Æ·¿ÚÎ¶
-//Åëâ¿±äÁ¿-´æ´¢
-int Cid = 0; //ÓÃÓÚ¼ÇÂ¼ÏîÊı
-vector<string> backpackmeal;//²ËÆ·Ãû³Æ
-vector<int> backpackcalr;//²ËÆ·¶ÔÓ¦µÄÈÈÁ¿
-vector<int> backpackspend;//²ËÆ·¶ÔÓ¦µÄÖÆ×÷³É±¾£¬ÔÚÖ®ºóµÄ½øÒ»²½¸üĞÂÖĞÊ¹ÓÃ
-vector<int> backpackall;//²ËÆ·¶ÔÓ¦µÄ×ÜÁ¿
-vector<float> backpackeffect;//²ËÆ·Ğ§¹û
-map<float, string>effects;//²ËÆ·Ğ§¹û´¢´æ
-int Crow;//ÓÃÓÚ½øĞĞÑ­»·
-int CTP;//ÓÃÓÚ½øĞĞÑ¡Ôñ
+//çƒ¹é¥ªå˜é‡
+int calr;//çƒ­é‡
+string Meal;//çƒ¹é¥ªå“æ€»åç§°ï¼ˆå£å‘³+åç§°ï¼‰
+map<int, string> meal;//çƒ¹é¥ªå“åç§°
+map<int, string> Tmeal;//çƒ¹é¥ªå“å£å‘³
+//çƒ¹é¥ªå˜é‡-å­˜å‚¨
+int Cid = 0; //ç”¨äºè®°å½•é¡¹æ•°
+vector<string> backpackmeal;//èœå“åç§°
+vector<int> backpackcalr;//èœå“å¯¹åº”çš„çƒ­é‡
+vector<int> backpackspend;//èœå“å¯¹åº”çš„åˆ¶ä½œæˆæœ¬ï¼Œåœ¨ä¹‹åçš„è¿›ä¸€æ­¥æ›´æ–°ä¸­ä½¿ç”¨
+vector<int> backpackall;//èœå“å¯¹åº”çš„æ€»é‡
+vector<float> backpackeffect;//èœå“æ•ˆæœ
+map<float, string>effects;//èœå“æ•ˆæœå‚¨å­˜
+int Crow;//ç”¨äºè¿›è¡Œå¾ªç¯
+int CTP;//ç”¨äºè¿›è¡Œé€‰æ‹©
 
-int r_events(int sss = 0, int Mranding = 0, int Lranding = 0) { //Ëæ»úÊıÉú³É£¬ÓÃÓÚËæ»úÊÂ¼şºÍËæ»úĞÔ¸ñµÈ
+int r_events(int sss = 0, int Mranding = 0, int Lranding = 0) { //éšæœºæ•°ç”Ÿæˆï¼Œç”¨äºéšæœºäº‹ä»¶å’Œéšæœºæ€§æ ¼ç­‰
 	if (sss == 0) {
-		return 1 + rand() % (events); //Éú³É Ëæ»úÊÂ¼ş
+		return 1 + rand() % (events); //ç”Ÿæˆ éšæœºäº‹ä»¶
 	}
 	else if (sss == 1) {
-		return rand() % (pers-1); //Éú³É Ëæ»úĞÔ¸ñ
+		return rand() % (pers-1); //ç”Ÿæˆ éšæœºæ€§æ ¼
 	}
 	else {
-		//if(Mranding<Lranding)cout <<"Ëæ»úÊıÉú³É´íÎó£¡\n";
-		return Lranding + rand() % (Mranding); //ÆäÓàµÄÉú³É
+		//if(Mranding<Lranding)cout <<"éšæœºæ•°ç”Ÿæˆé”™è¯¯ï¼\n";
+		return Lranding + rand() % (Mranding); //å…¶ä½™çš„ç”Ÿæˆ
 	}
 }
 
-int cook(long long Psug, long long Psul, long long Psod, long long Pwat, long long Pflo, int cs = 0) { //±äÁ¿cs£ºº¯ÊıµÄÀàĞÍ
+int cook(long long Psug, long long Psul, long long Psod, long long Pwat, long long Pflo, int cs = 0) { //å˜é‡csï¼šå‡½æ•°çš„ç±»å‹
 	Msug = Psug; Msul = Psul; Msod = Psod; Mwat = Pwat; Mflo = Pflo;
 	Camount = Psug + Psul + Psod + Pwat + Pflo;
-	if (cs == 0) { //Åëâ¿
+	if (cs == 0) { //çƒ¹é¥ª
 		if (Psug == 0 && Psul == 0 && Psod == 0 && Pwat == 0 && Pflo == 0) {
-			if (language == cn)cout << "¾­¹ıÁËÒ»·¬¶Ô²»´æÔÚµÄ»ğÑæµÄ¾«È·°Ñ¿Ø¡¢²»´æÔÚµÄÌú¹øÄÍĞÄ·­³´£¬ÒÔ¼°¶Ô²»´æÔÚµÄÊ³²ÄµÄ¾«ĞÄ´îÅä£¬Äã³É¹¦ÖÆ×÷³öÁË¡­¡­";
+			if (language == cn)cout << "ç»è¿‡äº†ä¸€ç•ªå¯¹ä¸å­˜åœ¨çš„ç«ç„°çš„ç²¾ç¡®æŠŠæ§ã€ä¸å­˜åœ¨çš„é“é”…è€å¿ƒç¿»ç‚’ï¼Œä»¥åŠå¯¹ä¸å­˜åœ¨çš„é£Ÿæçš„ç²¾å¿ƒæ­é…ï¼Œä½ æˆåŠŸåˆ¶ä½œå‡ºäº†â€¦â€¦";
 			else if (language == en)cout << "After precisely controlling the invisible fire, consistly modifying the temperature of the non-existent frying pan, and the combination of the imaginary delicate seasonings, you successfully made a dish of...";
 			Ncook = air;
 			return Ncook;
 		} else {
 			int Rcook = 1 + rand() % (3);
 			if (Rcook == 1) {
-				if (language == cn)cout << "µÍ¶Ë¶ñĞÄµÄÊ³²ÄÍùÍù²»ĞèÒª¾­¹ıÅëâ¿¡ª¡ªÄãÖ±½Ó½«Ò»¶ÑÎŞ»úÎï£¨ÇëºöÂÔÃæ·Û£©¶ª½ø¹øÀï¡£\n¼¸Ğ¡Ê±ºó£¬Äã·¢ÏÖ×Ô¼ººÃ³Ô¼«ÁË¡£ÔÚ×ÔÎÒÅëâ¿Ê±£¬Äã·¢ÏÖ×Ô¼ºÒÑ¾­³É¹¦ÖÆ×÷³öÁË¡­¡­";
+				if (language == cn)cout << "ä½ç«¯æ¶å¿ƒçš„é£Ÿæå¾€å¾€ä¸éœ€è¦ç»è¿‡çƒ¹é¥ªâ€”â€”ä½ ç›´æ¥å°†ä¸€å †æ— æœºç‰©ï¼ˆè¯·å¿½ç•¥é¢ç²‰ï¼‰ä¸¢è¿›é”…é‡Œã€‚\nå‡ å°æ—¶åï¼Œä½ å‘ç°è‡ªå·±å¥½åƒæäº†ã€‚åœ¨è‡ªæˆ‘çƒ¹é¥ªæ—¶ï¼Œä½ å‘ç°è‡ªå·±å·²ç»æˆåŠŸåˆ¶ä½œå‡ºäº†â€¦â€¦";
 				else if (language == en)cout << "You throw a bunch of inorganic substance (except for the flour) into the pot. Few hours later, you find yourself very tasty. When cooking yourself, you find out that you have already cooked...";
 			}
 			if (Rcook == 2) {
-				if (language == cn)cout << "ÄãÏ¸ĞÄµØ°ÑÒ»¶Ñ¶«Î÷¶ª½ø¹øÀï£¬ÓÃÆæÃîµÄÊÖ¶ÎÅëâ¿¡£½Ó×Å£¬Äã·¢ÏÖÅëâ¿ºÁÎŞÒâÒå¡£\n¼¸·ÖÖÓºó£¬Äã·¢ÏÖ¹ø²ù±äµÃÊ®·ÖºÃ³Ô¡£ÔÚ³¢ÊÔ¾×½À¹ø²ùµÄÍ¬Ê±£¬Äã·¢ÏÖ×Ô¼º³É¹¦Åëâ¿³öÁË¡­¡­";
+				if (language == cn)cout << "ä½ ç»†å¿ƒåœ°æŠŠä¸€å †ä¸œè¥¿ä¸¢è¿›é”…é‡Œï¼Œç”¨å¥‡å¦™çš„æ‰‹æ®µçƒ¹é¥ªã€‚æ¥ç€ï¼Œä½ å‘ç°çƒ¹é¥ªæ¯«æ— æ„ä¹‰ã€‚\nå‡ åˆ†é’Ÿåï¼Œä½ å‘ç°é”…é“²å˜å¾—ååˆ†å¥½åƒã€‚åœ¨å°è¯•å’€åš¼é”…é“²çš„åŒæ—¶ï¼Œä½ å‘ç°è‡ªå·±æˆåŠŸçƒ¹é¥ªå‡ºäº†â€¦â€¦";
 				else if (language == en)cout << "You carefully throw a bunch of materials into the pot, and cook them with strange approaches. A few minutes later, you find the turner very tasty. When trying to chew the turner, you find yourself successfully cooked...";
 			}
 			if (Rcook == 3) {
-				if (language == cn)cout << "ÔÚ¶ª¾¡Ò»¶Ñ¶ñĞÄµÄÎŞ»úÎïºó£¬Äã±»ÑÌÁ¬ĞøÇºÁËÁ½¸öĞ¡Ê±¡£\nÔÚÁ½¸öĞ¡Ê±µÄÑÌÑ¬ºó£¬Äã³¹µ×ÊìÍ¸ÁË¡£Óë´ËÍ¬Ê±£¬Äã³É¹¦·¢Ã÷³öÁË¡­¡­";
+				if (language == cn)cout << "åœ¨ä¸¢å°½ä¸€å †æ¶å¿ƒçš„æ— æœºç‰©åï¼Œä½ è¢«çƒŸè¿ç»­å‘›äº†ä¸¤ä¸ªå°æ—¶ã€‚\nåœ¨ä¸¤ä¸ªå°æ—¶çš„çƒŸç†åï¼Œä½ å½»åº•ç†Ÿé€äº†ã€‚ä¸æ­¤åŒæ—¶ï¼Œä½ æˆåŠŸå‘æ˜å‡ºäº†â€¦â€¦";
 				else if (language == en)cout << "After throwing a bunch of disgusting inorganic substance, you are chocked by the smoke for two whole hours, and you find yourself totally cooked. In the mean time, you successfully invented...";
 			}
 		}
 	}
-	else if (cs == 1) { //ÆÀ¶¨ÈÈÁ¿ £¨Ã¿¿ËÌÇº¬ÓĞ4µãÈÈÁ¿£»ºÍË®½»ÈÚµÄÃæ·Û³ÉÎªÃæºı£¬Ã¿¿Ëº¬ÓĞ2µãÈÈÁ¿£¬¸ÉÃæ·ÛÃ¿¿Ëº¬ÓĞ4µãÈÈÁ¿£©
+	else if (cs == 1) { //è¯„å®šçƒ­é‡ ï¼ˆæ¯å…‹ç³–å«æœ‰4ç‚¹çƒ­é‡ï¼›å’Œæ°´äº¤èçš„é¢ç²‰æˆä¸ºé¢ç³Šï¼Œæ¯å…‹å«æœ‰2ç‚¹çƒ­é‡ï¼Œå¹²é¢ç²‰æ¯å…‹å«æœ‰4ç‚¹çƒ­é‡ï¼‰
 		Mcalr = Psug * 4;
 		if (Pwat > Pflo)Mcalr = Mcalr + Pflo * 2;
 		else Mcalr = Mcalr + Pwat * 2 + (Pflo - Pwat) * 4;
@@ -131,8 +131,8 @@ int cook(long long Psug, long long Psul, long long Psod, long long Pwat, long lo
 bool Vacheve = false;
 void notice() {
 	if (language == cn) {
-		cout << "\n°´ÏÂQÍË³ö\n°´ÏÂFÎ¹Ê³\n°´ÏÂIÓë³èÎï»¥¶¯\n°´ÏÂC²é¿´³èÎï×´Ì¬\n°´ÏÂSÇåÆÁ\n°´ÏÂM½øĞĞ¡¾¹ºÂò¡¿¡¢¡¾½è´û¡¿»ò¡¾Åëâ¿¡¿\n°´ÏÂB²é¿´ÄãÒÑ¾­ÓµÓĞµÄ¡¾Åëâ¿Ê³²Ä¡¿\n";
-		cout << "°´ÏÂO²é¿´ÄãÖÆ×÷µÄÅëâ¿Æ·\n°´ÏÂXÖØĞÂÉèÖÃÖ÷ÌâÑÕÉ«\n°´ÏÂ¡°?¡±²é¿´½Ì³Ì\n"; //<<"°´ÏÂK½øÈë´æµµ½çÃæ\n";
+		cout << "\næŒ‰ä¸‹Qé€€å‡º\næŒ‰ä¸‹Få–‚é£Ÿ\næŒ‰ä¸‹Iä¸å® ç‰©äº’åŠ¨\næŒ‰ä¸‹CæŸ¥çœ‹å® ç‰©çŠ¶æ€\næŒ‰ä¸‹Sæ¸…å±\næŒ‰ä¸‹Mè¿›è¡Œã€è´­ä¹°ã€‘ã€ã€å€Ÿè´·ã€‘æˆ–ã€çƒ¹é¥ªã€‘\næŒ‰ä¸‹BæŸ¥çœ‹ä½ å·²ç»æ‹¥æœ‰çš„ã€çƒ¹é¥ªé£Ÿæã€‘\n";
+		cout << "æŒ‰ä¸‹OæŸ¥çœ‹ä½ åˆ¶ä½œçš„çƒ¹é¥ªå“\næŒ‰ä¸‹Xé‡æ–°è®¾ç½®ä¸»é¢˜é¢œè‰²\næŒ‰ä¸‹â€œ?â€æŸ¥çœ‹æ•™ç¨‹\n"; //<<"æŒ‰ä¸‹Kè¿›å…¥å­˜æ¡£ç•Œé¢\n";
 	}
 	else if (language == en) {
 		cout << "\nPRESS 'Q' TO QUIT\nPRESS 'F' TO FEED YOUR PET\nPRESS 'I' TO INTERACT WITH YOUR PET\nPRESS 'C' TO CHECK YOUR PET'S STATUS\n";
@@ -140,27 +140,27 @@ void notice() {
 		cout << "PRESS 'O' TO CHECK THE DISHES YOU ALREADY COOKED\nPRESS 'X' TO RESET THE THEME COLOR\nPRESS '?' TO CHECK THE INSTRUCTIONS\n";
 	}
 	if (invest == true) {
-		if (language == cn)cout << "°´ÏÂV²é¿´¡¾Í¶×ÊÇé¿ö¡¿\n";
+		if (language == cn)cout << "æŒ‰ä¸‹VæŸ¥çœ‹ã€æŠ•èµ„æƒ…å†µã€‘\n";
 		else if (language == en)cout << "PRESS 'V' TO CHECK THE [STATUS OF INVESTMENT]\n";
 		Vacheve = true;
 	}
-	if (language == cn)cout << "Ã¿ÌìÓĞ8´Î°´ÏÂ°´¼üµÄ»ú»á\n»¹ÓĞ" << 8 + 1 - turns << "´Î\n";
+	if (language == cn)cout << "æ¯å¤©æœ‰8æ¬¡æŒ‰ä¸‹æŒ‰é”®çš„æœºä¼š\nè¿˜æœ‰" << 8 + 1 - turns << "æ¬¡\n";
 	else if (language == en)cout << "There are 8 times to press the key.\nYou have " << 8 + 1 - turns << " times left\n";
 }
 
-//Ç°Ê®Ãûµ¥º¯Êı
-fstream get_save;//¶ÁÈ¡
-int list_id;//Ç°Ê®Ãûµ¥µÄid
-int list_row;//½øĞĞÑ­»·
-void list_read() {//¶ÁÈ¡
+//å‰ååå•å‡½æ•°
+fstream get_save;//è¯»å–
+int list_id;//å‰ååå•çš„id
+int list_row;//è¿›è¡Œå¾ªç¯
+void list_read() {//è¯»å–
 	get_save.open("top10\\Lid.txt");
-	get_save >> list_id; //¶ÁÈ¡list_id
+	get_save >> list_id; //è¯»å–list_id
 	get_save.close();
 }
 
-void list_write() {//Ğ´Èë
+void list_write() {//å†™å…¥
 	get_save.open("top10\\Lid.txt");
-	get_save << list_id; //Ğ´Èëlist_id
+	get_save << list_id; //å†™å…¥list_id
 	get_save.close();
 }
 
@@ -168,8 +168,8 @@ void list_write() {//Ğ´Èë
 
 }*/
 
-//Åëâ¿º¯Êı£¨ÓÉÅëâ¿Í·ÎÄ¼ş¶øÀ´µÄ·­ÒëÆ÷£©
-void Cpushback(string bloodyname, int bloodycalr, int bloodyspend, int bloodyall, float bloodyeffect) {//´æ´¢
+//çƒ¹é¥ªå‡½æ•°ï¼ˆç”±çƒ¹é¥ªå¤´æ–‡ä»¶è€Œæ¥çš„ç¿»è¯‘å™¨ï¼‰
+void Cpushback(string bloodyname, int bloodycalr, int bloodyspend, int bloodyall, float bloodyeffect) {//å­˜å‚¨
 	backpackmeal.push_back(bloodyname);
 	backpackcalr.push_back(bloodycalr);
 	backpackspend.push_back(bloodyspend);
@@ -178,22 +178,22 @@ void Cpushback(string bloodyname, int bloodycalr, int bloodyspend, int bloodyall
 	Cid++;
 }
 
-void Cclean() {//Çå¿Õ
+void Cclean() {//æ¸…ç©º
 	Crow = 1;
 	while (1) {
-		if (Crow == Cid)break; //backpackmeal´Ó0¿ªÊ¼
+		if (Crow == Cid)break; //backpackmealä»0å¼€å§‹
 		backpackmeal[Crow - 1] = "";
 		Crow++;
 	}
 	Cid = 0;
 }
 
-void Cdrop(int IDI) {//³ıÈ¥ IDI=id of the dropped item
+void Cdrop(int IDI) {//é™¤å» IDI=id of the dropped item
 	backpackmeal[IDI] = "";
 	Cid = Cid - 1;
 	Crow = IDI;
 	while (1) {
-		if (Crow == Cid)break; //×¢Òâ£¬´Ë´¦CrowµÈÓÚCid£¬Ïàµ±ÓÚ°Ñ×îºóÒ»¸öÎïÆ·¸³ÖµÎª0
+		if (Crow == Cid)break; //æ³¨æ„ï¼Œæ­¤å¤„Crowç­‰äºCidï¼Œç›¸å½“äºæŠŠæœ€åä¸€ä¸ªç‰©å“èµ‹å€¼ä¸º0
 		backpackmeal[Crow] = backpackmeal[Crow + 1];
 		backpackcalr[Crow] = backpackcalr[Crow + 1];
 		backpackspend[Crow] = backpackspend[Crow + 1];
@@ -204,13 +204,13 @@ void Cdrop(int IDI) {//³ıÈ¥ IDI=id of the dropped item
 
 void Mname() {
 	if (language == cn) {
-		meal[0] = "¿ÕÆø";
-		meal[1] = "ËÕ´òË®";
-		meal[2] = "²»¿ÉÃû×´µÄºÚ½¹É«ÎïÌå";
-		meal[3] = "Ãæºı";
-		meal[4] = "Ãæ°ü";
-		meal[5] = "´øË®µÄËÕ´ò";
-		meal[6] = "µ°¸â";
+		meal[0] = "ç©ºæ°”";
+		meal[1] = "è‹æ‰“æ°´";
+		meal[2] = "ä¸å¯åçŠ¶çš„é»‘ç„¦è‰²ç‰©ä½“";
+		meal[3] = "é¢ç³Š";
+		meal[4] = "é¢åŒ…";
+		meal[5] = "å¸¦æ°´çš„è‹æ‰“";
+		meal[6] = "è›‹ç³•";
 	}
 	else if (language == en) {
 		meal[0] = "air";
@@ -225,17 +225,17 @@ void Mname() {
 
 void Mname1() {
 	if (language == cn) {
-		Tmeal[10] = "ÓĞĞ©ÌğÄåµÄ";
-		Tmeal[11] = "ÓĞĞ©ÏÌµÄ";
-		Tmeal[12] = "ÓĞĞ©ÊªºõºõµÄ";
-		Tmeal[13] = "³äÂúÆøÌåµÄ";
-		Tmeal[14] = "Æ½µ­µÄ";
-		Tmeal[15] = "ÈíÃàÃàµÄ";
-		Tmeal[16] = "·Ç³£ÌğÄåµÄ";
-		Tmeal[17] = "·Ç³£ÏÌµÄ";
-		Tmeal[18] = "·Ç³£ÊªºõºõµÄ";
-		Tmeal[19] = "·Ç³£ÈíÃàÃàµÄ";
-		Tmeal[20] = "ÓĞĞ©¸ÉµÄ";
+		Tmeal[10] = "æœ‰äº›ç”œè…»çš„";
+		Tmeal[11] = "æœ‰äº›å’¸çš„";
+		Tmeal[12] = "æœ‰äº›æ¹¿ä¹ä¹çš„";
+		Tmeal[13] = "å……æ»¡æ°”ä½“çš„";
+		Tmeal[14] = "å¹³æ·¡çš„";
+		Tmeal[15] = "è½¯ç»µç»µçš„";
+		Tmeal[16] = "éå¸¸ç”œè…»çš„";
+		Tmeal[17] = "éå¸¸å’¸çš„";
+		Tmeal[18] = "éå¸¸æ¹¿ä¹ä¹çš„";
+		Tmeal[19] = "éå¸¸è½¯ç»µç»µçš„";
+		Tmeal[20] = "æœ‰äº›å¹²çš„";
 	}
 	else if (language == en) {
 		Tmeal[10] = "a bit too sweet";
@@ -252,13 +252,13 @@ void Mname1() {
 	}
 }
 
-void Ename() {	//²ËÆ·Ğ§¹ûÃû³Æ
-	//ÊÙÃü
+void Ename() {	//èœå“æ•ˆæœåç§°
+	//å¯¿å‘½
 	if (language == cn) {
-		effects[0.1] = "ÊÙÃü¡¾+1¡¿";
-		effects[0.2] = "ÊÙÃü¡¾+2¡¿";
-		effects[-0.1] = "ÊÙÃü¡¾-1¡¿";
-		effects[-0.2] = "ÊÙÃü¡¾-2¡¿";
+		effects[0.1] = "å¯¿å‘½ã€+1ã€‘";
+		effects[0.2] = "å¯¿å‘½ã€+2ã€‘";
+		effects[-0.1] = "å¯¿å‘½ã€-1ã€‘";
+		effects[-0.2] = "å¯¿å‘½ã€-2ã€‘";
 	}
 	else if (language == en) {
 		effects[0.1] = "Lifespan [+1]";
@@ -266,16 +266,16 @@ void Ename() {	//²ËÆ·Ğ§¹ûÃû³Æ
 		effects[-0.1] = "Lifespan [-1]";
 		effects[-0.2] = "Lifespan [-2]";
 	}
-	//ÉúÃüÖµ
+	//ç”Ÿå‘½å€¼
 	if (language == cn) {
-		effects[1.10] = "¿ìÀÖÖµ¡¾+10¡¿";
-		effects[1.15] = "¿ìÀÖÖµ¡¾+15¡¿";
-		effects[-1.10] = "¿ìÀÖÖµ¡¾-10¡¿";
-		effects[-1.15] = "¿ìÀÖÖµ¡¾-15¡¿";
-		effects[2.5] = "¿ìÀÖÖµÉÏÏŞ¡¾+5¡¿";
-		effects[2.15] = "¿ìÀÖÖµÉÏÏŞ+15";
-		effects[-2.5] = "¿ìÀÖÖµÉÏÏŞ¡¾-5¡¿";
-		effects[-2.15] = "¿ìÀÖÖµÉÏÏŞ¡¾-15¡¿";
+		effects[1.10] = "å¿«ä¹å€¼ã€+10ã€‘";
+		effects[1.15] = "å¿«ä¹å€¼ã€+15ã€‘";
+		effects[-1.10] = "å¿«ä¹å€¼ã€-10ã€‘";
+		effects[-1.15] = "å¿«ä¹å€¼ã€-15ã€‘";
+		effects[2.5] = "å¿«ä¹å€¼ä¸Šé™ã€+5ã€‘";
+		effects[2.15] = "å¿«ä¹å€¼ä¸Šé™+15";
+		effects[-2.5] = "å¿«ä¹å€¼ä¸Šé™ã€-5ã€‘";
+		effects[-2.15] = "å¿«ä¹å€¼ä¸Šé™ã€-15ã€‘";
 	}
 	else if (language == en) {
 		effects[1.10] = "Happiness [+10]";
@@ -287,16 +287,16 @@ void Ename() {	//²ËÆ·Ğ§¹ûÃû³Æ
 		effects[-2.5] = "Limit of happiness [-5]";
 		effects[-2.15] = "Limit of happiness [-15]";
 	}
-	//±¯ÉËÖµ
+	//æ‚²ä¼¤å€¼
 	if (language == cn) {
-		effects[3.5] = "±¯ÉËÖµ¡¾+5¡¿";
-		effects[3.8] = "±¯ÉËÖµ¡¾+8¡¿";
-		effects[-3.5] = "±¯ÉËÖµ¡¾-5¡¿";
-		effects[-3.8] = "±¯ÉËÖµ¡¾-8¡¿";
-		effects[4.5] = "±¯ÉËÖµÉÏÏŞ¡¾+5¡¿";
-		effects[4.10] = "±¯ÉËÖµÉÏÏŞ+10";
-		effects[-4.5] = "±¯ÉËÖµÉÏÏŞ¡¾-5¡¿";
-		effects[-4.10] = "±¯ÉËÖµÉÏÏŞ¡¾-10¡¿";
+		effects[3.5] = "æ‚²ä¼¤å€¼ã€+5ã€‘";
+		effects[3.8] = "æ‚²ä¼¤å€¼ã€+8ã€‘";
+		effects[-3.5] = "æ‚²ä¼¤å€¼ã€-5ã€‘";
+		effects[-3.8] = "æ‚²ä¼¤å€¼ã€-8ã€‘";
+		effects[4.5] = "æ‚²ä¼¤å€¼ä¸Šé™ã€+5ã€‘";
+		effects[4.10] = "æ‚²ä¼¤å€¼ä¸Šé™+10";
+		effects[-4.5] = "æ‚²ä¼¤å€¼ä¸Šé™ã€-5ã€‘";
+		effects[-4.10] = "æ‚²ä¼¤å€¼ä¸Šé™ã€-10ã€‘";
 	}
 	else if (language == en) {
 		effects[3.5] = "Sadness [+5]";
@@ -308,8 +308,8 @@ void Ename() {	//²ËÆ·Ğ§¹ûÃû³Æ
 		effects[-4.5] = "Limit of Sadness [-5]";
 		effects[-4.10] = "Limit of Sadness [-10]";
 	}
-	//Æ½µ­µÄ
-	if (language == cn)effects[5.0] = "ÎŞĞ§¹û";
+	//å¹³æ·¡çš„
+	if (language == cn)effects[5.0] = "æ— æ•ˆæœ";
 	else if (language == en)effects[5.0] = "no effect";
 }
 
@@ -347,18 +347,18 @@ void Cfour() {
 	Csod(); Csul(); Csug(); Cwat(); Cflo();
 }
 
-bool Jcook = false; //ÔÚÅëâ¿Ê±ÇĞ»»½çÃæÓÃµÄÒ»¸ö±äÁ¿¡­¡­
+bool Jcook = false; //åœ¨çƒ¹é¥ªæ—¶åˆ‡æ¢ç•Œé¢ç”¨çš„ä¸€ä¸ªå˜é‡â€¦â€¦
 void Cincook() {
 	colorc(blue);
 	if (language == cn) {
-		cout << "ÄãÓĞ" << sug << "¿ËÌÇ\nÄãÓĞ" << sul << "¿ËÑÎ\nÄãÓĞ" << sod << "¿ËËÕ´ò\nÄãÓĞ" << wat << "ºÁÉıË®£¨×î¶àÓµÓĞ1000ºÁÉı£©\nÄãÓĞ" << flo << "¿ËÃæ·Û\n";
+		cout << "ä½ æœ‰" << sug << "å…‹ç³–\nä½ æœ‰" << sul << "å…‹ç›\nä½ æœ‰" << sod << "å…‹è‹æ‰“\nä½ æœ‰" << wat << "æ¯«å‡æ°´ï¼ˆæœ€å¤šæ‹¥æœ‰1000æ¯«å‡ï¼‰\nä½ æœ‰" << flo << "å…‹é¢ç²‰\n";
 	}
 	else if (language == en) {
 		cout << "You have " << sug << " grams of sugar\nYou have " << sul << " grams of salt\nYou have " << sod << " grams of soda\nYou have " << wat << " milliliter of water (1000 millilitter max)\nYou have " << flo << " grams of flour\n";
 	}
 	colorc(white);
 	pause();
-	if (language == cn)cout << "¼ÌĞøÅëâ¿Âğ£¿£¨°´¡ü¼ÌĞø£¬°´¡ıÍË³ö½çÃæ£©\n";
+	if (language == cn)cout << "ç»§ç»­çƒ¹é¥ªå—ï¼Ÿï¼ˆæŒ‰â†‘ç»§ç»­ï¼ŒæŒ‰â†“é€€å‡ºç•Œé¢ï¼‰\n";
 	else if (language == en)cout << "Keep cooking? (Press [up button] to continue, press [down button] to quit this menu)\n";
 	while (1) {
 		key = getch();
@@ -371,58 +371,58 @@ void Cincook() {
 	}
 	if (Jcook == false) {
 		while (1) {
-			if (language == cn)cout << "ÄãÒª¼ÓÈë¶àÉÙ¿ËÌÇ£¿ÊäÈë¿ËÊı£º";
-			else if (language == en)cout << "How much sugar do you want to put in£¿ Input the number of grams:";
+			if (language == cn)cout << "ä½ è¦åŠ å…¥å¤šå°‘å…‹ç³–ï¼Ÿè¾“å…¥å…‹æ•°ï¼š";
+			else if (language == en)cout << "How much sugar do you want to put inï¼Ÿ Input the number of grams:";
 			cin >> Isug;
-			if (Isug < 0 || Isug > sug)cout << "ÊäÈë´íÎó£¡\n";
+			if (Isug < 0 || Isug > sug)cout << "è¾“å…¥é”™è¯¯ï¼\n";
 			else {
 				sug = sug - Isug; break;
 			}
 		}
 		while (1) {
-			if (language == cn)cout << "ÄãÒª¼ÓÈë¶àÉÙ¿ËÑÎ£¿ÊäÈë¿ËÊı£º";
-			else if (language == en)cout << "How much salt do you want to put in£¿ Input the number of grams:";
+			if (language == cn)cout << "ä½ è¦åŠ å…¥å¤šå°‘å…‹ç›ï¼Ÿè¾“å…¥å…‹æ•°ï¼š";
+			else if (language == en)cout << "How much salt do you want to put inï¼Ÿ Input the number of grams:";
 			cin >> Isul;
-			if (Isul < 0 || Isul > sul)cout << "ÊäÈë´íÎó£¡\n";
+			if (Isul < 0 || Isul > sul)cout << "è¾“å…¥é”™è¯¯ï¼\n";
 			else {
 				sul = sul - Isul; break;
 			}
 		}
 		while (1) {
-			if (language == cn)cout << "ÄãÒª¼ÓÈë¶àÉÙ¿ËËÕ´ò£¿ÊäÈë¿ËÊı£º";
-			else if (language == en)cout << "How much sodium bicarbonate do you want to put in£¿ Input the number of grams:";
+			if (language == cn)cout << "ä½ è¦åŠ å…¥å¤šå°‘å…‹è‹æ‰“ï¼Ÿè¾“å…¥å…‹æ•°ï¼š";
+			else if (language == en)cout << "How much sodium bicarbonate do you want to put inï¼Ÿ Input the number of grams:";
 			cin >> Isod;
-			if (Isod < 0 || Isod > sod)cout << "ÊäÈë´íÎó£¡\n";
+			if (Isod < 0 || Isod > sod)cout << "è¾“å…¥é”™è¯¯ï¼\n";
 			else {
 				sod = sod - Isod; break;
 			}
 		}
 		while (1) {
-			if (language == cn)cout << "ÄãÒª¼ÓÈë¶àÉÙºÁÉıË®£¿ÊäÈëºÁÉıÊı£º";
-			else if (language == en)cout << "How much water do you want to put in£¿ Input the number of milliliter:";
+			if (language == cn)cout << "ä½ è¦åŠ å…¥å¤šå°‘æ¯«å‡æ°´ï¼Ÿè¾“å…¥æ¯«å‡æ•°ï¼š";
+			else if (language == en)cout << "How much water do you want to put inï¼Ÿ Input the number of milliliter:";
 			cin >> Iwat;
-			if (Iwat < 0 || Iwat > wat)cout << "ÊäÈë´íÎó£¡\n";
+			if (Iwat < 0 || Iwat > wat)cout << "è¾“å…¥é”™è¯¯ï¼\n";
 			else {
 				wat = wat - Iwat; break;
 			}
 		}
 		while (1) {
-			if (language == cn)cout << "ÄãÒª¼ÓÈë¶àÉÙ¿ËÃæ·Û£¿ÊäÈë¿ËÊı£º";
-			else if (language == en)cout << "How much flour do you want to put in£¿ Input the number of grams:";
+			if (language == cn)cout << "ä½ è¦åŠ å…¥å¤šå°‘å…‹é¢ç²‰ï¼Ÿè¾“å…¥å…‹æ•°ï¼š";
+			else if (language == en)cout << "How much flour do you want to put inï¼Ÿ Input the number of grams:";
 			cin >> Iflo;
-			if (Iflo < 0 || Iflo > flo)cout << "ÊäÈë´íÎó£¡\n";
+			if (Iflo < 0 || Iflo > flo)cout << "è¾“å…¥é”™è¯¯ï¼\n";
 			else {
 				flo = flo - Iflo; break;
 			}
 		}
 		cook(Isug, Isul, Isod, Iwat, Iflo, ck);
-		if (Isug == 0 && Isul == 0 && Isod == 0 && Iwat == 0 && Iflo == 0)cout << meal[cook(Isug, Isul, Isod, Iwat, Iflo, ck)] << "£¡\n";
+		if (Isug == 0 && Isul == 0 && Isod == 0 && Iwat == 0 && Iflo == 0)cout << meal[cook(Isug, Isul, Isod, Iwat, Iflo, ck)] << "ï¼\n";
 		else {
 			Meal = Tmeal[meal_tas()] + meal[meal_nam()];
-			cout << Meal << "£¡\n"; calr = cook(Isug, Isul, Isod, Iwat, Iflo, cr);
-			if (language == cn)cout << "ÕâÏî²ËÆ·µÄÈÈÁ¿ÊÇ" << calr << "µã£¡\n";
+			cout << Meal << "ï¼\n"; calr = cook(Isug, Isul, Isod, Iwat, Iflo, cr);
+			if (language == cn)cout << "è¿™é¡¹èœå“çš„çƒ­é‡æ˜¯" << calr << "ç‚¹ï¼\n";
 			else if (language == en)cout << "The energy of this dish is " << calr << " calories!\n";
-			Cpushback(Meal, calr, Isug * 8 + Isul * 13 + Isod * 9, meal_all(), meal_effect()); //ÑÎµÄ¼Û¸ñÊÇ6~21µÄËæ»úÊı£¬È¡ÖĞ¼äÖµ13.5µÄÕûÊı²¿·Ö13Ôª
+			Cpushback(Meal, calr, Isug * 8 + Isul * 13 + Isod * 9, meal_all(), meal_effect()); //ç›çš„ä»·æ ¼æ˜¯6~21çš„éšæœºæ•°ï¼Œå–ä¸­é—´å€¼13.5çš„æ•´æ•°éƒ¨åˆ†13å…ƒ
 		}
 	} else {
 		Jcook = false;
@@ -431,57 +431,57 @@ void Cincook() {
 }
 
 
-//³èÎïÖ¸±ê
-int age = 0; //ÄêÁä 10ÌìÔö¼Ó1
-int hap = 50; //¿ìÀÖÖµ ³õÊ¼100-Âú
-int max_hap = 100; //³õÊ¼×î´óÖµ
-int sad = 0; //±¯ÉËÖµ ³õÊ¼50-Âú
-int max_sad = 50; //³õÊ¼×î´óÖµ
-bool poo = false; //ÅÅĞ¹
-int w_poo;//ÅÅĞ¹ÈÌÄÍÊ±¼ä 10-Âú
-bool eat = false; //½øÊ³ 5-Âú
-int w_eat;//½øÊ³ÈÌÄÍÊ±¼ä
-bool Pab;//³èÎïĞÔ¸ñ
+//å® ç‰©æŒ‡æ ‡
+int age = 0; //å¹´é¾„ 10å¤©å¢åŠ 1
+int hap = 50; //å¿«ä¹å€¼ åˆå§‹100-æ»¡
+int max_hap = 100; //åˆå§‹æœ€å¤§å€¼
+int sad = 0; //æ‚²ä¼¤å€¼ åˆå§‹50-æ»¡
+int max_sad = 50; //åˆå§‹æœ€å¤§å€¼
+bool poo = false; //æ’æ³„
+int w_poo;//æ’æ³„å¿è€æ—¶é—´ 10-æ»¡
+bool eat = false; //è¿›é£Ÿ 5-æ»¡
+int w_eat;//è¿›é£Ÿå¿è€æ—¶é—´
+bool Pab;//å® ç‰©æ€§æ ¼
 
-//³èÎïĞÔ¸ñÉú³É
-void per() {	//Ëæ»úÉú³É³èÎïµÄĞÔ¸ñ
-	if (language == cn)cout << "ÄãÏëµ½ÄãºÍ" << name << "ÏàÓöµÄÄÇ¸öÈÕ×Ó£º";
+//å® ç‰©æ€§æ ¼ç”Ÿæˆ
+void per() {	//éšæœºç”Ÿæˆå® ç‰©çš„æ€§æ ¼
+	if (language == cn)cout << "ä½ æƒ³åˆ°ä½ å’Œ" << name << "ç›¸é‡çš„é‚£ä¸ªæ—¥å­ï¼š";
 	else if (language == en)cout << "You remember the day you met " << name << ":";
-	randomnum = r_events(1); //Éú³ÉËæ»úÊı
+	randomnum = r_events(1); //ç”Ÿæˆéšæœºæ•°
 	Pab = randomnum;
 	if (Pab == dog) {
-		if (language == cn)cout << "ÔÚ³èÎïµêÀï£¬Äã¿´¼ûÒ»Ö»Ğ¡¹·¡£ÄãÏ²°®Ëü·è¿ñµÄ¹·Ñù×Ó£¬±ã°ÑËü´ø»ØÁË¼Ò¡£";
+		if (language == cn)cout << "åœ¨å® ç‰©åº—é‡Œï¼Œä½ çœ‹è§ä¸€åªå°ç‹—ã€‚ä½ å–œçˆ±å®ƒç–¯ç‹‚çš„ç‹—æ ·å­ï¼Œä¾¿æŠŠå®ƒå¸¦å›äº†å®¶ã€‚";
 		else if (language == en)cout << "You saw a puppy at a pet store. You liked its mad look, so you took it home.";
 	}
 	else if (Pab == cat) {
-		if (language == cn)cout << "ÔÚÖ½ÏäÀï£¬Äã¿´¼ûÁËÒ»Ö»´ò×ÅºôààµÄĞ¡Ã¨¡£Äã¸øÁËËü¼¸¶ÎÏã³¦£¬±ã°ÑËü´ø»ØÁË¼Ò¡£";
+		if (language == cn)cout << "åœ¨çº¸ç®±é‡Œï¼Œä½ çœ‹è§äº†ä¸€åªæ‰“ç€å‘¼å™œçš„å°çŒ«ã€‚ä½ ç»™äº†å®ƒå‡ æ®µé¦™è‚ ï¼Œä¾¿æŠŠå®ƒå¸¦å›äº†å®¶ã€‚";
 		else if (language == en)cout << "You saw a snoring pussy in a carton. After giving it some saussages, you took it home.";
 	}
-	if (language == cn)cout << "Èç½ñÄãÒÑ¾­¸øËüÆğÁËÃû×Ö¡£\n";
+	if (language == cn)cout << "å¦‚ä»Šä½ å·²ç»ç»™å®ƒèµ·äº†åå­—ã€‚\n";
 	else if (language == en)cout << "And now you've named it.\n";
 }
 
-void r_lifespan() { //Ëæ»úÊÙÃü
-	if (Pab == cat) lifespan = 20 + rand() % (40 - 20); //Ã¨µÄÊÙÃü£º2~4ËêÌì£¨¿ÉÔö¼Ó£©
-	else if (Pab == dog) lifespan = 15 + rand() % (50 - 15); //¹·µÄÊÙÃü£º1Ëê°ëµ½5Ëê£¨¿ÉÔö¼Ó£©
+void r_lifespan() { //éšæœºå¯¿å‘½
+	if (Pab == cat) lifespan = 20 + rand() % (40 - 20); //çŒ«çš„å¯¿å‘½ï¼š2~4å²å¤©ï¼ˆå¯å¢åŠ ï¼‰
+	else if (Pab == dog) lifespan = 15 + rand() % (50 - 15); //ç‹—çš„å¯¿å‘½ï¼š1å²åŠåˆ°5å²ï¼ˆå¯å¢åŠ ï¼‰
 }
 
-//Ëæ»úÊÂ¼şÃÇ
-void r1() {		//Ëæ»úÊÂ¼ş1£º
-	randomnum = r_events(3, 35, 0);		//´ø»Ø0~35Ôª
+//éšæœºäº‹ä»¶ä»¬
+void r1() {		//éšæœºäº‹ä»¶1ï¼š
+	randomnum = r_events(3, 35, 0);		//å¸¦å›0~35å…ƒ
 	if (randomnum != 0) {
 		if (language == cn) {
-			cout << "\nÕâÌì£¬Äã·¢ÏÖÄãµÄ³èÎïÏûÊ§ÁË¡£¼¸Ğ¡Ê±ºó£¬ÄãµÄ³èÎïÎªÄã´ø»ØÁË" << randomnum << "Ôª£¡\n½ğÇ®Ôö¼Ó£¡\n";
+			cout << "\nè¿™å¤©ï¼Œä½ å‘ç°ä½ çš„å® ç‰©æ¶ˆå¤±äº†ã€‚å‡ å°æ—¶åï¼Œä½ çš„å® ç‰©ä¸ºä½ å¸¦å›äº†" << randomnum << "å…ƒï¼\né‡‘é’±å¢åŠ ï¼\n";
 		}
 		else if (language == en ) cout << "\n This day, you find that your pet disappered. Few hours later, your pet brings you back $" << randomnum << "!\nMoney increase!\n";
 		money = money + randomnum; pause();
 	}
 }
 
-void r2() {		//Ëæ»úÊÂ¼ş2£º³èÎïµÄ·çÏÕÍ¶×Ê
+void r2() {		//éšæœºäº‹ä»¶2ï¼šå® ç‰©çš„é£é™©æŠ•èµ„
 	your_pet();
 	if (language == cn) {
-		cout << "ÏòÄã×ßÀ´£¬ÊÖÀïÄÃ×ÅÒ»ÕÅÖ½£¬ÉÏÃæĞ´×Å£º\n·çÏÕÍ¶×Ê\nÍ¶×ÊÈË£¨Îï£©£º" << name << "\nµ£±£ÈË£ºÄã\nµ£±£ÈËÇ©Ãû£º________\n";
+		cout << "å‘ä½ èµ°æ¥ï¼Œæ‰‹é‡Œæ‹¿ç€ä¸€å¼ çº¸ï¼Œä¸Šé¢å†™ç€ï¼š\né£é™©æŠ•èµ„\næŠ•èµ„äººï¼ˆç‰©ï¼‰ï¼š" << name << "\næ‹…ä¿äººï¼šä½ \næ‹…ä¿äººç­¾åï¼š________\n";
 	}
 	else if (language == en) {
 		cout << "walks to you with a paper, which said:\nVENTURE INVESTMENT\nInvestor:" << name << "\nVoucher: You\nSignature:________\n";
@@ -491,37 +491,37 @@ void r2() {		//Ëæ»úÊÂ¼ş2£º³èÎïµÄ·çÏÕÍ¶×Ê
 		key = getch();
 		if (key == 'H')
 		{
-			if (language == cn)cout << "ÄãÇ©ÉÏÁË×Ô¼ºµÄÃû×Ö¡£\n";
+			if (language == cn)cout << "ä½ ç­¾ä¸Šäº†è‡ªå·±çš„åå­—ã€‚\n";
 			else if (language == en)cout << "You sign your name.\n";
 			invest = true;
 			while (1) {
-				if (language == cn)cout << "ÄãÒªÍ¶×ÊµÄ½ğ¶î";
+				if (language == cn)cout << "ä½ è¦æŠ•èµ„çš„é‡‘é¢";
 				else if (language == en)cout << "Input the money you want to invest";
 				money_have();
 				cin >> Iinvest;
 				if (!(Iinvest <= 0)) {
 					if (!(Iinvest > money))break;
 					else {
-						if (language == cn)cout << "ÄãÃ»ÓĞÄÇÃ´¶àÇ®£¡ÄãÖ»ÓĞ" << money << "Ôª£¡\n\n";
+						if (language == cn)cout << "ä½ æ²¡æœ‰é‚£ä¹ˆå¤šé’±ï¼ä½ åªæœ‰" << money << "å…ƒï¼\n\n";
 						else if (language == en)cout << "You don't have that much of money! All you have is $ " << money << "!\n\n";
 					}
 				} else {
 					if (Iinvest < 0) {
-						if (language == cn)cout << "Í¶×ÊÊ§°Ü£¬ÖØĞÂÊäÈë£¡\n\n";
+						if (language == cn)cout << "æŠ•èµ„å¤±è´¥ï¼Œé‡æ–°è¾“å…¥ï¼\n\n";
 						else if (language == en)cout << "Failed to invest, please reenter!\n\n";
 					}
 					else {
-						if (language == cn)cout << "ÔÚÕâÇ§¾ûÒ»·¢Ö®¼Ê£¬Äã·ÅÆúÁËÍ¶×Ê£¡\n";
+						if (language == cn)cout << "åœ¨è¿™åƒé’§ä¸€å‘ä¹‹é™…ï¼Œä½ æ”¾å¼ƒäº†æŠ•èµ„ï¼\n";
 						else if (language == en)cout << "You give up the investment when it is by a hair!\n";
 						break;
 					}
 				}
 			}
 			if (Iinvest != 0) {
-				if (language == cn)cout << "ÄãÍ¶ÈëÁË" << Iinvest << "Ôª¡£\n";
+				if (language == cn)cout << "ä½ æŠ•å…¥äº†" << Iinvest << "å…ƒã€‚\n";
 				else if (language == en)cout << "You invest $ " << Iinvest << ".\n";
 				if (Iinvest == money) {
-					if (language == cn) cout << "ÄãµÄ³èÎï¿´µ½ÄãÍ¶ÈëÁËÉíÉÏµÄËùÓĞÇ®£¬Ê®·Ö¸ßĞË¡£\n";
+					if (language == cn) cout << "ä½ çš„å® ç‰©çœ‹åˆ°ä½ æŠ•å…¥äº†èº«ä¸Šçš„æ‰€æœ‰é’±ï¼Œååˆ†é«˜å…´ã€‚\n";
 					else if (language == en) cout << "Your pet is very pleased when seeing you invested all your money.\n";
 					hap_plus(2);
 					sad_minus(3);
@@ -533,13 +533,13 @@ void r2() {		//Ëæ»úÊÂ¼ş2£º³èÎïµÄ·çÏÕÍ¶×Ê
 				invest = true;
 				break;
 			} else {
-				if (language == cn)cout << "ÄãµÄ³èÎï¿´ÄãµÄÑÛÉñÏñ¿´×ÅÒ»¸öÄÔÌ±¡£\n";
+				if (language == cn)cout << "ä½ çš„å® ç‰©çœ‹ä½ çš„çœ¼ç¥åƒçœ‹ç€ä¸€ä¸ªè„‘ç˜«ã€‚\n";
 				else if (language == en)cout << "Your pet is looking at you as if you are a retard.\n";
 				break; invest = false;
 			}
 		}
 		else if (key == 'P') {
-			if (language == cn)cout << "ÄãµÄ³èÎï¿´ÄãµÄÑÛÉñÏñ¿´×ÅÒ»¸öÄÔÌ±¡£\n";
+			if (language == cn)cout << "ä½ çš„å® ç‰©çœ‹ä½ çš„çœ¼ç¥åƒçœ‹ç€ä¸€ä¸ªè„‘ç˜«ã€‚\n";
 			else if (language == en)cout << "Your pet is looking at you as if you are a retard.\n";
 			break; invest = false;
 		}
@@ -547,11 +547,11 @@ void r2() {		//Ëæ»úÊÂ¼ş2£º³èÎïµÄ·çÏÕÍ¶×Ê
 	}
 }
 
-bool Phouse = false; //³èÎïÊÇ·ñÓĞ·¿×Ó
-bool Pmouse = false; //ÊÇ·ñ¹ºÂòÁË³èÎïµÄÀÏÊó
-int Pmouse_plus;//ÀÏÊ¦¸ø³èÎïÔö¼ÓµÄ¿ìÀÖÖµ£¨1-10Ëæ»úÊı£©
-void r3() { //Ëæ»úÊÂ¼ş3£ºÍÆÏúÔ±
-	if (language == cn)cout << "ÄãµÄ³èÎïÅÜ³öÁË¼Ò¡£\n¼¸Ğ¡Ê±ºó£¬ÄãµÄ³èÎï" << name << "¿ªÊ¼ÇÃÃÅ¡£\nÊÇ·ñ¿ªÃÅ£¿\n";
+bool Phouse = false; //å® ç‰©æ˜¯å¦æœ‰æˆ¿å­
+bool Pmouse = false; //æ˜¯å¦è´­ä¹°äº†å® ç‰©çš„è€é¼ 
+int Pmouse_plus;//è€å¸ˆç»™å® ç‰©å¢åŠ çš„å¿«ä¹å€¼ï¼ˆ1-10éšæœºæ•°ï¼‰
+void r3() { //éšæœºäº‹ä»¶3ï¼šæ¨é”€å‘˜
+	if (language == cn)cout << "ä½ çš„å® ç‰©è·‘å‡ºäº†å®¶ã€‚\nå‡ å°æ—¶åï¼Œä½ çš„å® ç‰©" << name << "å¼€å§‹æ•²é—¨ã€‚\næ˜¯å¦å¼€é—¨ï¼Ÿ\n";
 	else if (language == en) {
 		cout << "Your pet runs out of the house.\nFew hours later, your pet " << name << " starts to knock on the door.\n";
 		cout << "Open the door?\n";
@@ -560,22 +560,22 @@ void r3() { //Ëæ»úÊÂ¼ş3£ºÍÆÏúÔ±
 	while (1) {
 		key = getch();
 		if (key == 'H') {
-			if (language == cn)cout << "Äã´ò¿ªÁËÃÅ£¬";
+			if (language == cn)cout << "ä½ æ‰“å¼€äº†é—¨ï¼Œ";
 			else if (language == en)cout << "You open the door, just to realize that";
 			randomnum = r_events(114514, 5, 1);
 			if (randomnum == 2) {
-				if (language == cn)cout << "È´·¢ÏÖÄãµÄ³èÎïÒÑ¾­³ÔµôÁË´°»§£¬½øÈëÁË·¿×Ó¡£\n";
+				if (language == cn)cout << "å´å‘ç°ä½ çš„å® ç‰©å·²ç»åƒæ‰äº†çª—æˆ·ï¼Œè¿›å…¥äº†æˆ¿å­ã€‚\n";
 				else if (language == en)cout << "your pet has already eated the window and entered the house.\n";
 				poo = true;
 			} else {
-				if (language == cn)cout << "ÄãµÄ³èÎï½øÈëÁË·¿×Ó¡£\n";
+				if (language == cn)cout << "ä½ çš„å® ç‰©è¿›å…¥äº†æˆ¿å­ã€‚\n";
 				else if (language == en)cout << "your pet has already entered the house.\n";
 			}
 			break;
 		}
 		else if (key == 'P') {
 			if (language == cn) {
-				cout << "Äã¼Ù×°Ìı²»¼û" << name << "µÄÇÃÃÅÉù¡£ÓÚÊÇÄãµÄ³èÎïÒ»¿Ú³ÔµôÁËÃÅ£¡\nÄãµÄ³èÎï¸Ğµ½ÉñÇåÆøË¬¡£\n";
+				cout << "ä½ å‡è£…å¬ä¸è§" << name << "çš„æ•²é—¨å£°ã€‚äºæ˜¯ä½ çš„å® ç‰©ä¸€å£åƒæ‰äº†é—¨ï¼\nä½ çš„å® ç‰©æ„Ÿåˆ°ç¥æ¸…æ°”çˆ½ã€‚\n";
 			}
 			else if (language == en) {
 				cout << "You pretend that your can't hear " << name << "'s knocking, so your pet eats up the door!\nYour pet feels refreshed.\n";
@@ -588,35 +588,35 @@ void r3() { //Ëæ»úÊÂ¼ş3£ºÍÆÏúÔ±
 		}
 		cout << "\n\n";
 	}
-	if (language == cn)cout << name << "ÏòÄã³öÊ¾ÁËËüÕÒµ½µÄ¼¸ÑùÎïÆ·£º\n";
+	if (language == cn)cout << name << "å‘ä½ å‡ºç¤ºäº†å®ƒæ‰¾åˆ°çš„å‡ æ ·ç‰©å“ï¼š\n";
 	else if (language == en)cout << name << " showed you few items that it found:\n";
 	randomnum = r_events(250, 5, 1);
 	if (randomnum == 1 || randomnum == 2) {
 		cout << "A."; randomnum = r_events(45, 50, 1);
-		if (language == cn)cout << randomnum << "Ôª ¼Û¸ñ£º10Ôª\nB.²»¹ºÂò\n";
+		if (language == cn)cout << randomnum << "å…ƒ ä»·æ ¼ï¼š10å…ƒ\nB.ä¸è´­ä¹°\n";
 		else if (language == en)cout << "$ " << randomnum << " Price: $ 10\nB.Don't buy anything\n";
 		while (1) {
 			key = getch();
 			if (key == 'A' || key == 'a') {
 				if (!(money < 10)) {
 					money = money - 10;
-					if (language == cn)cout << "Äã»¨10ÔªÂòÁË" << randomnum << "Ôª£¬";
+					if (language == cn)cout << "ä½ èŠ±10å…ƒä¹°äº†" << randomnum << "å…ƒï¼Œ";
 					else if (language == en)cout << "You spent $ 10 to but $ " << randomnum << ". ";
 					if (randomnum > 10) {
-						if (language == cn)cout << "ÕæÊÇÒ»ÃÅÎÈ×¬²»ÅâµÄÉúÒâ£¡\n";
+						if (language == cn)cout << "çœŸæ˜¯ä¸€é—¨ç¨³èµšä¸èµ”çš„ç”Ÿæ„ï¼\n";
 						else if (language == en)cout << "What a silly great deal!\n";
 					}
 					if (randomnum == 10) {
-						if (language == cn)cout << "ÕæÊÇÒ»ÃÅ×¬²»µ½Ç®µÄÉúÒâ£¡\n";
+						if (language == cn)cout << "çœŸæ˜¯ä¸€é—¨èµšä¸åˆ°é’±çš„ç”Ÿæ„ï¼\n";
 						else if (language == en)cout << "What a balanced profit!\n";
 					}
 					if (randomnum < 10) {
-						if (language == cn)cout << "ÕæÊÇÒ»ÃÅÎÈÅâ²»×¬µÄÉúÒâ£¡\n";
+						if (language == cn)cout << "çœŸæ˜¯ä¸€é—¨ç¨³èµ”ä¸èµšçš„ç”Ÿæ„ï¼\n";
 						else if (language == en)cout << "What a foolish decision!\n";
 					}
 					money += randomnum;
 				} else {
-					if (language == cn)cout << "±§Ç¸£¬ÄãÃ»ÓĞ×ã¹»½ğÇ®£¡\n";
+					if (language == cn)cout << "æŠ±æ­‰ï¼Œä½ æ²¡æœ‰è¶³å¤Ÿé‡‘é’±ï¼\n";
 					else if (language == en)money_not();
 				}
 				break;
@@ -628,8 +628,8 @@ void r3() { //Ëæ»úÊÂ¼ş3£ºÍÆÏúÔ±
 	}
 	if (randomnum == 3 || randomnum == 4) {
 		if (language == cn) {
-			cout << "A.Íæ¾ßÀÏÊó£¨Ê¹³èÎïÃ¿ÌìµÄ¿ìÀÖÖµÔö¼Ó1~5µÄËæ»úÊı£©" << price_mouse << "Ôª\nB.ÍÏĞ¬£¨Ê¹³èÎï³ÉÎªÓĞ·¿Ò»×å£©" << price_slipper << "Ôª\n";
-			cout << "C.ËÙĞ§¾ÈĞÄÍè " << price_heartsaver << "Ôª\nD.²»¹ºÂò\n";
+			cout << "A.ç©å…·è€é¼ ï¼ˆä½¿å® ç‰©æ¯å¤©çš„å¿«ä¹å€¼å¢åŠ 1~5çš„éšæœºæ•°ï¼‰" << price_mouse << "å…ƒ\nB.æ‹–é‹ï¼ˆä½¿å® ç‰©æˆä¸ºæœ‰æˆ¿ä¸€æ—ï¼‰" << price_slipper << "å…ƒ\n";
+			cout << "C.é€Ÿæ•ˆæ•‘å¿ƒä¸¸ " << price_heartsaver << "å…ƒ\nD.ä¸è´­ä¹°\n";
 		}
 		else if (language == en) {
 			cout << "A.Toy mouse (happiness [+1]~[+5] each day) $ " << price_mouse << "\nB.Slipper (don't you want to buy a house for your pet?) $ " << price_slipper << "\n";
@@ -641,11 +641,11 @@ void r3() { //Ëæ»úÊÂ¼ş3£ºÍÆÏúÔ±
 				if (!(money < 90)) {
 					if (Pmouse == false) {
 						money = money - 90;
-						if (language == cn)cout << "ÄãÂòÏÂÁËÍæ¾ßÀÏÊó£¡\n";
+						if (language == cn)cout << "ä½ ä¹°ä¸‹äº†ç©å…·è€é¼ ï¼\n";
 						else if (language == en)cout << "You have bought the toy mouse!\n";
 						Pmouse = true;
 					} else {
-						if (language == cn)cout << "±§Ç¸£¬ÄãµÄ³èÎïÒÑ¾­ÓĞÒ»¸öÁË£¡\n";
+						if (language == cn)cout << "æŠ±æ­‰ï¼Œä½ çš„å® ç‰©å·²ç»æœ‰ä¸€ä¸ªäº†ï¼\n";
 						else if (language == en)cout << "Sorry, but your pet already have one!\n";
 					}
 				} else {
@@ -657,11 +657,11 @@ void r3() { //Ëæ»úÊÂ¼ş3£ºÍÆÏúÔ±
 				if (!(money < 20)) {
 					if (Phouse == false) {
 						money = money - 20;
-						if (language == cn)cout << "ÄãÂòÏÂÁËÍÏĞ¬£¡\n";
+						if (language == cn)cout << "ä½ ä¹°ä¸‹äº†æ‹–é‹ï¼\n";
 						else if (language == en)cout << "You have bought the slipper!\n";
 						Phouse = true;
 					} else {
-						if (language == cn)cout << "±§Ç¸£¬ÄãµÄ³èÎïÒÑ¾­³ÉÎªÓĞ·¿Ò»×åÁË£¡\n";
+						if (language == cn)cout << "æŠ±æ­‰ï¼Œä½ çš„å® ç‰©å·²ç»æˆä¸ºæœ‰æˆ¿ä¸€æ—äº†ï¼\n";
 						else if (language == en)cout << "Sorry, but your pet already have one!\n";
 					}
 				} else {
@@ -671,19 +671,19 @@ void r3() { //Ëæ»úÊÂ¼ş3£ºÍÆÏúÔ±
 			}
 			else if (key == 'C' || key == 'c') {
 				if (!(money < 10000)) {
-					if (language == cn)cout << "±§Ç¸£¬ÄãÃ»ÓĞ×ã¹»µÄ½ğÇ®£¡¼ÌĞøÂğ£¿£¨¡ü¼ÌĞø£¬¡ıÍË³ö£©\n";
+					if (language == cn)cout << "æŠ±æ­‰ï¼Œä½ æ²¡æœ‰è¶³å¤Ÿçš„é‡‘é’±ï¼ç»§ç»­å—ï¼Ÿï¼ˆâ†‘ç»§ç»­ï¼Œâ†“é€€å‡ºï¼‰\n";
 					else if (language == en)cout << "Sorry, buy you don't have enough money! Continue? (Press [up button] to continue and press [down button] to quit)\n";
 					money = money - 10000;
 					while (1) {
 						key = getch();
 						if (key == up) {
-							if (language == cn)cout << "ÇİÊŞ£¡\n¿ìÀÖÖµÇåÁã£¡±¯ÉËÖµÀ­Âú£¡\n";
+							if (language == cn)cout << "ç¦½å…½ï¼\nå¿«ä¹å€¼æ¸…é›¶ï¼æ‚²ä¼¤å€¼æ‹‰æ»¡ï¼\n";
 							else if (language == en)cout << "MONSTER!\nHappiness = 0! Sadness maximumizes!\n";
 							hap = 0; sad = max_sad;
 							break;
 						}
 						else if (key == down) {
-							if (language == cn)cout << "Äã±»Æ­ÁË£¡\n";
+							if (language == cn)cout << "ä½ è¢«éª—äº†ï¼\n";
 							else if (language == en)cout << "You are scamed!\n";
 							break;
 						}
@@ -699,14 +699,14 @@ void r3() { //Ëæ»úÊÂ¼ş3£ºÍÆÏúÔ±
 		}
 	}
 	if (randomnum == 5) {
-		if (language == cn)cout << "A.¼ÅÄ¯£¨ÈÃÄãÂò¸ö¼ÅÄ¯£©10Ôª\nB.²»¹ºÂò\n";
+		if (language == cn)cout << "A.å¯‚å¯ï¼ˆè®©ä½ ä¹°ä¸ªå¯‚å¯ï¼‰10å…ƒ\nB.ä¸è´­ä¹°\n";
 		else if (language == en)cout << "A.Lonliness (buy one when you are on your own) $ " << price_lone << "\nB.Don't buy anything\n";
 		while (1) {
 			key = getch();
 			if (key == 'A' || key == 'a') {
 				if (!(money < 10)) {
 					money = money - 10;
-					if (language == cn)cout << "ÄãÂòÁË¸ö¼ÅÄ¯¡­¡­\n";
+					if (language == cn)cout << "ä½ ä¹°äº†ä¸ªå¯‚å¯â€¦â€¦\n";
 					else if (language == en)cout << "You have bought... lonliness...\n";
 				} else {
 					money_not();
@@ -729,21 +729,21 @@ int Msenting;
 void Bback() {
 	back = true;
 	if (language == cn) {
-		cout << "¡°21st century schizoid pet!¡±\nÄã¿´¼ûÄãµÄ³èÎïÕı¾Ù×ÅÒ»°Ñµç¼ªËû£¨Õı±»Ò»°Ñµç¼ªËûÑ¹ÔÚµØÉÏ£©£¬¾Û¹âµÆÕÕÁÁÁËËüµÄÑÛ¾¦¡£\n";
+		cout << "â€œ21st century schizoid pet!â€\nä½ çœ‹è§ä½ çš„å® ç‰©æ­£ä¸¾ç€ä¸€æŠŠç”µå‰ä»–ï¼ˆæ­£è¢«ä¸€æŠŠç”µå‰ä»–å‹åœ¨åœ°ä¸Šï¼‰ï¼Œèšå…‰ç¯ç…§äº®äº†å®ƒçš„çœ¼ç›ã€‚\n";
 	}
 	else if (language == en) {
 		cout << "\"21st century schizoid pet!\"You see your pet is holding a electric guitar (being overwhelmed under the guitar), and the spotlight shines on its eyes.\n";
 	}
 	pause();
 	if (language == cn) {
-		cout << "ÄãÈÈÀáÓ¯¿ô¡£\n¼¸¸öĞÇÆÚºó£¬ÄãµÄ³èÎïÔÙ´ÎÇÃ¿ªÁË¼ÒÀïµÄÃÅ¡£Ëü¸æËßÄã£¨²»ÒªÎÊÎÒËüÊÇÔõÃ´¸æËßÄãµÄ£©Õâ³¡Ñİ³öÈ¡µÃÁË¾Ş´óµÄ³É¹¦¡£\n";
+		cout << "ä½ çƒ­æ³ªç›ˆçœ¶ã€‚\nå‡ ä¸ªæ˜ŸæœŸåï¼Œä½ çš„å® ç‰©å†æ¬¡æ•²å¼€äº†å®¶é‡Œçš„é—¨ã€‚å®ƒå‘Šè¯‰ä½ ï¼ˆä¸è¦é—®æˆ‘å®ƒæ˜¯æ€ä¹ˆå‘Šè¯‰ä½ çš„ï¼‰è¿™åœºæ¼”å‡ºå–å¾—äº†å·¨å¤§çš„æˆåŠŸã€‚\n";
 	}
 	else if (language == en)cout << "Tears run out your eyes. Few weeks later, your pet knocks on the door again, and it tells you (don't ask me how) that this performance has made a great success.\n";
 	randomnum = r_events(134, 5, 1);
 	if (randomnum == 5) {
 		BFS = true; randomnum = r_events(214, 3000, 200);
 		if (language == cn) {
-			cout << "ÄãµÄ³èÎï³ÉÎªÁËÑÇÖŞµÄÖøÃû¸èĞÇ£¬ÔÚ½ñºóµÄÃ¿Ò»Ìì£¬¶¼»áÓĞĞí¶à¿ñÈÈ¸èÃÔÎªÄãÃÇËÍÇ®¡£µ«ÄãµÄ³èÎï¾Ü²»ÖØ»Ø¸èÌ³¡£\n";
+			cout << "ä½ çš„å® ç‰©æˆä¸ºäº†äºšæ´²çš„è‘—åæ­Œæ˜Ÿï¼Œåœ¨ä»Šåçš„æ¯ä¸€å¤©ï¼Œéƒ½ä¼šæœ‰è®¸å¤šç‹‚çƒ­æ­Œè¿·ä¸ºä½ ä»¬é€é’±ã€‚ä½†ä½ çš„å® ç‰©æ‹’ä¸é‡å›æ­Œå›ã€‚\n";
 		}
 		else if (language == en) {
 			cout << "Your pet becomes the next Michael Jackson in the world - in fact, hardly anybody still remembers Michael Jackson now. There are a lot of crazy fans come to send you money everyday after that performance, but your pet mysteriously refuses (don't ask me how) to go back to the business.\n";
@@ -754,9 +754,9 @@ void Bback() {
 	}
 	money = money + randomnum;
 	if (language == cn) {
-		cout << "Õâ³¡Ñİ³öÒ»¹²»ñµÃÁË" << randomnum << "Ôª¡£ÎªÁË±í´ï¶ÔÄãµÄ¸ĞĞ»£¬ÄãµÄ³èÎï°ÑËùÓĞÇ®¶¼½»¸øÁËÄã¡£\n";
+		cout << "è¿™åœºæ¼”å‡ºä¸€å…±è·å¾—äº†" << randomnum << "å…ƒã€‚ä¸ºäº†è¡¨è¾¾å¯¹ä½ çš„æ„Ÿè°¢ï¼Œä½ çš„å® ç‰©æŠŠæ‰€æœ‰é’±éƒ½äº¤ç»™äº†ä½ ã€‚\n";
 		pause();
-		cout << "¾ÍÕâÑù£¬ÄãÃÇÔÙ´Î¹ı»ØÁËÆ½µ­µÄÉú»î¡£\n";
+		cout << "å°±è¿™æ ·ï¼Œä½ ä»¬å†æ¬¡è¿‡å›äº†å¹³æ·¡çš„ç”Ÿæ´»ã€‚\n";
 	}
 	else if (language == en) {
 		cout << "The performance earns you $ " << randomnum << " in total. In order to show thankfulness, your pet hands you all the money.\n";
@@ -766,9 +766,9 @@ void Bback() {
 	hyphen(4);
 }
 
-void Binteract() { //Ëæ»úÊÂ¼ş4
+void Binteract() { //éšæœºäº‹ä»¶4
 	if (key == 'T' || key == 't') {
-		if (language == cn)cout << "Äã´ò¿ªÁËµçÊÓ\n";
+		if (language == cn)cout << "ä½ æ‰“å¼€äº†ç”µè§†\n";
 		else if (language == en)cout << "You open the YV.\n";
 		pause(1);
 		randomnum = r_events(1874298, 2, 1);
@@ -778,14 +778,14 @@ void Binteract() { //Ëæ»úÊÂ¼ş4
 		else if (randomnum == 4)Btv4();
 		randomnum = r_events(82734, 4, 1);
 		if (randomnum == 2) {
-			if (language == cn)cout << "ÄãÇĞ»»×ÅÆµµÀ£¬Í»È»£¬Äã¿´¼ûÁË¡­¡­\n\nÄãµÄ³èÎï£¡\n";
+			if (language == cn)cout << "ä½ åˆ‡æ¢ç€é¢‘é“ï¼Œçªç„¶ï¼Œä½ çœ‹è§äº†â€¦â€¦\n\nä½ çš„å® ç‰©ï¼\n";
 			else if (language == en)cout << "You are switching channels, and suddenly, you see...\n\nYour pet!\n";
 			pause();
 			Bback();
 			return;
 		}
 		else {
-			if (language == cn)cout << "Äã²»¶ÏÇĞ»»×ÅÆµµÀ£¬µ«Ã»ÓĞ¿´¼û³èÎïÈÎºÎĞÅÏ¢¡­¡­\n";
+			if (language == cn)cout << "ä½ ä¸æ–­åˆ‡æ¢ç€é¢‘é“ï¼Œä½†æ²¡æœ‰çœ‹è§å® ç‰©ä»»ä½•ä¿¡æ¯â€¦â€¦\n";
 			else if (language == en)cout << "You keep changing the channels, but can't find any information about your pet...\n";
 			pause(1);
 		}
@@ -794,20 +794,20 @@ void Binteract() { //Ëæ»úÊÂ¼ş4
 		hyphen(3);
 		cout << "\n";
 		choose_again();
-		if (language == cn)cout << "\n°´ÏÂT¿´µçÊÓ\nÃ¿ÌìÓĞ1´Î°´ÏÂ°´¼üµÄ»ú»á\n»¹ÓĞ" << 1 + 1 - Bturns << "´Î\n";
+		if (language == cn)cout << "\næŒ‰ä¸‹Tçœ‹ç”µè§†\næ¯å¤©æœ‰1æ¬¡æŒ‰ä¸‹æŒ‰é”®çš„æœºä¼š\nè¿˜æœ‰" << 1 + 1 - Bturns << "æ¬¡\n";
 		else if (language == en)cout << "\nPress 't' to watch TV\nThere are 1 chance to watch TV everyday\nYou have " << 1 + 1 - Bturns << " time left\n";
 		key = getch(); Binteract();
 	}
 }
 
-void band_days() {	//Ëæ»úÊÂ¼ş4
+void band_days() {	//éšæœºäº‹ä»¶4
 	hyphen(2);
-	cout << "ÕâÊÇµÚ" << Bdays << "Ìì\n";
+	cout << "è¿™æ˜¯ç¬¬" << Bdays << "å¤©\n";
 	while (1) {
 		if (Bturns == 2)break;
 		cout << "\n";
 		choose_again();
-		if (language == cn)cout << "\n°´ÏÂT¿´µçÊÓ\nÃ¿ÌìÓĞ1´Î°´ÏÂ°´¼üµÄ»ú»á\n»¹ÓĞ" << 1 + 1 - Bturns << "´Î\n";
+		if (language == cn)cout << "\næŒ‰ä¸‹Tçœ‹ç”µè§†\næ¯å¤©æœ‰1æ¬¡æŒ‰ä¸‹æŒ‰é”®çš„æœºä¼š\nè¿˜æœ‰" << 1 + 1 - Bturns << "æ¬¡\n";
 		else if (language == en)cout << "\nPlease choose again!\nPress 't' to watch TV\nThere are 1 chance to watch TV everyday\nYou have " << 1 + 1 - Bturns << " time left\n";
 		key = getch();
 		Binteract();
@@ -818,24 +818,24 @@ void band_days() {	//Ëæ»úÊÂ¼ş4
 	Bturns = 1;
 }
 
-void r4() {//Ëæ»úÊÂ¼ş4£º³èÎïµÄÇ°ÎÀÒ¡¹öÀÖ¶Ó
+void r4() {//éšæœºäº‹ä»¶4ï¼šå® ç‰©çš„å‰å«æ‘‡æ»šä¹é˜Ÿ
 	Bband = true;
 	if (language == cn) {
-		cout << "Õâ¼¸ÌìÒÔÀ´£¬ÄãµÄ³èÎïÒ»Ö±ÔÚÌıÒ»Ğ©ÆæÃîµÄÒ¡¹öÒôÀÖ¡£\nÄãÊ±³£Ìı¼ûÒ»Ğ©ËÆºõÊÇ¡°rape¡±µÄµ¥´Ê´Ó" << name << "µÄ×ìÖĞ±Å·¢£¨²»ÒªÎÊÎÒ¶¯ÎïÊÇÈçºÎËµ»°µÄ£©\n";
+		cout << "è¿™å‡ å¤©ä»¥æ¥ï¼Œä½ çš„å® ç‰©ä¸€ç›´åœ¨å¬ä¸€äº›å¥‡å¦™çš„æ‘‡æ»šéŸ³ä¹ã€‚\nä½ æ—¶å¸¸å¬è§ä¸€äº›ä¼¼ä¹æ˜¯â€œrapeâ€çš„å•è¯ä»" << name << "çš„å˜´ä¸­è¿¸å‘ï¼ˆä¸è¦é—®æˆ‘åŠ¨ç‰©æ˜¯å¦‚ä½•è¯´è¯çš„ï¼‰\n";
 	}
 	else if (language == en) {
 		cout << "For the past few days, your pet has been listening to some strange rock music.\nYou often hear some words like 'rape' from " << name << "'s mouse (don't ask me how)\n";
 	}
 	pause();
 	if (language == cn) {
-		cout << "Ò»Ìì£¬ÄãµÄ³èÎïÓÃÒ»Ğ©ÆæÃîµÄ·½·¨¸æËßÄãÁËÒ»¸öÏûÏ¢£ºËü½«»á´´½¨Ò»Ö»Ç°ÎÀÒ¡¹öÀÖ¶Ó¡£\nÓÉÓÚÄãÒÑ¾­ÎªËüÍ¶ÈëÌ«¶à£¬Ëü½«²»ÔÙ»áÊ¹ÓÃÄãµÄ½ğÇ®¡£\n";
+		cout << "ä¸€å¤©ï¼Œä½ çš„å® ç‰©ç”¨ä¸€äº›å¥‡å¦™çš„æ–¹æ³•å‘Šè¯‰ä½ äº†ä¸€ä¸ªæ¶ˆæ¯ï¼šå®ƒå°†ä¼šåˆ›å»ºä¸€åªå‰å«æ‘‡æ»šä¹é˜Ÿã€‚\nç”±äºä½ å·²ç»ä¸ºå®ƒæŠ•å…¥å¤ªå¤šï¼Œå®ƒå°†ä¸å†ä¼šä½¿ç”¨ä½ çš„é‡‘é’±ã€‚\n";
 	}
 	else if (language == en) {
 		cout << "One day, your pet told you through a unimaginable way that it is going to start a progressive rock band.\nBecause you have gave it too much, this band won't cost you any money.\n";
 	}
 	pause(); eat = false; poo = false;
 	if (language == cn) {
-		cout << "ÄãÔÚËüÁÙĞĞÇ°×îºóÎ¹Ê³ÁËÒ»´Î³èÎï£¬ÄãµÄ³èÎï×îºóÒ»´ÎÉÏÁË²ŞËù¡£\nÄãÄ¿ËÍ×Å³èÎïµÄÀë¿ª¡­¡­\n";
+		cout << "ä½ åœ¨å®ƒä¸´è¡Œå‰æœ€åå–‚é£Ÿäº†ä¸€æ¬¡å® ç‰©ï¼Œä½ çš„å® ç‰©æœ€åä¸€æ¬¡ä¸Šäº†å•æ‰€ã€‚\nä½ ç›®é€ç€å® ç‰©çš„ç¦»å¼€â€¦â€¦\n";
 	}
 	else if (language == en) {
 		cout << "Before it left, you feed your pet for the last time, and let it defecates for the last time.\nYou witness its leave...\n";
@@ -847,47 +847,47 @@ void r4() {//Ëæ»úÊÂ¼ş4£º³èÎïµÄÇ°ÎÀÒ¡¹öÀÖ¶Ó
 	}
 }
 
-void r5() {//Ëæ»úÊÂ¼ş5
+void r5() {//éšæœºäº‹ä»¶5
 	randomnum = r_events(123, 5, 1);
-	if (language == cn)cout << "\nÕâÌì£¬Äã·¢ÏÖÄãµÄ³èÎïÏûÊ§ÁË¡£¼¸Ğ¡Ê±ºó£¬ÄãµÄ³èÎïÎªÄã´ø»ØÁË";
+	if (language == cn)cout << "\nè¿™å¤©ï¼Œä½ å‘ç°ä½ çš„å® ç‰©æ¶ˆå¤±äº†ã€‚å‡ å°æ—¶åï¼Œä½ çš„å® ç‰©ä¸ºä½ å¸¦å›äº†";
 	else if (language == en)cout << "\nToday, you can't find your pet anywhere. Few hours later, your pet brings you back ";
-	if (randomnum == 1) { //ÌÇ
-		randomnum = r_events(1234, 35, 1); //´øÀ´1-35¸öÊ³²Ä
-		if (language == cn)cout << randomnum << "¿ËÌÇ£¡\n";
+	if (randomnum == 1) { //ç³–
+		randomnum = r_events(1234, 35, 1); //å¸¦æ¥1-35ä¸ªé£Ÿæ
+		if (language == cn)cout << randomnum << "å…‹ç³–ï¼\n";
 		else if (language == en)cout << randomnum << " grams of sugar!\n";
 		sug += randomnum;
 	}
-	else if (randomnum == 2) { //ÑÎ
-		randomnum = r_events(1234, 35, 1); //´øÀ´1-35¸öÊ³²Ä
-		if (language == cn)cout << randomnum << "¿ËÑÎ£¡\n";
+	else if (randomnum == 2) { //ç›
+		randomnum = r_events(1234, 35, 1); //å¸¦æ¥1-35ä¸ªé£Ÿæ
+		if (language == cn)cout << randomnum << "å…‹ç›ï¼\n";
 		else if (language == en)cout << randomnum << " grams of salt!\n";
 		sul += randomnum;
 	}
-	else if (randomnum == 3) { //ËÕ´ò
-		randomnum = r_events(1234, 35, 1); //´øÀ´1-35¸öÊ³²Ä
-		if (language == cn)cout << randomnum << "¿ËËÕ´ò£¡\n";
+	else if (randomnum == 3) { //è‹æ‰“
+		randomnum = r_events(1234, 35, 1); //å¸¦æ¥1-35ä¸ªé£Ÿæ
+		if (language == cn)cout << randomnum << "å…‹è‹æ‰“ï¼\n";
 		else if (language == en)cout << randomnum << " grams of soda!\n";
 		sod += randomnum;
 	}
-	else if (randomnum == 4) { //Ë®
-		randomnum = r_events(1234, 35, 1); //´øÀ´1-35¸öÊ³²Ä
-		if (language == cn)cout << randomnum << "ºÁÉıË®£¡\n";
+	else if (randomnum == 4) { //æ°´
+		randomnum = r_events(1234, 35, 1); //å¸¦æ¥1-35ä¸ªé£Ÿæ
+		if (language == cn)cout << randomnum << "æ¯«å‡æ°´ï¼\n";
 		else if (language == en)cout << randomnum << " milliliters of water!\n";
 		if (wat + randomnum <= 1000)wat += randomnum;
 	}
-	else if (randomnum == 5) { //Ãæ·Û
-		randomnum = r_events(1234, 35, 1); //´øÀ´1-35¸öÊ³²Ä
-		if (language == cn)cout << randomnum << "¿ËÃæ·Û£¡\n";
+	else if (randomnum == 5) { //é¢ç²‰
+		randomnum = r_events(1234, 35, 1); //å¸¦æ¥1-35ä¸ªé£Ÿæ
+		if (language == cn)cout << randomnum << "å…‹é¢ç²‰ï¼\n";
 		else if (language == en)cout << randomnum << " grams of flour!\n";
 		flo += randomnum;
 	}
 	pause();
 }
 
-void r_e() {//random events Éú³É
+void r_e() {//random events ç”Ÿæˆ
 	if (days >= 1) {
 		randomnum = r_events();
-		//cout <<randomnum<<"\n";//²âÊÔ´úÂë
+		//cout <<randomnum<<"\n";//æµ‹è¯•ä»£ç 
 		if (!(randomnum > events)) {
 			if (randomnum == 1) r1();
 			else if (randomnum == 2) {
@@ -902,49 +902,49 @@ void r_e() {//random events Éú³É
 	}
 }
 
-//ËÀÍöº¯Êı
-void death() {//³èÎïµÄËÀÍö
+//æ­»äº¡å‡½æ•°
+void death() {//å® ç‰©çš„æ­»äº¡
 	hyphen();
-	if (language == cn)cout << "ÄãµÄ³èÎï" << name << "ÏíÄê" << age << "Ëê£¬¾­ÀúÁË" << days << "Ìì¡£\nÔÚËÀÊ±£¬" << name;
+	if (language == cn)cout << "ä½ çš„å® ç‰©" << name << "äº«å¹´" << age << "å²ï¼Œç»å†äº†" << days << "å¤©ã€‚\nåœ¨æ­»æ—¶ï¼Œ" << name;
 	else if (language == en) {
 		cout << "Your pet " << name << " had been through a life of " << age << " years, and it had been through " << days << " days.\n";
 		cout << "When " << name << " was going to die, ";
 	}
 	if (poo == true) {
-		if (language == cn)cout << "ÈÔÈ»ÏëÒªÅÅĞ¹¡£\n";
+		if (language == cn)cout << "ä»ç„¶æƒ³è¦æ’æ³„ã€‚\n";
 		else if (language == en)cout << "it still wants to defecate.\n";
 	}
 	if (eat == true) {
-		if (language == cn)cout << "ÈÔÈ»Ê®·Ö¼¢¶ö¡£\n";
+		if (language == cn)cout << "ä»ç„¶ååˆ†é¥¥é¥¿ã€‚\n";
 		else if (language == en)cout << "it is still very hungry.\n";
 	}
-	if (language == cn)cout << "ÔÚËÀÊ±£¬" << name;
+	if (language == cn)cout << "åœ¨æ­»æ—¶ï¼Œ" << name;
 	else if (language == en)cout << "When it was going to die, " << name << " ";
 	if (sad >= 38 && sad < 42 && hap < 50) {
-		if (language == cn)cout << "ÓĞĞ©±¯ÉË¡£\n";
+		if (language == cn)cout << "æœ‰äº›æ‚²ä¼¤ã€‚\n";
 		else if (language == en)cout << "was a bit sad.\n";
 	}
 	if (sad >= 42 && hap < 50) {
-		if (language == cn)cout << "Ê®·ÖÒÖÓô¡£\n";
+		if (language == cn)cout << "ååˆ†æŠ‘éƒã€‚\n";
 		else if (language == en)cout << "was very depressed.\n";
 	}
 	if (hap >= 50 && hap < 76 && sad < 38) {
-		if (language == cn)cout << "ºÜ¿ªĞÄ¡£\n";
+		if (language == cn)cout << "å¾ˆå¼€å¿ƒã€‚\n";
 		else if (language == en)cout << "was quite happy.\n";
 	}
 	if (hap >= 76 && sad < 38) {
-		if (language == cn)cout << "Ê®·Ö¿ìÀÖ¡£\n";
+		if (language == cn)cout << "ååˆ†å¿«ä¹ã€‚\n";
 		else if (language == en)cout << "was very happy.\n";
 	}
 	if (hap >= 50 && sad >= 38) {
-		if (language == cn)cout << "ÄÚĞÄÃ¬¶Ü¡£\n";
+		if (language == cn)cout << "å†…å¿ƒçŸ›ç›¾ã€‚\n";
 		else if (language == en)cout << "was confused.\n";
 	}
 	died = true;
 	pause(1);
 }
 
-//Çé¸Ğº¯Êı
+//æƒ…æ„Ÿå‡½æ•°
 void e_poo() {
 	if (w_poo > 10) {
 		w_poo == 10;
@@ -979,7 +979,7 @@ void e_age() {
 	if (days != 0 && days % 10 == 0) {
 		age++;
 		your_pet();
-		if (language == cn)cout << "³¤´óÁËÒ»Ëê£¡\n";
+		if (language == cn)cout << "é•¿å¤§äº†ä¸€å²ï¼\n";
 		else if (language == en)cout << "is 1 year older!\n";
 	}
 }
@@ -1000,14 +1000,14 @@ void e_sad() {
 		}
 	} else {
 		your_pet();
-		if (language == cn)cout << "ÒÖÓô¹ı¶È£¬×ÔÉ±ÁË¡£\n";
+		if (language == cn)cout << "æŠ‘éƒè¿‡åº¦ï¼Œè‡ªæ€äº†ã€‚\n";
 		else if (language == en)cout << "is so depressed that it committed suicide.\n";
 		death();
 	}
 }
 
-bool Lifespanup_turns = false; //ÊÇ·ñÔÚµ¥»ØºÏÄÚÒÑ¾­Ôö¼ÓÁËÊÙÃü
-int Lifespanhap;//ÉúÃüÉÏÏŞËùĞèµÄ¿ìÀÖÖµµÄ³õÊ¼ÖµÊÇÒ»¸ö85-60Ö®¼äµÄËæ»úÊı
+bool Lifespanup_turns = false; //æ˜¯å¦åœ¨å•å›åˆå†…å·²ç»å¢åŠ äº†å¯¿å‘½
+int Lifespanhap;//ç”Ÿå‘½ä¸Šé™æ‰€éœ€çš„å¿«ä¹å€¼çš„åˆå§‹å€¼æ˜¯ä¸€ä¸ª85-60ä¹‹é—´çš„éšæœºæ•°
 void e_hap() {
 	if (hap < 0)hap = 0;
 	if (hap > max_hap)hap = max_hap;
@@ -1020,10 +1020,10 @@ void e_hap() {
 			if (hap >= 76) {
 				hap += 4;
 				sad = sad - 5;
-				if (hap >= Lifespanhap && sad <= 15) { //¿ìÀÖÖµ>=ÊÙÃüÔö¼ÓËùĞèµÄ¿ìÀÖÖµÇÒ±¯ÉËÖµĞ¡ÓÚµÈÓÚ15£¬ÊÙÃüÔö¼ÓÒ»Ìì
+				if (hap >= Lifespanhap && sad <= 15) { //å¿«ä¹å€¼>=å¯¿å‘½å¢åŠ æ‰€éœ€çš„å¿«ä¹å€¼ä¸”æ‚²ä¼¤å€¼å°äºç­‰äº15ï¼Œå¯¿å‘½å¢åŠ ä¸€å¤©
 					if (turns == 2 || turns == 4 || turns == 6 || turns == 8) {
 						if (Lifespanup_turns == false) {
-							if (language == cn)cout << "³èÎïÊÙÃüÔö¡¾+1¡¿Ìì£¡\n";
+							if (language == cn)cout << "å® ç‰©å¯¿å‘½å¢ã€+1ã€‘å¤©ï¼\n";
 							else if (language == en)cout << "Your pet's lifespan increace by 1 day!\n";
 							lifespan++; Lifespanup_turns = true;
 						}
@@ -1038,26 +1038,26 @@ void e_hap() {
 	}
 }
 
-//½ğÇ®º¯Êı
+//é‡‘é’±å‡½æ•°
 int cheatmoney;
-int uglyprice;//Ëæ»úÊı¼Û¸ñ
-int gs;//¹ºÂò¿ËÊı
+int uglyprice;//éšæœºæ•°ä»·æ ¼
+int gs;//è´­ä¹°å…‹æ•°
 void M_notice() {
 	if (gs < 0) {
-		if (language == cn)cout << "ÇëÖØĞÂÊäÈë£¡\n";
+		if (language == cn)cout << "è¯·é‡æ–°è¾“å…¥ï¼\n";
 		else if (language == en)cout << "Please input again!\n";
 	}
 	else if (gs == 0) {
-		if (language == cn)cout << "Äã·ÅÆúÁË¹ºÂò¡£\n";
+		if (language == cn)cout << "ä½ æ”¾å¼ƒäº†è´­ä¹°ã€‚\n";
 		else if (language == en)cout << "You give up to buy.\n";
 	}
 }
 
-void M_cok() {  //Ê³²Ä
+void M_cok() {  //é£Ÿæ
 	while (1) {
 		money_have();
 		if (language == cn) {
-			cout << "Ê³²Ä£º\nA.ÌÇ " << price_sug << "ÔªÃ¿¿Ë\nB.ÑÎ 6µ½21ÔªÃ¿¿Ë\nC.ËÕ´ò " << price_sod << "ÔªÃ¿¿Ë\nD.Ë® " << price_wat << "ÔªÃ¿ºÁÉı\nE.Ãæ·Û " << price_flo << "ÔªÃ¿¿Ë\nF.¿ÕÆø 20µ½900ÔªÃ¿Á¢·½Ã×\nG.ÍË³ö½çÃæ\n";
+			cout << "é£Ÿæï¼š\nA.ç³– " << price_sug << "å…ƒæ¯å…‹\nB.ç› 6åˆ°21å…ƒæ¯å…‹\nC.è‹æ‰“ " << price_sod << "å…ƒæ¯å…‹\nD.æ°´ " << price_wat << "å…ƒæ¯æ¯«å‡\nE.é¢ç²‰ " << price_flo << "å…ƒæ¯å…‹\nF.ç©ºæ°” 20åˆ°900å…ƒæ¯ç«‹æ–¹ç±³\nG.é€€å‡ºç•Œé¢\n";
 		}
 		else if (language == en) {
 			cout << "Cooking ingredients:\nA.Sugar $ " << price_sug << " per gram\nB.Salt $ 6~12 per gram\nC.Soda $ " << price_sod << " per gram\n";
@@ -1067,7 +1067,7 @@ void M_cok() {  //Ê³²Ä
 		if (key == 'A' || key == 'a') {
 			uglyprice = 8;
 			while (1) {
-				if (language == cn)cout << "ÊäÈë¹ºÂò¿ËÊı£º";
+				if (language == cn)cout << "è¾“å…¥è´­ä¹°å…‹æ•°ï¼š";
 				else if (language == en)cout << "Input the number of grams you want to buy:";
 				cin >> gs;
 				M_notice();
@@ -1076,11 +1076,11 @@ void M_cok() {  //Ê³²Ä
 				}
 				else {
 					if (money >= gs * uglyprice) {
-						if (language == cn)cout << "ÒÑ³É¹¦¹ºÂò" << gs << "¿ËÌÇ£¡\n";
+						if (language == cn)cout << "å·²æˆåŠŸè´­ä¹°" << gs << "å…‹ç³–ï¼\n";
 						else if (language == en)cout << "You have successfully bought " << gs << " grams of sugar!\n";
 						money = money - gs * uglyprice; sug += gs; pause(); break;
 					} else {
-						if (language == cn)cout << "±§Ç¸£¬½ğÇ®²»×ã£¡" << "\n";
+						if (language == cn)cout << "æŠ±æ­‰ï¼Œé‡‘é’±ä¸è¶³ï¼" << "\n";
 						else if (language == en)money_not();
 						pause(); break;
 					}
@@ -1090,14 +1090,14 @@ void M_cok() {  //Ê³²Ä
 		}
 		else if (key == 'B' || key == 'b') {
 			uglyprice = r_events(123, 21 - 6, 6);
-			if (language == cn)cout << "¼Û¸ñ£º" << uglyprice << "\n";
+			if (language == cn)cout << "ä»·æ ¼ï¼š" << uglyprice << "\n";
 			else if (language == en)cout << "Price: $ " << uglyprice << "\n";
 			still_buy();
 			while (1) {
 				key = getch();
 				if (key == up) {
 					while (1) {
-						if (language == cn)cout << "ÊäÈë¹ºÂò¿ËÊı£º";
+						if (language == cn)cout << "è¾“å…¥è´­ä¹°å…‹æ•°ï¼š";
 						else if (language == en)cout << "Input the number of grams you want to buy:";
 						cin >> gs;
 						M_notice();
@@ -1105,7 +1105,7 @@ void M_cok() {  //Ê³²Ä
 							pause(); turns--; break;
 						} else {
 							if (money >= gs * uglyprice) {
-								if (language == cn)cout << "ÒÑ³É¹¦¹ºÂò" << gs << "¿ËÑÎ£¡\n";
+								if (language == cn)cout << "å·²æˆåŠŸè´­ä¹°" << gs << "å…‹ç›ï¼\n";
 								else if (language == en)cout << "You have successfully bought " << gs << " grams of salt!\n";
 								money = money - gs * uglyprice; sul += gs; pause(); break;
 							} else {
@@ -1124,7 +1124,7 @@ void M_cok() {  //Ê³²Ä
 		else if (key == 'C' || key == 'c') {
 			uglyprice = 9;
 			while (1) {
-				if (language == cn)cout << "ÊäÈë¹ºÂò¿ËÊı£º";
+				if (language == cn)cout << "è¾“å…¥è´­ä¹°å…‹æ•°ï¼š";
 				else if (language == en)cout << "Input the number of grams you want to buy:";
 				cin >> gs;
 				M_notice();
@@ -1133,7 +1133,7 @@ void M_cok() {  //Ê³²Ä
 				}
 				else {
 					if (money >= gs * uglyprice) {
-						if (language == cn)cout << "ÒÑ³É¹¦¹ºÂò" << gs << "¿ËËÕ´ò£¡\n";
+						if (language == cn)cout << "å·²æˆåŠŸè´­ä¹°" << gs << "å…‹è‹æ‰“ï¼\n";
 						else if (language == en)cout << "You have successfully bought " << gs << " grams of soda!\n";
 						money = money - gs * uglyprice; sod += gs; pause(); break;
 					} else {
@@ -1146,17 +1146,17 @@ void M_cok() {  //Ê³²Ä
 		}
 		else if (key == 'D' || key == 'd') {
 			while (1) {
-				if (language == cn)cout << "ÊäÈë¹ºÂòºÁÉıÊı£º";
+				if (language == cn)cout << "è¾“å…¥è´­ä¹°æ¯«å‡æ•°ï¼š";
 				else if (language == en)cout << "Input the number of milliliters you want to buy:";
 				cin >> gs;
 				if (wat < 1000 && wat + gs <= 1000) {
 					wat += gs;
-					if (language == cn)cout << "³É¹¦¹ºÂò" << gs << "ºÁÉıË®£¡\n";
+					if (language == cn)cout << "æˆåŠŸè´­ä¹°" << gs << "æ¯«å‡æ°´ï¼\n";
 					else if (language == en)cout << "You have successfully bought " << gs << " milliliters of water!\n";
 					hyphen(4); break;
 				}
 				else {
-					if (language == cn)cout << "±§Ç¸£¬ÄãÒÑ¾­ÓĞ¹»¶àË®ÁË£¡\n";
+					if (language == cn)cout << "æŠ±æ­‰ï¼Œä½ å·²ç»æœ‰å¤Ÿå¤šæ°´äº†ï¼\n";
 					else if (language == en)cout << "Sorry, but you have had enough water!\n";
 					hyphen(4); break;
 				}
@@ -1167,7 +1167,7 @@ void M_cok() {  //Ê³²Ä
 		else if (key == 'E' || key == 'e') {
 			uglyprice = 6;
 			while (1) {
-				if (language == cn)cout << "ÊäÈë¹ºÂò¿ËÊı£º";
+				if (language == cn)cout << "è¾“å…¥è´­ä¹°å…‹æ•°ï¼š";
 				else if (language == en)cout << "Input the number of grams you want to buy:";
 				cin >> gs;
 				M_notice();
@@ -1176,7 +1176,7 @@ void M_cok() {  //Ê³²Ä
 				}
 				else {
 					if (money >= gs * uglyprice) {
-						if (language == cn)cout << "ÒÑ³É¹¦¹ºÂò" << gs << "¿ËÃæ·Û£¡\n";
+						if (language == cn)cout << "å·²æˆåŠŸè´­ä¹°" << gs << "å…‹é¢ç²‰ï¼\n";
 						else if (language == en)cout << "You have successfully bought " << gs << " grams of flour!\n";
 						money = money - gs * uglyprice; flo += gs; pause(); break;
 					} else {
@@ -1189,14 +1189,14 @@ void M_cok() {  //Ê³²Ä
 		}
 		else if (key == 'F' || key == 'f') {
 			uglyprice = r_events(123, 900 - 20, 20);
-			if (language == cn)cout << "¼Û¸ñ£º" << uglyprice << "\n";
+			if (language == cn)cout << "ä»·æ ¼ï¼š" << uglyprice << "\n";
 			else if (language == en)cout << "Price: $ " << uglyprice << "\n";
 			still_buy();
 			while (1) {
 				key = getch();
 				if (key == up) {
 					while (1) {
-						if (language == cn)cout << "ÊäÈë¹ºÂòºÁÉıÊı£º";
+						if (language == cn)cout << "è¾“å…¥è´­ä¹°æ¯«å‡æ•°ï¼š";
 						else if (language == en)cout << "Input the number of milliliters you want to buy:";
 						cin >> gs;
 						M_notice();
@@ -1205,7 +1205,7 @@ void M_cok() {  //Ê³²Ä
 						}
 						else {
 							if (money >= gs * uglyprice) {
-								if (language == cn)cout << "ÒÑ³É¹¦¹ºÂò" << gs << "Á¢·½Ã×¿ÕÆø£¡\n";
+								if (language == cn)cout << "å·²æˆåŠŸè´­ä¹°" << gs << "ç«‹æ–¹ç±³ç©ºæ°”ï¼\n";
 								else if (language == en)cout << "You have successfully bought " << gs << " square meters of air!\n";
 								money = money - gs * uglyprice; pause(); break;
 							} else {
@@ -1227,13 +1227,13 @@ void M_cok() {  //Ê³²Ä
 	}
 }
 
-void M_stu() {	//µÀ¾ß
+void M_stu() {	//é“å…·
 	while (1) {
 		money_have();
 		if (language == cn) {
-			cout << "µÀ¾ß£º\nA.Ò»ÖÖÖ²Îï¡ª¡ªÃ«İ¢£¨³èÎï±¯ÉËÖµ¡¾-8¡¿£© " << price_pbutter << "Ôª\nB.Ò»ÖÖ·è¿ñ¡ª¡ªÃ«İ¢£¨³èÎï±¯ÉËÖµ¡¾-15¡¿£©" << price_mbutter << "Ôª\n";
-			cout << "C.ÅøËª£¨ĞèÒªÔÚ½øĞĞÍ¶×ÊµÄÇé¿öÏÂÊ¹ÓÃ¡£Í¶×Ê³É¹¦ÂÊ¡¾+50¡¿%£©¼Û¸ñÊÇ×ÔÉí½ğÇ®£¨¼ÓÉÏÒÑ¾­ÓÃÓÚÍ¶×ÊµÄ½ğÇ®£©³ıÒÔ5ºó¼õÈ¥Ò»¸öËæ»úÊı£¨1~×ÔÉí½ğÇ®³ıÒÔ20£©";
-			cout << "\nD.×êÊ¯£¨ĞèÒªÔÚ½øĞĞÍ¶×ÊµÄÇé¿öÏÂÊ¹ÓÃ¡£Í¶×Ê°Ù·Ö°ÙÊ§°Ü£©¼Û¸ñÊÇ×ÔÉí½ğÇ®µÄÊ®±¶\nE.ÍË³öÒ³Ãæ\n";
+			cout << "é“å…·ï¼š\nA.ä¸€ç§æ¤ç‰©â€”â€”æ¯›èŒ›ï¼ˆå® ç‰©æ‚²ä¼¤å€¼ã€-8ã€‘ï¼‰ " << price_pbutter << "å…ƒ\nB.ä¸€ç§ç–¯ç‹‚â€”â€”æ¯›èŒ›ï¼ˆå® ç‰©æ‚²ä¼¤å€¼ã€-15ã€‘ï¼‰" << price_mbutter << "å…ƒ\n";
+			cout << "C.ç ’éœœï¼ˆéœ€è¦åœ¨è¿›è¡ŒæŠ•èµ„çš„æƒ…å†µä¸‹ä½¿ç”¨ã€‚æŠ•èµ„æˆåŠŸç‡ã€+50ã€‘%ï¼‰ä»·æ ¼æ˜¯è‡ªèº«é‡‘é’±ï¼ˆåŠ ä¸Šå·²ç»ç”¨äºæŠ•èµ„çš„é‡‘é’±ï¼‰é™¤ä»¥5åå‡å»ä¸€ä¸ªéšæœºæ•°ï¼ˆ1~è‡ªèº«é‡‘é’±é™¤ä»¥20ï¼‰";
+			cout << "\nD.é’»çŸ³ï¼ˆéœ€è¦åœ¨è¿›è¡ŒæŠ•èµ„çš„æƒ…å†µä¸‹ä½¿ç”¨ã€‚æŠ•èµ„ç™¾åˆ†ç™¾å¤±è´¥ï¼‰ä»·æ ¼æ˜¯è‡ªèº«é‡‘é’±çš„åå€\nE.é€€å‡ºé¡µé¢\n";
 		}
 		else if (language == en) {
 			cout << "Props:\nA.Buttercup - a kind of plant (Sadness [-8]) $ " << price_pbutter << "\nB.Buttercup - a kind of madness (Sadness [-15]) $ " << price_mbutter << "\n";
@@ -1275,7 +1275,7 @@ void M_stu() {	//µÀ¾ß
 					else cheatmoney = cheatmoney - r_events(131, (money + Iinvest) / 20, 1);
 					if (!(cheatmoney <= 0))break;
 				}
-				if (language == cn)cout << "Õâ´ÎµÄ¼Û¸ñÊÇ£º" << cheatmoney << "\n";
+				if (language == cn)cout << "è¿™æ¬¡çš„ä»·æ ¼æ˜¯ï¼š" << cheatmoney << "\n";
 				else if (language == en)cout << "This time the price is $ " << cheatmoney << "\n";
 				sure();
 				while (1) {
@@ -1283,15 +1283,15 @@ void M_stu() {	//µÀ¾ß
 					if (key == 'H') {
 						if (!(money < cheatmoney)) {
 							if (invest == false) {
-								if (language == cn)cout << "±§Ç¸£¬ÄãÃ»ÓĞÍ¶×Ê£¡\n";
+								if (language == cn)cout << "æŠ±æ­‰ï¼Œä½ æ²¡æœ‰æŠ•èµ„ï¼\n";
 								else if (language == en)cout << "Sorry, but you don't have any investment!\n";
 							} else {
 								if (cheat == true) {
-									if (language == cn)cout << "±§Ç¸£¬ÄãÒÑ¾­¹ºÂòÁË´ËµÀ¾ß£¡\n";
+									if (language == cn)cout << "æŠ±æ­‰ï¼Œä½ å·²ç»è´­ä¹°äº†æ­¤é“å…·ï¼\n";
 									else if (language == en)cout << "Sorry, buy you have already bought this prop!\n";
 								}
 								else if (loser == true) {
-									if (language == cn)cout << "±§Ç¸£¬µ«ÄãÒÑ¾­Âò¹ıÁíÒ»¿îµÀ¾ßÁË¡­¡­\n";
+									if (language == cn)cout << "æŠ±æ­‰ï¼Œä½†ä½ å·²ç»ä¹°è¿‡å¦ä¸€æ¬¾é“å…·äº†â€¦â€¦\n";
 									else if (language == en)cout << "Sorry, but you have already bought another prop...\n";
 								}
 								else {
@@ -1314,33 +1314,33 @@ void M_stu() {	//µÀ¾ß
 					}
 				}
 			} else {
-				if (language == cn)cout << "ÄãÃ»ÓĞÇ®£¡\n";
+				if (language == cn)cout << "ä½ æ²¡æœ‰é’±ï¼\n";
 				else if (language == en)cout << "You don't have any money at all!\n";
 				hyphen(4); hyphen(4);
 			}
 		}
 		else if (key == 'D' || key == 'd') {
 			if (!(money <= 0)) {
-				if (language == cn)cout << "¼Û¸ñÊÇ" << money * 10 << "\n";
+				if (language == cn)cout << "ä»·æ ¼æ˜¯" << money * 10 << "\n";
 				else if (language == en)cout << "This time the price is $ " << money * 10 << "\n";
 				still_buy();
 				while (1) {
 					key = getch();
 					if (key == 'H') {
 						if (money < money * 10 == false) {
-							if (language == cn)cout << "Äã×öÁËÊ²Ã´£¿£¡\n";
+							if (language == cn)cout << "ä½ åšäº†ä»€ä¹ˆï¼Ÿï¼\n";
 							else if (language == en)cout << "What the hell have you done to the code?!\n";
 							hyphen(250);
 							if (invest == false) {
-								if (language == cn)cout << "±§Ç¸£¬ÄãÃ»ÓĞÍ¶×Ê£¡\n";
+								if (language == cn)cout << "æŠ±æ­‰ï¼Œä½ æ²¡æœ‰æŠ•èµ„ï¼\n";
 								else if (language == en)cout << "Sorry, but you don't have any investment!\n";
 							} else {
 								if (loser == true) {
-									if (language == cn)cout << "±§Ç¸£¬ÄãÒÑ¾­¹ºÂòÁË´ËµÀ¾ß£¡\n";
+									if (language == cn)cout << "æŠ±æ­‰ï¼Œä½ å·²ç»è´­ä¹°äº†æ­¤é“å…·ï¼\n";
 									else if (language == en)cout << "Sorry, buy you have already bought this prop!\n";
 								}
 								else if (cheat == true) {
-									if (language == cn)cout << "±§Ç¸£¬µ«ÄãÒÑ¾­Âò¹ıÁíÒ»¿îµÀ¾ßÁË¡­¡­\n";
+									if (language == cn)cout << "æŠ±æ­‰ï¼Œä½†ä½ å·²ç»ä¹°è¿‡å¦ä¸€æ¬¾é“å…·äº†â€¦â€¦\n";
 									else if (language == en)cout << "Sorry, but you have already bought another prop...\n";
 								}
 								else {
@@ -1362,7 +1362,7 @@ void M_stu() {	//µÀ¾ß
 					}
 				}
 			} else {
-				if (language == cn)cout << "ÄãÃ»ÓĞÇ®£¡\n";
+				if (language == cn)cout << "ä½ æ²¡æœ‰é’±ï¼\n";
 				else if (language == en)cout << "You don't have any money at all!\n";
 				hyphen(4); hyphen(4);
 			}
@@ -1375,17 +1375,17 @@ void M_stu() {	//µÀ¾ß
 	}
 }
 
-bool det = false; //ÊÇ·ñ½è´û
-int Mdet;//½è´û½ğ¶î
-int Pdet;//»¹Õ®½ğ¶î
-float Edet;//½è´ûÀûÏ¢
-int Ddet;//»¹Õ®ÆÚÏŞ
-bool Ldet = false; //ÊÇ·ñÍÏÇ·´û¿î
-void M_det() {		//½è´û
+bool det = false; //æ˜¯å¦å€Ÿè´·
+int Mdet;//å€Ÿè´·é‡‘é¢
+int Pdet;//è¿˜å€ºé‡‘é¢
+float Edet;//å€Ÿè´·åˆ©æ¯
+int Ddet;//è¿˜å€ºæœŸé™
+bool Ldet = false; //æ˜¯å¦æ‹–æ¬ è´·æ¬¾
+void M_det() {		//å€Ÿè´·
 	hyphen();
 	if (det == false) {
 		while (1) {
-			if (language == cn)cout << "ÊäÈë½è´û½ğ¶î£¨²»ÄÜ³¬¹ıÒÑÓĞ½ğÇ®µÄÊ®±¶£©£º\n";
+			if (language == cn)cout << "è¾“å…¥å€Ÿè´·é‡‘é¢ï¼ˆä¸èƒ½è¶…è¿‡å·²æœ‰é‡‘é’±çš„åå€ï¼‰ï¼š\n";
 			else if (language == en)cout << "Input the amount of loan you want to apply for (no more than (all the money you have)*10):\n";
 			cin >> Mdet;
 			if (!(Mdet <= 0)) {
@@ -1393,7 +1393,7 @@ void M_det() {		//½è´û
 					Ddet = r_events(3, 10, 1);
 					Edet = r_events(3, 10, 1);
 					if (language == cn) {
-						cout << "½è¿î½ğ¶î" << Mdet << "/×ÜÀûÏ¢" << Edet << "%/»¹Õ®ÆÚÏŞ" << Ddet << "Ìì\nÃ¿³¬¹ıÒ»Ìì¡¾+" << Edet << "¡¿%£¡\n";
+						cout << "å€Ÿæ¬¾é‡‘é¢" << Mdet << "/æ€»åˆ©æ¯" << Edet << "%/è¿˜å€ºæœŸé™" << Ddet << "å¤©\næ¯è¶…è¿‡ä¸€å¤©ã€+" << Edet << "ã€‘%ï¼\n";
 					}
 					else if (language == en) {
 						cout << "Loan $ " << Mdet << "/Total interest " << Edet << "%/On the terms of " << Ddet << " days\nEach day after that [+" << Edet << "]%!\n";
@@ -1406,17 +1406,17 @@ void M_det() {		//½è´û
 							money = money + Mdet; Ddet = Ddet + days; Pdet = Mdet; det = true; Edet = Edet / 100;
 							break;
 						} if (key == 'P') {
-							if (language == cn)cout << "Äã·ÅÆúÁËĞ­Òé¡£\n";
+							if (language == cn)cout << "ä½ æ”¾å¼ƒäº†åè®®ã€‚\n";
 							else if (language == en)cout << "You give up the contract.\n";
 							Mdet = 0; Edet = 0; Ddet = 0; break;
 						}
 					}
 				} else {
 					if (money == 0) {
-						if (language == cn)cout << "±§Ç¸£¬µ«ÒøĞĞ²»»áÏàĞÅÒ»¸öÒ»·ÖÇ®Ã»ÓĞµÄ·è×Ó£¡\n";
+						if (language == cn)cout << "æŠ±æ­‰ï¼Œä½†é“¶è¡Œä¸ä¼šç›¸ä¿¡ä¸€ä¸ªä¸€åˆ†é’±æ²¡æœ‰çš„ç–¯å­ï¼\n";
 						else if (language == en)cout << "Sorry if this is offensive (obviously this is), but the bank won't trust a nut who don't even have a dime!\n";
 					} else {
-						if (language == cn)cout << "±§Ç¸£¬ÄãµÄ½è´û½ğ¶î³¬¹ıÁËÄãÒÑÓĞ½ğÇ®µÄÊ®±¶£¡\n";
+						if (language == cn)cout << "æŠ±æ­‰ï¼Œä½ çš„å€Ÿè´·é‡‘é¢è¶…è¿‡äº†ä½ å·²æœ‰é‡‘é’±çš„åå€ï¼\n";
 						else if (language == en)cout << "Sorry, but this is obviously more than ten times of all the money you have!\n";
 					}
 					turns--;
@@ -1425,12 +1425,12 @@ void M_det() {		//½è´û
 				break;
 			} else {
 				if (Mdet == 0) {
-					if (language == cn)cout << "Äã·ÅÆúÁË½è´û\n";
+					if (language == cn)cout << "ä½ æ”¾å¼ƒäº†å€Ÿè´·\n";
 					else if (language == en)cout << "You give up the loan\n";
 					turns--; break;
 				}
 				if (Mdet < 0) {
-					if (language == cn)cout << "½ğ¶î´íÎó£¬ÇëÖØĞÂÊäÈë£¡\n";
+					if (language == cn)cout << "é‡‘é¢é”™è¯¯ï¼Œè¯·é‡æ–°è¾“å…¥ï¼\n";
 					else if (language == en)cout << "The number is wrong, please input again!\n";
 					hyphen(4);
 				}
@@ -1438,7 +1438,7 @@ void M_det() {		//½è´û
 		}
 		hyphen(4);
 	} else {
-		if (language == cn)cout << "±§Ç¸£¬ÄãÒÑ¾­½è´ûÁË£¡\n";
+		if (language == cn)cout << "æŠ±æ­‰ï¼Œä½ å·²ç»å€Ÿè´·äº†ï¼\n";
 		else if (language == en)cout << "Sorry, but you have already appied for a loan!\n";
 		hyphen(4);
 	}
@@ -1453,17 +1453,17 @@ void M_() {
 		if (Ldet == true) {
 			if (Dgm == true) {
 				Pdet = Pdet + Edet * Pdet;
-				if (language == cn)cout << "\n\nÄãĞèÒª³¥»¹ÒøĞĞ" << Pdet << "Ôª£¬ÊÇ·ñ³¥»¹£¿£¨°´ÏÂ¡üÈ·¶¨£¬°´¡ı¾Ü¾ø£©\n";
+				if (language == cn)cout << "\n\nä½ éœ€è¦å¿è¿˜é“¶è¡Œ" << Pdet << "å…ƒï¼Œæ˜¯å¦å¿è¿˜ï¼Ÿï¼ˆæŒ‰ä¸‹â†‘ç¡®å®šï¼ŒæŒ‰â†“æ‹’ç»ï¼‰\n";
 				else if (language == en)cout << "\n\nYou need to pay the bank $ " << Pdet << ", are you going to pay? (Press [up button] to confirm, and press [down button] to refuse)\n";
 				while (1) {
 					key = getch();
 					if (key == 'H') {
 						if (money >= Pdet) {
-							if (language == cn)cout << "Äã³¥»¹ÁË´û¿î¡£\n";
+							if (language == cn)cout << "ä½ å¿è¿˜äº†è´·æ¬¾ã€‚\n";
 							else if (language == en)cout << "You have pay off the loan.\n";
 							det = false; Pdet = 0; Ldet = false; Edet = 0; money = money - Pdet;
 						} else {
-							if (language == cn)cout << "±§Ç¸£¬ÄãÃ»ÓĞÄÜÁ¦³¥»¹Õ®¿î£¡\n¼¸¸öÒøĞĞÖ°Ô±ÔÚÄã¼ÒÃÅ¿Ú½«ÄãºÍÄãµÄ³èÎï³ôÂîÒ»¶Ù¡£\n";
+							if (language == cn)cout << "æŠ±æ­‰ï¼Œä½ æ²¡æœ‰èƒ½åŠ›å¿è¿˜å€ºæ¬¾ï¼\nå‡ ä¸ªé“¶è¡ŒèŒå‘˜åœ¨ä½ å®¶é—¨å£å°†ä½ å’Œä½ çš„å® ç‰©è‡­éª‚ä¸€é¡¿ã€‚\n";
 							else if (language == en)cout << "Sorry, but you don't have enough money to pay!\nA few bank clerks are scolding you and your pet at your front door.\n";
 							sad_plus(15);
 							hap_minus(10);
@@ -1474,7 +1474,7 @@ void M_() {
 						break;
 					}
 					if (key == 'P') {
-						if (language == cn)cout << "Äã¾Ü¾ø³¥»¹Õ®¿î¡£¼¸¸öÒøĞĞÖ°Ô±ÔÚÄã¼ÒÃÅ¿Ú½«ÄãºÍÄãµÄ³èÎï³ôÂîÒ»¶Ù¡£\n";
+						if (language == cn)cout << "ä½ æ‹’ç»å¿è¿˜å€ºæ¬¾ã€‚å‡ ä¸ªé“¶è¡ŒèŒå‘˜åœ¨ä½ å®¶é—¨å£å°†ä½ å’Œä½ çš„å® ç‰©è‡­éª‚ä¸€é¡¿ã€‚\n";
 						else if (language == en)cout << "You refuse to pay.\nA few bank clerks are scolding you and your pet at your front door.\n";
 						sad_plus(15);
 						hap_minus(10);
@@ -1488,13 +1488,13 @@ void M_() {
 		} else {
 			if (days == Ddet) {
 				Pdet = Pdet + Edet * Pdet;
-				if (language == cn)cout << "»¹Õ®ÆÚÏŞÒÑµ½£¬ÄãĞèÒª³¥»¹ÒøĞĞ" << Pdet << "Ôª£¬ÊÇ·ñ³¥»¹£¿£¨°´ÏÂ¡üÈ·¶¨£¬°´¡ı¾Ü¾ø£©\n";
+				if (language == cn)cout << "è¿˜å€ºæœŸé™å·²åˆ°ï¼Œä½ éœ€è¦å¿è¿˜é“¶è¡Œ" << Pdet << "å…ƒï¼Œæ˜¯å¦å¿è¿˜ï¼Ÿï¼ˆæŒ‰ä¸‹â†‘ç¡®å®šï¼ŒæŒ‰â†“æ‹’ç»ï¼‰\n";
 				else if (language == en)cout << "\n\nIt's time for you to pay back. You need to pay the bank $ " << Pdet << ", are you going to pay? (Press [up button] to confirm, and press [down button] to refuse)\n";
 				while (1) {
 					key = getch();
 					if (key == 'H') {
 						if (money >= Pdet) {
-							if (language == cn)cout << "Äã³¥»¹ÁË´û¿î¡£\nÓÉÓÚÄãµÄ³ÏĞÅ£¬\n";
+							if (language == cn)cout << "ä½ å¿è¿˜äº†è´·æ¬¾ã€‚\nç”±äºä½ çš„è¯šä¿¡ï¼Œ\n";
 							else if (language == en)cout << "You pay off the load. Because of your honesty,\n";
 							hap_plus(2);
 							sad_minus(1);
@@ -1502,7 +1502,7 @@ void M_() {
 							money = money - Pdet;
 							Pdet = 0; det = false; Mdet = 0; Edet = 0; Ddet = 0;
 						} else {
-							if (language == cn)cout << "±§Ç¸£¬ÄãÃ»ÓĞÄÜÁ¦³¥»¹Õ®¿î£¡\nÃ¿ÑÓÆÚÒ»Ìì£¬ÄãµÄÕ®¿î¡¾+" << Edet << "¡¿%£¡\n";
+							if (language == cn)cout << "æŠ±æ­‰ï¼Œä½ æ²¡æœ‰èƒ½åŠ›å¿è¿˜å€ºæ¬¾ï¼\næ¯å»¶æœŸä¸€å¤©ï¼Œä½ çš„å€ºæ¬¾ã€+" << Edet << "ã€‘%ï¼\n";
 							else if (language == en)cout << "Sorry, but You don't have enough money to pay!\nEach day after this, your debt [+" << Edet << "]%!\n";
 							Mdet = 0; Ddet = 0;
 							Ldet = true;
@@ -1511,7 +1511,7 @@ void M_() {
 						break;
 					}
 					if (key == 'P') {
-						if (language == cn)cout << "Äã¾Ü¾ø³¥»¹Õ®¿î£¡\nÃ¿ÑÓÆÚÒ»Ìì£¬ÄãµÄÕ®¿î¡¾+" << Edet << "¡¿%£¡\n";
+						if (language == cn)cout << "ä½ æ‹’ç»å¿è¿˜å€ºæ¬¾ï¼\næ¯å»¶æœŸä¸€å¤©ï¼Œä½ çš„å€ºæ¬¾ã€+" << Edet << "ã€‘%ï¼\n";
 						else if (language == en)cout << "You refuse to pay!\nEach day after this, your debt [+" << Edet << "]%!\n";
 						Ldet = true; Mdet = 0; Ddet = 0;
 						hyphen(3);
@@ -1523,16 +1523,16 @@ void M_() {
 	}
 }
 
-//²Ù×÷º¯Êı
+//æ“ä½œå‡½æ•°
 void interact() {
 	cout << "\n";
 	if (key == 'Q' || key == 'q') {
-		if (language == cn)cout << "ÄãÍË³öÁË\n";
+		if (language == cn)cout << "ä½ é€€å‡ºäº†\n";
 		else if (language == en)cout << "You quit the game.\n";
 		pause(4);
 	}
 	else if (key == 'F' || key == 'f') {
-		if (language == cn)cout << "ÄãÎ¹Ê³ÁË³èÎï\n";
+		if (language == cn)cout << "ä½ å–‚é£Ÿäº†å® ç‰©\n";
 		else if (language == en)cout << "You feed your pet.\n";
 		w_eat = 0;
 		if (eat == true) {
@@ -1545,12 +1545,12 @@ void interact() {
 	else if (key == 'I' || key == 'i') {
 		while (1) {
 			if (language == cn) {
-				cout << "\n\n»¥¶¯£º\nA.ÈÃ³èÎïÅÅĞ¹ºÍÅÅÒÅ\nB.°®¸§³èÎï\nC.ÍË³öÒ³Ãæ\n";
+				cout << "\n\näº’åŠ¨ï¼š\nA.è®©å® ç‰©æ’æ³„å’Œæ’é—\nB.çˆ±æŠšå® ç‰©\nC.é€€å‡ºé¡µé¢\n";
 			}
 			else if (language == en) cout << "\n\nINTERACTIONS:\nA.Let your pet to defecate\nB.Pat your pet\nC.Quit this menu\n";
 			key = getch();
 			if (key == 'A' || key == 'a') {
-				if (language == cn)cout << "ÄãÈÃÄãµÄ³èÎï" << name << "½øĞĞÁËÉúÎïÒâÒåÉÏµÄÅÅÒÅºÍÅÅĞ¹µÄ×ÛºÏĞÔ¹ı³Ì\n";
+				if (language == cn)cout << "ä½ è®©ä½ çš„å® ç‰©" << name << "è¿›è¡Œäº†ç”Ÿç‰©æ„ä¹‰ä¸Šçš„æ’é—å’Œæ’æ³„çš„ç»¼åˆæ€§è¿‡ç¨‹\n";
 				else if (language == en)cout << "You let your pet " << name << " defecates\n";
 				w_poo = 0;
 				if (poo == true) {
@@ -1561,7 +1561,7 @@ void interact() {
 				pause(); break;
 			}
 			else if (key == 'B' || key == 'b') {
-				if (language == cn)cout << "Äã¸§ÃşÁËÄãµÄ³èÎï" << name << "\n";
+				if (language == cn)cout << "ä½ æŠšæ‘¸äº†ä½ çš„å® ç‰©" << name << "\n";
 				else if (language == en)cout << "You pat your pet " << name << "\n";
 				hap += 4; sad = sad - 3;
 				hap_plus(4);
@@ -1583,40 +1583,40 @@ void interact() {
 		cout << "\n\n";
 	}
 	else if (key == 'C' || key == 'c') {
-		if (language == cn)cout << "---ÊÙÃü---\n";
+		if (language == cn)cout << "---å¯¿å‘½---\n";
 		else if (language == en)cout << "---LIFESPAN---\n";
 		your_pet();
 		if (Pab == cat) {
-			if (language == cn)cout << "ÊÇÃ¨\n";
+			if (language == cn)cout << "æ˜¯çŒ«\n";
 			else if (language == en)cout << "is a cat.\n";
 		}
 		else if (Pab == dog) {
-			if (language == cn)cout << "ÊÇ¹·\n";
+			if (language == cn)cout << "æ˜¯ç‹—\n";
 			else if (language == en)cout << "is a dog.\n";
 		}
 		your_pet();
-		if (language == cn)cout << "ÏÖÔÚ" << age << "Ëê\n";
+		if (language == cn)cout << "ç°åœ¨" << age << "å²\n";
 		else if (language == en)cout << "is " << age << " years old now\n";
 		your_pet();
-		if (language == cn)cout << "»¹ÄÜ»î" << lifespan - days + 1 << "Ìì\n";
+		if (language == cn)cout << "è¿˜èƒ½æ´»" << lifespan - days + 1 << "å¤©\n";
 		else if (language == en)cout << "can still live for " << lifespan - days + 1 << " days\n";
 		your_pet();
-		if (language == cn)cout << "ĞèÒª´ïµ½»òµÈÓÚ" << Lifespanhap << "µã¿ìÀÖÖµÒÔÉÏ²ÅÄÜÊ¹ÊÙÃüÔö¼Ó\n";
+		if (language == cn)cout << "éœ€è¦è¾¾åˆ°æˆ–ç­‰äº" << Lifespanhap << "ç‚¹å¿«ä¹å€¼ä»¥ä¸Šæ‰èƒ½ä½¿å¯¿å‘½å¢åŠ \n";
 		else if (language == en)cout << "need to have at least reach to [Happiness: " << Lifespanhap << "] to prolong lifespan\n";
-		if (language == cn)cout << "---Çé¸Ğ---\n";
+		if (language == cn)cout << "---æƒ…æ„Ÿ---\n";
 		else if (language == en)cout << "---EMOTION---\n";
 		if (language == cn) {
-			cout << "¡¾¿ìÀÖÖµ£º" << hap << "/" << max_hap << "¡¿\n¡¾±¯ÉËÖµ£º" << sad << "/" << max_sad << "¡¿\n";
+			cout << "ã€å¿«ä¹å€¼ï¼š" << hap << "/" << max_hap << "ã€‘\nã€æ‚²ä¼¤å€¼ï¼š" << sad << "/" << max_sad << "ã€‘\n";
 		}
 		else if (language == en) {
 			cout << "[Happiness: " << hap << "/" << max_hap << "]\n[Sadness: " << sad << "/" << max_sad << "]\n";
 		}
-		if (language == cn)cout << "---ÉúÀí---\n";
+		if (language == cn)cout << "---ç”Ÿç†---\n";
 		else if (language == en)cout << "---PHYSIOLOGY---\n";
 		if (language == cn) {
-			cout << "ÏëÒªÅÅĞ¹£º";
-			if (poo == true) cout << "ÊÇ\n";
-			else cout << "·ñ\n";
+			cout << "æƒ³è¦æ’æ³„ï¼š";
+			if (poo == true) cout << "æ˜¯\n";
+			else cout << "å¦\n";
 		}
 		else if (language == en) {
 			cout << "Wants to defecate:";
@@ -1624,9 +1624,9 @@ void interact() {
 			else cout << "[NO]\n";
 		}
 		if (language == cn) {
-			cout << "ÏëÒª½øÊ³£º";
-			if (eat == true) cout << "¡¾ÊÇ¡¿\n";
-			else cout << "¡¾·ñ¡¿\n";
+			cout << "æƒ³è¦è¿›é£Ÿï¼š";
+			if (eat == true) cout << "ã€æ˜¯ã€‘\n";
+			else cout << "ã€å¦ã€‘\n";
 		}
 		else if (language == en) {
 			cout << "Wants to eat:";
@@ -1642,7 +1642,7 @@ void interact() {
 	else if (key == 'M' || key == 'm') {
 		while (1) {
 			if (language == cn) {
-				cout << "Äã»¹ÓĞ" << money << "ÔªÇ®\nÄãÒª½øĞĞµÄÏÂÒ»²½²Ù×÷ÊÇ£º\nA.¹ºÂòµÀ¾ß\nB.¹ºÂòÊ³²Ä\nC.½è´û\nD.Åëâ¿\nE.ÍË³öÒ³Ãæ\n";
+				cout << "ä½ è¿˜æœ‰" << money << "å…ƒé’±\nä½ è¦è¿›è¡Œçš„ä¸‹ä¸€æ­¥æ“ä½œæ˜¯ï¼š\nA.è´­ä¹°é“å…·\nB.è´­ä¹°é£Ÿæ\nC.å€Ÿè´·\nD.çƒ¹é¥ª\nE.é€€å‡ºé¡µé¢\n";
 			}
 			else if (language == en) {
 				cout << "You have $ " << money << "\nWhat do you want to do next?\nA.Buy items\nB.Buy [cooking ingredients]\nC.Apply for loan\nD.Start cookingE.Quit this menu\n";
@@ -1680,11 +1680,11 @@ void interact() {
 		if (Vacheve == true) {
 			turns--;
 			Vacheve = false; hyphen(5);
-			if (language == cn)cout << "ÄúµÄÍ¶×Ê½ğ¶î£º" << Iinvest << "Ôª\nÍ¶×Ê¹²ĞèµÈ´ı£º" << Dinvest - days << "Ìì\n";
+			if (language == cn)cout << "æ‚¨çš„æŠ•èµ„é‡‘é¢ï¼š" << Iinvest << "å…ƒ\næŠ•èµ„å…±éœ€ç­‰å¾…ï¼š" << Dinvest - days << "å¤©\n";
 			else if (language == en)cout << "Money you have invested: $ " << Iinvest << "\nYou need to wait for: " << Dinvest - days << "days\n";
 		} else {
 			hyphen(3);
-			if (language == cn)cout << "\nÇëÖØĞÂÑ¡Ôñ£¡\n";
+			if (language == cn)cout << "\nè¯·é‡æ–°é€‰æ‹©ï¼\n";
 			else if (language == en)cout << "\nPlease choose again!\n";
 			notice();
 			key = getch(); interact();
@@ -1692,7 +1692,7 @@ void interact() {
 	}
 	else if (key == 'B' || key == 'b') {
 		colorc(blue);
-		if (language == cn)cout << "ÄãÓĞ" << sug << "¿ËÌÇ\nÄãÓĞ" << sul << "¿ËÑÎ\nÄãÓĞ" << sod << "¿ËËÕ´ò\nÄãÓĞ" << wat << "ºÁÉıË®£¨×î¶àÓµÓĞ1000ºÁÉı£©\nÄãÓĞ" << flo << "¿ËÃæ·Û\n";
+		if (language == cn)cout << "ä½ æœ‰" << sug << "å…‹ç³–\nä½ æœ‰" << sul << "å…‹ç›\nä½ æœ‰" << sod << "å…‹è‹æ‰“\nä½ æœ‰" << wat << "æ¯«å‡æ°´ï¼ˆæœ€å¤šæ‹¥æœ‰1000æ¯«å‡ï¼‰\nä½ æœ‰" << flo << "å…‹é¢ç²‰\n";
 		else if (language == en)cout << "You have " << sug << " grams of sugar\nYou have " << sul << " grams of salt\nYou have " << sod << " grams of soda\nYou have " << wat << " milliliter of water (1000 milliliter max)\nYou have " << flo << " grams of flour\n";
 		colorc(white);
 		pause(1); turns--;
@@ -1705,8 +1705,8 @@ void interact() {
 			while (1) {
 				if (CDSS == Cid)break;
 				if (language == cn) {
-					cout << CDSS << "." << backpackmeal[CDSS] << "|ÈÈÁ¿£º" << backpackcalr[CDSS] << "|Ğ§¹û£º" << backpackeffect[CDSS] << "|";
-					cout << "×ÜÁ¿£º" << backpackall[CDSS] << "\n";
+					cout << CDSS << "." << backpackmeal[CDSS] << "|çƒ­é‡ï¼š" << backpackcalr[CDSS] << "|æ•ˆæœï¼š" << backpackeffect[CDSS] << "|";
+					cout << "æ€»é‡ï¼š" << backpackall[CDSS] << "\n";
 				}
 				else if (language == en) {
 					cout << CDSS << "." << backpackmeal[CDSS] << "|Energy: " << backpackcalr[CDSS] << "|Effect: " << backpackeffect[CDSS] << "|";
@@ -1716,14 +1716,14 @@ void interact() {
 			}
 			pause();
 			while (1) {
-				if (language == cn)cout << "ÊäÈëÒª½øĞĞ²Ù×÷µÄÎïÆ·µÄ±àºÅ£¨ÊäÈë¸ºÊıÍË³ö´ËÒ³Ãæ£©£º";
+				if (language == cn)cout << "è¾“å…¥è¦è¿›è¡Œæ“ä½œçš„ç‰©å“çš„ç¼–å·ï¼ˆè¾“å…¥è´Ÿæ•°é€€å‡ºæ­¤é¡µé¢ï¼‰ï¼š";
 				else if (language == en) cout << "Input the number of item you want to choose (insert negative number to quit this menu):";
 				cin >> CTP;
 				if (CTP >= Cid || CTP < 0) {
 					break;
 				} else {
 					hyphen(4);
-					if (language == cn)cout << "A.··Âô´ËÊ³Æ·\nB.½«´ËÊ³Æ·Î¹¸ø³èÎï\nC.½«´ËÊ³Æ·ÈÓµô\nD.ÍË³ö´ËÒ³Ãæ\n";
+					if (language == cn)cout << "A.è´©å–æ­¤é£Ÿå“\nB.å°†æ­¤é£Ÿå“å–‚ç»™å® ç‰©\nC.å°†æ­¤é£Ÿå“æ‰”æ‰\nD.é€€å‡ºæ­¤é¡µé¢\n";
 					else if (language == en)cout << "A.Sell this dish\nB.Feed this dish to your pet\nC.Dump this dish\nD.Quit this menu\n";
 					while (1) {
 						key = getch();
@@ -1736,7 +1736,7 @@ void interact() {
 							break;
 						}
 						else if (key == 'C' || key == 'c') {
-							if (language == cn)cout << "ÒÑÈÓµô" << CTP << "ºÅÊ³Æ·\n";
+							if (language == cn)cout << "å·²æ‰”æ‰" << CTP << "å·é£Ÿå“\n";
 							else if (language == en)cout << "Item NO. " << CTP << " has been dropped\n";
 							Cdrop(CTP);
 							break;
@@ -1748,7 +1748,7 @@ void interact() {
 				}
 			}
 		} else {
-			if (language == cn)cout << "ÄãÃ»ÓĞÈÎºÎÅëâ¿Æ·£¡\n";
+			if (language == cn)cout << "ä½ æ²¡æœ‰ä»»ä½•çƒ¹é¥ªå“ï¼\n";
 			else if (language == en)cout << "You don't have any dish!\n";
 			pause();
 		}
@@ -1761,38 +1761,38 @@ void interact() {
 	}
 	else if (key == '?') {
 		hyphen(4);
-		cout << "A.ÍË³ö´Ë½çÃæ\nB.»ù´¡²Ù×÷½Ì³Ì\nC.Ëæ»úÊÂ¼ş²Ù×÷½Ì³Ì\nD.½è´ûÏµÍ³²Ù×÷½Ì³Ì\nE.Åëâ¿ÏµÍ³²Ù×÷½Ì³Ì\nF.³èÎïËÀÍö\n";
+		cout << "A.é€€å‡ºæ­¤ç•Œé¢\nB.åŸºç¡€æ“ä½œæ•™ç¨‹\nC.éšæœºäº‹ä»¶æ“ä½œæ•™ç¨‹\nD.å€Ÿè´·ç³»ç»Ÿæ“ä½œæ•™ç¨‹\nE.çƒ¹é¥ªç³»ç»Ÿæ“ä½œæ•™ç¨‹\nF.å® ç‰©æ­»äº¡\n";
 		while (1) {
 			key = getch();
 			if (key == 'A' || key == 'a') break;
 			else if (key == 'B' || key == 'b') {
 				hyphen(4);
-				cout << "¢Ù.ÇëÔÚ¿ªÊ¼ÓÎÏ·Ê±ÇĞ»»ÎªÓ¢ÎÄÊäÈë·¨\n";
-				cout << "¢Ú.Äã¿ÉÒÔÔÚÓÎÏ·ÖĞ°´ÏÂ°´¼üÑ¡Ôñ²»Í¬ĞĞ¶¯£¬Ò»ÌìÓĞ8¸ö»ØºÏÑ¡ÔñĞĞ¶¯£¬µ«°´S£¨ÇåÆÁ£©»ò°´C£¨²é¿´³èÎï×´Ì¬£©²¢²»Õ¼ÓÃ»ØºÏ¡£\n";
-				cout << "¢Û.ÓÎÏ·ÖĞÓĞÕâÑù¼¸¸öÊıÖµ£º³èÎïÊÇ·ñÏëÒªÅÅĞ¹£¨Èç¹û³èÎïÏëÒªÅÅĞ¹£¬Ã¿µÈ´ıÒ»»ØºÏ»á¿Û³ı¿ìÀÖÖµ¡¢Ôö¼Ó±¯ÉËÖµ£©¡¢³èÎïÊÇ·ñ\nÏëÒª½øÊ³£¨Èç¹û³èÎïÏëÒª½øÊ³£¬Ã¿µÈ´ıÒ»»ØºÏ»á¿Û³ı¿ìÀÖÖµ¡¢Ôö¼Ó±¯ÉËÖµ£©¡¢³èÎï¿ìÀÖÖµ£¨100Âú£©\n¡¢³èÎï±¯ÉËÖµ£¨50Âú£¬±¯ÉËÖµ³äÂúºó³èÎïËÀÍö£©\n";
+				cout << "â‘ .è¯·åœ¨å¼€å§‹æ¸¸æˆæ—¶åˆ‡æ¢ä¸ºè‹±æ–‡è¾“å…¥æ³•\n";
+				cout << "â‘¡.ä½ å¯ä»¥åœ¨æ¸¸æˆä¸­æŒ‰ä¸‹æŒ‰é”®é€‰æ‹©ä¸åŒè¡ŒåŠ¨ï¼Œä¸€å¤©æœ‰8ä¸ªå›åˆé€‰æ‹©è¡ŒåŠ¨ï¼Œä½†æŒ‰Sï¼ˆæ¸…å±ï¼‰æˆ–æŒ‰Cï¼ˆæŸ¥çœ‹å® ç‰©çŠ¶æ€ï¼‰å¹¶ä¸å ç”¨å›åˆã€‚\n";
+				cout << "â‘¢.æ¸¸æˆä¸­æœ‰è¿™æ ·å‡ ä¸ªæ•°å€¼ï¼šå® ç‰©æ˜¯å¦æƒ³è¦æ’æ³„ï¼ˆå¦‚æœå® ç‰©æƒ³è¦æ’æ³„ï¼Œæ¯ç­‰å¾…ä¸€å›åˆä¼šæ‰£é™¤å¿«ä¹å€¼ã€å¢åŠ æ‚²ä¼¤å€¼ï¼‰ã€å® ç‰©æ˜¯å¦\næƒ³è¦è¿›é£Ÿï¼ˆå¦‚æœå® ç‰©æƒ³è¦è¿›é£Ÿï¼Œæ¯ç­‰å¾…ä¸€å›åˆä¼šæ‰£é™¤å¿«ä¹å€¼ã€å¢åŠ æ‚²ä¼¤å€¼ï¼‰ã€å® ç‰©å¿«ä¹å€¼ï¼ˆ100æ»¡ï¼‰\nã€å® ç‰©æ‚²ä¼¤å€¼ï¼ˆ50æ»¡ï¼Œæ‚²ä¼¤å€¼å……æ»¡åå® ç‰©æ­»äº¡ï¼‰\n";
 				pause(); break;
 			}
 			else if (key == 'C' || key == 'c') {
 				hyphen(4);
-				cout << "µ±ÓÎÏ·ÌìÊı>=1Ê±£¬0.1.1¼°ÒÔÉÏµÄ°æ±¾»á´¥·¢Ëæ»úÊÂ¼ş¡£Ëæ»úÊÂ¼şÓĞ£º\n";
-				cout << "¢Ù.³èÎïÎªÄã´øÀ´Ëæ»ú´óĞ¡µÄ½ğÇ®£¨0~35Ôª£¬Îª0ÔªÊ±²»´¥·¢£© \n¢Ú.³èÎïµ£µ±ÄãµÄÍ¶×ÊÈË£¬Èç¹ûÍ¶ÈëÈ«²¿½ğÇ®£¬»áÔö¼Ó³èÎïµÄ¿ìÀÖÖµºÍ¼õÉÙ±¯ÉËÖµ¡£½á¹û»áÔÚËæ»úÌìÊıºó³öÏÖ£¬ÓĞ25%¸ÅÂÊ³É¹¦£¬½ğÇ®»Ø±¨ÂÊ10%-50%\n";
-				cout << "¢Û.³èÎïÍÆÏúÉÌÆ·£¬ÓĞÈıÌ×ÉÌÆ·£¬·Ö±ğÓĞ40%¡¢40%ºÍ20%µÄ¸ÅÂÊ´¥·¢\n¢Ü.³èÎï´´Á¢ÁËÒ»¸öÇ°ÎÀÒ¡¹öÀÖ¶Ó¡£¿ÉÒÔÎªÄã´øÀ´½ğÇ®£¡£¨Ò»´ÎĞÔËæ»úÊÂ¼ş£¬Ö»¿ÉÒÔ´¥·¢Ò»´Î£©\n¢İ.³èÎïÎªÄã´øÀ´ÎåÖÖÊ³²ÄÖĞµÄÈÎÒâÒ»ÖÖ£¬ÊıÁ¿ÊÇÒ»¸ö1~35µÄËæ»úÊı\n";
+				cout << "å½“æ¸¸æˆå¤©æ•°>=1æ—¶ï¼Œ0.1.1åŠä»¥ä¸Šçš„ç‰ˆæœ¬ä¼šè§¦å‘éšæœºäº‹ä»¶ã€‚éšæœºäº‹ä»¶æœ‰ï¼š\n";
+				cout << "â‘ .å® ç‰©ä¸ºä½ å¸¦æ¥éšæœºå¤§å°çš„é‡‘é’±ï¼ˆ0~35å…ƒï¼Œä¸º0å…ƒæ—¶ä¸è§¦å‘ï¼‰ \nâ‘¡.å® ç‰©æ‹…å½“ä½ çš„æŠ•èµ„äººï¼Œå¦‚æœæŠ•å…¥å…¨éƒ¨é‡‘é’±ï¼Œä¼šå¢åŠ å® ç‰©çš„å¿«ä¹å€¼å’Œå‡å°‘æ‚²ä¼¤å€¼ã€‚ç»“æœä¼šåœ¨éšæœºå¤©æ•°åå‡ºç°ï¼Œæœ‰25%æ¦‚ç‡æˆåŠŸï¼Œé‡‘é’±å›æŠ¥ç‡10%-50%\n";
+				cout << "â‘¢.å® ç‰©æ¨é”€å•†å“ï¼Œæœ‰ä¸‰å¥—å•†å“ï¼Œåˆ†åˆ«æœ‰40%ã€40%å’Œ20%çš„æ¦‚ç‡è§¦å‘\nâ‘£.å® ç‰©åˆ›ç«‹äº†ä¸€ä¸ªå‰å«æ‘‡æ»šä¹é˜Ÿã€‚å¯ä»¥ä¸ºä½ å¸¦æ¥é‡‘é’±ï¼ï¼ˆä¸€æ¬¡æ€§éšæœºäº‹ä»¶ï¼Œåªå¯ä»¥è§¦å‘ä¸€æ¬¡ï¼‰\nâ‘¤.å® ç‰©ä¸ºä½ å¸¦æ¥äº”ç§é£Ÿæä¸­çš„ä»»æ„ä¸€ç§ï¼Œæ•°é‡æ˜¯ä¸€ä¸ª1~35çš„éšæœºæ•°\n";
 				pause(); break;
 			}
 			else if (key == 'D' || key == 'd') {
 				hyphen(4);
-				cout << "°´ÏÂM¼üºó½øÈë½ğÇ®½çÃæ¡£½è´ûµÄ½ğ¶î²»ÄÜ´óÓÚ±¾Éí½ğÇ®µÄÊ®±¶£¬Èç¹û±¾Éí½ğÇ®Îª0£¬Ôò²»¿É½è´û¡£\n½è´ûµÄÀûÏ¢ÔÚ1%µ½10%Ö®¼ä£¬»¹Õ®ÆÚÏŞÎªËæ»úÌìÊı¡£Èç¹ûµ½¹æ¶¨ÆÚÏŞÈÔÎ´»¹Õ®£¬ÔòÃ¿¶àÒ»ÌìÕ®¿îÔö¼ÓÔ­ÏÈÀûÂÊ¡£Èç¹û´ßÕ®²»»»£¬ÔòÃ¿Ò»´Î¼õÉÙ¿ìÀÖÖµ¡¢Ôö¼Ó±¯ÉËÖµ\n";
+				cout << "æŒ‰ä¸‹Mé”®åè¿›å…¥é‡‘é’±ç•Œé¢ã€‚å€Ÿè´·çš„é‡‘é¢ä¸èƒ½å¤§äºæœ¬èº«é‡‘é’±çš„åå€ï¼Œå¦‚æœæœ¬èº«é‡‘é’±ä¸º0ï¼Œåˆ™ä¸å¯å€Ÿè´·ã€‚\nå€Ÿè´·çš„åˆ©æ¯åœ¨1%åˆ°10%ä¹‹é—´ï¼Œè¿˜å€ºæœŸé™ä¸ºéšæœºå¤©æ•°ã€‚å¦‚æœåˆ°è§„å®šæœŸé™ä»æœªè¿˜å€ºï¼Œåˆ™æ¯å¤šä¸€å¤©å€ºæ¬¾å¢åŠ åŸå…ˆåˆ©ç‡ã€‚å¦‚æœå‚¬å€ºä¸æ¢ï¼Œåˆ™æ¯ä¸€æ¬¡å‡å°‘å¿«ä¹å€¼ã€å¢åŠ æ‚²ä¼¤å€¼\n";
 				pause(); break;
 			}
 			else if (key == 'E' || key == 'e') {
 				hyphen(4);
-				cout << "Î´¿ª·Å£¡\n";
+				cout << "æœªå¼€æ”¾ï¼\n";
 				pause(); break;
 			}
 			else if (key == 'F' || key == 'f') {
 				hyphen(4);
-				cout << "ÓÎÏ·ÄÚ£¬³èÎïÒ»¹²ÓĞÃ¨¹·Á½¸öÎïÖÖ¡£Á½¸öÎïÖÖµÄ¼«ÏŞÊÙÃü£¨ÌìÊı£©²»Í¬£¬Ã¨µÄ¼«ÏŞÊÙÃüÊÇ2Ëêµ½4ËêµÄËæ»úÊı£»¹·µÄ¼«ÏŞÊÙÃüÊÇ1Ëê°ëµ½5ËêµÄËæ»úÊı\n";
-				cout << "\nÔÚËæ»úÊÂ¼ş¡°³èÎïµÄÇ°ÎÀÒ¡¹öÀÖ¶Ó¡±ÖĞ¶È¹ıµÄÌìÊı²»ËãÔÚ³èÎïµÄÊÙÃüÄÚ¡£Äã¿ÉÒÔÔÚ°´ÏÂCºó²é¿´³èÎïµÄÊÙÃü¡£µ«ÊÙÃü²¢²»ÊÇ²»¿ÉÌáÉıµÄ£¬³èÎïÔÚÒ»¿ªÊ¼ÓµÓĞÒ»¸ö85-60¼äµÄËæ»úÊı×÷ÎªÊÙÃüÔö¼ÓËùĞèÒª´ïµ½µÄ¿ìÀÖÖµµÄµãÊı£¬¶øÃ¿Ìì£¬Õâ¸öÊıÖµ¶¼»á¡¾+5¡¿£¬Ò»Ö±µ½ÎŞ·¨ÔÙ´ÎÔö¼ÓÎªÖ¹¡£Èç¹û³èÎïµÄ¿ìÀÖÖµ´óÓÚÕâ¸öÖµ£¬ÇÒ³èÎïµÄ±¯ÉËÖµĞ¡ÓÚ15£¬ÔòÊÙÃü¡¾+1¡¿£¬Ò»ÌìµÄ°Ë»ØºÏÄÚ£¬Ö»ÓĞÆæÊı»ØºÏÊÙÃüÔö¼Ó¡£\n";
+				cout << "æ¸¸æˆå†…ï¼Œå® ç‰©ä¸€å…±æœ‰çŒ«ç‹—ä¸¤ä¸ªç‰©ç§ã€‚ä¸¤ä¸ªç‰©ç§çš„æé™å¯¿å‘½ï¼ˆå¤©æ•°ï¼‰ä¸åŒï¼ŒçŒ«çš„æé™å¯¿å‘½æ˜¯2å²åˆ°4å²çš„éšæœºæ•°ï¼›ç‹—çš„æé™å¯¿å‘½æ˜¯1å²åŠåˆ°5å²çš„éšæœºæ•°\n";
+				cout << "\nåœ¨éšæœºäº‹ä»¶â€œå® ç‰©çš„å‰å«æ‘‡æ»šä¹é˜Ÿâ€ä¸­åº¦è¿‡çš„å¤©æ•°ä¸ç®—åœ¨å® ç‰©çš„å¯¿å‘½å†…ã€‚ä½ å¯ä»¥åœ¨æŒ‰ä¸‹CåæŸ¥çœ‹å® ç‰©çš„å¯¿å‘½ã€‚ä½†å¯¿å‘½å¹¶ä¸æ˜¯ä¸å¯æå‡çš„ï¼Œå® ç‰©åœ¨ä¸€å¼€å§‹æ‹¥æœ‰ä¸€ä¸ª85-60é—´çš„éšæœºæ•°ä½œä¸ºå¯¿å‘½å¢åŠ æ‰€éœ€è¦è¾¾åˆ°çš„å¿«ä¹å€¼çš„ç‚¹æ•°ï¼Œè€Œæ¯å¤©ï¼Œè¿™ä¸ªæ•°å€¼éƒ½ä¼šã€+5ã€‘ï¼Œä¸€ç›´åˆ°æ— æ³•å†æ¬¡å¢åŠ ä¸ºæ­¢ã€‚å¦‚æœå® ç‰©çš„å¿«ä¹å€¼å¤§äºè¿™ä¸ªå€¼ï¼Œä¸”å® ç‰©çš„æ‚²ä¼¤å€¼å°äº15ï¼Œåˆ™å¯¿å‘½ã€+1ã€‘ï¼Œä¸€å¤©çš„å…«å›åˆå†…ï¼Œåªæœ‰å¥‡æ•°å›åˆå¯¿å‘½å¢åŠ ã€‚\n";
 				pause(); break;
 			}
 		}
@@ -1800,7 +1800,7 @@ void interact() {
 	}
 	/*else if(key=='K'||key=='k') {
 		hyphen(4);
-		cout <<"A.´æµµ\nB.²é¿´´æµµ\nC.¶Áµµ\nD.ÍË³ö½çÃæ\n";
+		cout <<"A.å­˜æ¡£\nB.æŸ¥çœ‹å­˜æ¡£\nC.è¯»æ¡£\nD.é€€å‡ºç•Œé¢\n";
 		while(1) {
 			key=getch();
 			if(key=='A'||key=='a') {
@@ -1816,7 +1816,7 @@ void interact() {
 	}*/
 	else if ((key == 'L' || key == 'l') && cheatable == true) {
 		hyphen(250);
-		cout << "ÊäÈë×÷±×Âë£º"; cin >> cheating; cout << "\n";
+		cout << "è¾“å…¥ä½œå¼Šç ï¼š"; cin >> cheating; cout << "\n";
 		if (cheating == "Gmoney") {
 			cin >> Mopluse; money = money + Mopluse;
 		}
@@ -1881,7 +1881,7 @@ void interact() {
 	}
 }
 
-void o_days() {//Ã¿Ò»Ììº¯Êı£¬ÆÚ¼ä²åÈëËæ»úÊÂ¼ş
+void o_days() {//æ¯ä¸€å¤©å‡½æ•°ï¼ŒæœŸé—´æ’å…¥éšæœºäº‹ä»¶
 	hyphen(2);
 	Cfour();
 	e_hap();
@@ -1891,34 +1891,34 @@ void o_days() {//Ã¿Ò»Ììº¯Êı£¬ÆÚ¼ä²åÈëËæ»úÊÂ¼ş
 	M_();
 	e_age();
 	if (cheatable == true)cout << "*";
-	if (language == cn)cout << "ÕâÊÇµÚ" << days << "Ìì¡£\n";
+	if (language == cn)cout << "è¿™æ˜¯ç¬¬" << days << "å¤©ã€‚\n";
 	else if (language == en)cout << "DAY " << days << " .\n";
 	if (det == true && Ldet == true)Dgm = true;
 	if (eat == true) {
-		if (language == cn)cout << "ÄãµÄ³èÎï" << name << "ÏëÒª½øÊ³\n";
+		if (language == cn)cout << "ä½ çš„å® ç‰©" << name << "æƒ³è¦è¿›é£Ÿ\n";
 		else if (language == en)cout << "Your pet " << name << " is hungry\n";
 	}
 	if (poo == true) {
-		if (language == cn)cout << "ÄãµÄ³èÎï" << name << "ÏëÒªÅÅĞ¹\n\n";
+		if (language == cn)cout << "ä½ çš„å® ç‰©" << name << "æƒ³è¦æ’æ³„\n\n";
 		else if (language == en) cout << "Your pet " << name << " wants to defecate\n\n";
 	}
 	if (Pmouse == true) {
 		Pmouse_plus = r_events(1784, 5, 1);
-		if (language == cn)cout << "ÄãµÄ³èÎï°ÑÍæ×ÅÄÇÖ»Íæ¾ßÀÏÊó¡£\n";
+		if (language == cn)cout << "ä½ çš„å® ç‰©æŠŠç©ç€é‚£åªç©å…·è€é¼ ã€‚\n";
 		else if (language == en)cout << "Your pet is playing with the toy mouse.\n";
 		hap_plus(Pmouse_plus);
 		hap += Pmouse_plus;
 	}
 	if (BFS == true) {
 		Msenting = r_events(1321, 500, 20);
-		if (language == cn)cout << "¼¸¸ö¸èÃÔ¿ÊÍû" << name << "ÖØ»Ø¸èÌ³£¬Îª´Ë£¬ËıÃÇ·ÅÁË" << Msenting << "Ôª¡£\n";
+		if (language == cn)cout << "å‡ ä¸ªæ­Œè¿·æ¸´æœ›" << name << "é‡å›æ­Œå›ï¼Œä¸ºæ­¤ï¼Œå¥¹ä»¬æ”¾äº†" << Msenting << "å…ƒã€‚\n";
 		else if (language == en)cout << "Some fans want " << name << " to keep performing, so they put $ " << Msenting << " .\n";
 		money_plus(Msenting);
 		money = money + Msenting;
 	}
-	if (lifespan < 0)lifespan = 0; //·ÀÖ¹ÊÙÃüĞ¡ÓÚ0
+	if (lifespan < 0)lifespan = 0; //é˜²æ­¢å¯¿å‘½å°äº0
 	if (days == lifespan) {
-		if (language == cn)cout << "²»³öÒâÍâµÄ»°£¬Õâ½«»áÊÇÄãµÄ³èÎïÔÚÊÀµÄ×îºóÒ»Ìì¡£\n";
+		if (language == cn)cout << "ä¸å‡ºæ„å¤–çš„è¯ï¼Œè¿™å°†ä¼šæ˜¯ä½ çš„å® ç‰©åœ¨ä¸–çš„æœ€åä¸€å¤©ã€‚\n";
 		else if (language == en)cout << "If nothing goes wrong, this is the last day of your pet.\n";
 	}
 	if (Lifespanhap + 5 <= max_hap && days != 1) {
@@ -1931,25 +1931,25 @@ void o_days() {//Ã¿Ò»Ììº¯Êı£¬ÆÚ¼ä²åÈëËæ»úÊÂ¼ş
 		Lifespanhap = max_hap;
 	}
 	while (1) {
-		//cout <<turns<<"\n";//²âÊÔ
-		if (lifespan < 0)lifespan = 0; //·ÀÖ¹ÊÙÃüĞ¡ÓÚ0
-		if (days >= lifespan + 1) { //³èÎïÊÙÃü½áÊø£¬>=ÊÇÎªÁË·ÀÖ¹ÊÙÃüÔÚÄ³ÖÖÇé¿öÏÂ³ÉÎª¸ºÊı
+		//cout <<turns<<"\n";//æµ‹è¯•
+		if (lifespan < 0)lifespan = 0; //é˜²æ­¢å¯¿å‘½å°äº0
+		if (days >= lifespan + 1) { //å® ç‰©å¯¿å‘½ç»“æŸï¼Œ>=æ˜¯ä¸ºäº†é˜²æ­¢å¯¿å‘½åœ¨æŸç§æƒ…å†µä¸‹æˆä¸ºè´Ÿæ•°
 			death(); died = true;
 		}
-		//cout <<"poo"<<w_poo<<"eat"<<w_eat<<"\n";//²âÊÔ
-		//cout <<"½è´û"<<det<<"/ÀûÏ¢"<<Edet<<"/Ìì"<<Ddet<<"/Õ®¿î"<<Pdet<<"/ÍÏí³"<<Ldet<<"\n\n";//²âÊÔ
-		//cout <<"ÌìÊı"<<Dinvest<<"\n";//²âÊÔ
+		//cout <<"poo"<<w_poo<<"eat"<<w_eat<<"\n";//æµ‹è¯•
+		//cout <<"å€Ÿè´·"<<det<<"/åˆ©æ¯"<<Edet<<"/å¤©"<<Ddet<<"/å€ºæ¬¾"<<Pdet<<"/æ‹–æ²“"<<Ldet<<"\n\n";//æµ‹è¯•
+		//cout <<"å¤©æ•°"<<Dinvest<<"\n";//æµ‹è¯•
 		M_();
 		Cfour();
 		e_hap();
 		e_sad();
 		e_poo();
 		e_eat();
-		if (died == true) break; //ËÀÍö
+		if (died == true) break; //æ­»äº¡
 		notice();
 		key = getch();
 		interact();
-		if (key == 'Q' || key == 'q') break; //ÍË³ö
+		if (key == 'Q' || key == 'q') break; //é€€å‡º
 		turns++; w_eat++;
 		if (days != 1) {
 			w_poo++;
@@ -1959,12 +1959,12 @@ void o_days() {//Ã¿Ò»Ììº¯Êı£¬ÆÚ¼ä²åÈëËæ»úÊÂ¼ş
 		cout << "\n\n";
 		if (eat == true) {
 			your_pet();
-			if (language == cn)cout << "ÏëÒª½øÊ³\n";
+			if (language == cn)cout << "æƒ³è¦è¿›é£Ÿ\n";
 			else if (language == en)cout << "is hungry\n";
 		}
 		if (poo == true) {
 			your_pet();
-			if (language == cn)cout << "ÏëÒªÅÅĞ¹\n\n\n";
+			if (language == cn)cout << "æƒ³è¦æ’æ³„\n\n\n";
 			else if (language == en)cout << "wants to defecate\n\n\n";
 		}
 		hyphen(1);
@@ -1973,7 +1973,7 @@ void o_days() {//Ã¿Ò»Ììº¯Êı£¬ÆÚ¼ä²åÈëËæ»úÊÂ¼ş
 			break; hyphen();
 		}
 	}
-	if (invest == true && days == Dinvest) { //Ëæ»úÊÂ¼ş¶ş£¬Í¶×Ê
+	if (invest == true && days == Dinvest) { //éšæœºäº‹ä»¶äºŒï¼ŒæŠ•èµ„
 		invest = false;
 		Dinvest = 0;
 		randomnum = r_events(3, 4, 1);
@@ -1982,14 +1982,14 @@ void o_days() {//Ã¿Ò»Ììº¯Êı£¬ÆÚ¼ä²åÈëËæ»úÊÂ¼ş
 			if (loser == false) {
 				if (randomnum == 2) {
 					your_pet();
-					if (language == cn)cout << "Í¶×Ê³É¹¦ÁË£¡\nÊÕÒæÂÊ" << Einvest << "%£¡\n";
-					else if (language == en)cout << "has made a successful investment£¡\nRate of profit " << Einvest << "%!\n";
+					if (language == cn)cout << "æŠ•èµ„æˆåŠŸäº†ï¼\næ”¶ç›Šç‡" << Einvest << "%ï¼\n";
+					else if (language == en)cout << "has made a successful investmentï¼\nRate of profit " << Einvest << "%!\n";
 					money_plus(IINVEST + Einvest / 100 * IINVEST);
 					hap_plus(2);
 					money = money + IINVEST + Einvest / 100 * IINVEST; hap += 2;
 				} else {
 					your_pet();
-					if (language == cn)cout << "Í¶×ÊÊ§°ÜÁË£¡\n";
+					if (language == cn)cout << "æŠ•èµ„å¤±è´¥äº†ï¼\n";
 					else if (language == en)cout << "has failed the investment!\n";
 					hap_minus(1);
 					sad_plus(2);
@@ -2002,14 +2002,14 @@ void o_days() {//Ã¿Ò»Ììº¯Êı£¬ÆÚ¼ä²åÈëËæ»úÊÂ¼ş
 		else {
 			your_pet();
 			if (randomnum != 1) {
-				if (language == cn)cout << "Í¶×Ê³É¹¦ÁË£¡\nÊÕÒæÂÊ" << Einvest << "%£¡\n";
-				else if (language == en)cout << "has made a successful investment£¡\nRate of profit: " << Einvest << "%£¡\n";
+				if (language == cn)cout << "æŠ•èµ„æˆåŠŸäº†ï¼\næ”¶ç›Šç‡" << Einvest << "%ï¼\n";
+				else if (language == en)cout << "has made a successful investmentï¼\nRate of profit: " << Einvest << "%ï¼\n";
 				money_plus(IINVEST + Einvest / 100 * IINVEST);
 				hap_plus(2);
 				money = money + IINVEST + Einvest / 100 * IINVEST;
 				hap += 2;
 			} else {
-				if (language == cn)cout << "Í¶×ÊÊ§°ÜÁË£¡\n";
+				if (language == cn)cout << "æŠ•èµ„å¤±è´¥äº†ï¼\n";
 				else if (language == en)cout << "has failed in the investment!\n";
 				hap_minus(1);
 				sad_plus(2);
@@ -2027,19 +2027,19 @@ void o_days() {//Ã¿Ò»Ììº¯Êı£¬ÆÚ¼ä²åÈëËæ»úÊÂ¼ş
 
 int main() {
 	srand(time(NULL));
-	Mname(); Mname1(); //Åëâ¿±äÁ¿¸³Öµ
+	Mname(); Mname1(); //çƒ¹é¥ªå˜é‡èµ‹å€¼
 	cout << "Digital Pet\n" << vertion << " " << phase;
 	if (cheatable == true)cout << "*";
-	cout << "\nProgramming£ºÖ®ÑÔ\nTesting£ºµØÓĞ¡¢Mary Lee\nCreators£ºÖ®ÑÔ¡¢µØÓĞ\nArt£º...\nSound Effect£º...\n";
+	cout << "\nProgrammingï¼šä¹‹è¨€\nTestingï¼šåœ°æœ‰ã€Mary Lee\nCreatorsï¼šä¹‹è¨€ã€åœ°æœ‰\nArtï¼š...\nSound Effectï¼š...\n";
 	hyphen(4);
-	cout << "£¨°´ÏÂÈÎÒâ¼ü¼ÌĞø¡­¡­£©(Press any key to continue...)\n";
+	cout << "ï¼ˆæŒ‰ä¸‹ä»»æ„é”®ç»§ç»­â€¦â€¦ï¼‰(Press any key to continue...)\n";
 	getch();
 	language_choose();
 	color_choose();
 	name_choose();
 	per();
 	pause();
-	if (language == cn)cout << "ÄãÃÇ½«»á¶È¹ıÃÀºÃµÄÊ±¹â£¬²»ÊÇÂğ£¿\nÄã¿´×ÅÄãµÄ³èÎï£¬Í»È»ÒâÊ¶µ½ËüÒ²Ğí¿ÉÒÔ³ÉÎªÑÇÖŞ¸èĞÇ¡£\n";
+	if (language == cn)cout << "ä½ ä»¬å°†ä¼šåº¦è¿‡ç¾å¥½çš„æ—¶å…‰ï¼Œä¸æ˜¯å—ï¼Ÿ\nä½ çœ‹ç€ä½ çš„å® ç‰©ï¼Œçªç„¶æ„è¯†åˆ°å®ƒä¹Ÿè®¸å¯ä»¥æˆä¸ºäºšæ´²æ­Œæ˜Ÿã€‚\n";
 	else if (language == en)cout << "You will have a great time together, won't you?\nYou look at your pet, then suddenly realize that it might become the next Michael Jackson.\n";
 	pause(1);
 	r_lifespan(); Lifespanhap = r_events(1242, 85 - 60, 60);
