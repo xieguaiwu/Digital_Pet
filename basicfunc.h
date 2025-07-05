@@ -46,16 +46,56 @@ enum Taste {sweet, sult, mois, too_sod, flat, floy, Vsweet, Vsult, Vmois, Vfloy,
 
 using namespace std;
 
-bool language;
+//bool language;
 int theme;
 
-string name = "宠物"; //宠物名称
+string name = "PET"; //宠物名称
+//宠物指标
+int age = 0; //年龄 10天增加1
+int hap = 50; //快乐值 初始100-满
+int max_hap = 100; //初始最大值
+int sad = 0; //悲伤值 初始50-满
+int max_sad = 50; //初始最大值
+bool poo = false; //排泄
+int w_poo;//排泄忍耐时间 10-满
+bool eat = false; //进食 5-满
+int w_eat;//进食忍耐时间
+bool Pab;//宠物性格
+
 long long money = 50;		//金钱
 
+int lifespan;//宠物寿命天数，可增加！
+int Mlifespan;//极限最大寿命
+int Llifespan;//最短寿命
+
+const int pers = 2; //性格随机数
+const int events = 6; //随机事件的个数
+
+int randomnum;//随机数的返回值
 char key;//按键
 
 const string vertion = "0.2.2";
 const string phase = "beta";
+
+//烹饪变量
+int calr;//热量
+string Meal;//烹饪品总名称（口味+名称）
+map<int, string> meal;//烹饪品名称
+map<int, string> Tmeal;//烹饪品口味
+map<float, string>effects;//²ËÆ·Ð§¹û´¢´æ
+
+int r_events(int sss = 0, int Mranding = 0, int Lranding = 0) { //随机数生成，用于随机事件和随机性格等
+	if (sss == 0) {
+		return 1 + rand() % (events); //生成 随机事件
+	}
+	else if (sss == 1) {
+		return rand() % (pers - 1); //生成 随机性格
+	}
+	else {
+		//if(Mranding<Lranding)cout <<"随机数生成错误！\n";
+		return Lranding + rand() % (Mranding); //其余的生成
+	}
+}
 
 void hyphen(int shan = 0) {
 	if (shan == 0)cout << "----------------------------------------\n";
@@ -77,28 +117,22 @@ void colorc(int x) { //0.红 1.绿 2.蓝
 }
 
 void pause(int screen = 0) {
-	if (language == cn)cout << "（按下任意键继续……）\n";
-	else if (language == en)cout << " (Press any key to continue...)\n";
+	cout << "（按下任意键继续……）\n";
+	cout << " (Press any key to continue...)\n";
 	getch();
 	if (screen == 1)system("cls");
 }
 
 void sure(bool besure = true) {
-	if (language == cn && besure == true)cout << "你确定吗？";
-	else if (language == en && besure == true)cout << "Are you sure?";
-	if (language == cn) cout << "（按↑确定，按↓拒绝）\n";
-	else if (language == en) cout << " (Press [up button] to confirm, and press [down button] to refuse)\n";
+	if (besure == true)cout << "Are you sure?";
+	cout << " (Press [up button] to confirm, and press [down button] to refuse)\n";
 }
 
 //选择设置
 void color_choose() {
-	if (language == cn) {
-		cout << "\n请选择主题颜色：\nA.默认主题（黑底白字）\nB.冒险主题（紫底白字）\nC.淡雅主题（灰底白字）\nD.普通主题（白底黑字）\n";
-	}
-	else if (language == en) {
-		cout << "\nChoose your theme color:\nA.Defalut theme (balck background+white words)\nB.Adventure theme (pureple background+white words)\n";
-		cout << "C.Elegent theme (grey background+light white words)\nD.Normal theme (white background+black words)\n";
-	}
+
+	cout << "\nChoose your theme color:\nA.Defalut theme (balck background+white words)\nB.Adventure theme (pureple background+white words)\n";
+	cout << "C.Elegent theme (grey background+light white words)\nD.Normal theme (white background+black words)\n";
 	while (1) {
 		key = getch();
 		if (key == 'A' || key == 'a') {
@@ -168,7 +202,7 @@ void color_choose() {
 	}
 }
 
-void language_choose() {
+/*void language_choose() {
 	cout << "选择语言(Choose language)：按↑选择中文，按↓选择英文(Press [up button] to choose Chinese and press [down button] to choose English)\n";
 	while (1) {
 		key = getch();
@@ -181,125 +215,127 @@ void language_choose() {
 			break;
 		}
 	}
-}
+}*/
 
 void name_choose() {
-	if (language == cn)cout << "\n请输入宠物名称：\n";
-	else if (language == en)cout << "\nInput the name of your digital pet:\n";
+	cout << "\nInput the name of your digital pet:\n";
 	getline(cin, name);
 	while (1) {
 		if (name != "" && name != " " && name != "  " && name != "   " && name != "    ")break;
 		else {
-			if (language == cn)cout << "请重新输入：";
-			else if (language == en) cout << "Please input again:";
+			cout << "Please input again:";
 			getline(cin, name);
 		}
 	}
 	if (name == "毛茛" || name == "毛艮" || name == "morgan" || name == "Morgan") name = "比利";
 	if (name == "Rick" || name == "Joker") name = "杀人犯";
 	pause(1);
-	if (language == cn)cout << "“" << name << "”你想到，";
-	else if (language == en)cout << "'" << name << "' you thought.";
-	if (name == "比利")cout << "这真是一个疯狂的名字。\n";
-	else if (name == "杀人犯")cout << "这像是一个杀人犯的名字。\n";
+	cout << "'" << name << "' you thought.";
+	if (name == "比利")cout << "What a crazy name.\n";
+	else if (name == "杀人犯")cout << "This sounds murderous.\n";
 	else {
-		if (language == cn)cout << "这真是一个好名字。\n";
-		else if (language == en)cout << "What a good name this is.\n";
+		cout << "What a good name this is.\n";
 	}
+}
+
+//宠物性格生成
+void per() {	//随机生成宠物的性格
+	cout << "You remember the day you met " << name << ":";
+	randomnum = r_events(1); //生成随机数
+	Pab = randomnum;
+	if (Pab == dog) {
+		cout << "You saw a puppy at a pet store. You liked its mad look, so you took it home.";
+	}
+	else if (Pab == cat) {
+		cout << "You saw a snoring pussy in a carton. After giving it some saussages, you took it home.";
+	}
+	cout << "And now you've named it.\n";
+}
+
+void r_lifespan() { //随机寿命
+	if (Pab == cat) lifespan = 20 + rand() % (40 - 20); //猫的寿命：2~4岁天（可增加）
+	else if (Pab == dog) lifespan = 15 + rand() % (50 - 15); //狗的寿命：1岁半到5岁（可增加）
 }
 
 //提示
 void still_buy() {
-	if (language == cn)cout << "继续购买？";
-	else if (language == en)cout << "Continue to buy?";
+	cout << "Continue to buy?";
 	sure(false);
 }
 
 void choose_again() {
-	if (language == cn)cout << "请重新选择！\n";
-	else if (language == en)cout << "Please choose again!\n";
+	cout << "Please choose again!\n";
 }
 
 void your_pet() {
-	if (language == cn)cout << "你的宠物";
-	else if (language == en)cout << "Your pet ";
+	cout << "Your pet ";
 	cout << name;
-	if (language == en)cout << " ";
+	//if (language == en)
+	cout << " ";
 }
 
 void hap_plus(int hapin) {
 	colorc(green);
-	if (language == cn)cout << "增加快乐值【+" << hapin << "】！\n";
-	else if (language == en)cout << "Happiness [+" << hapin << "]!\n";
+	cout << "Happiness [+" << hapin << "]!\n";
 	colorc(white);
 }
 
 void hap_minus(int hapout) {
 	colorc(red);
-	if (language == cn)cout << "快乐值【-" << hapout << "】！\n";
-	else if (language == en)cout << "Happiness [-" << hapout << "]!\n";
+	cout << "Happiness [-" << hapout << "]!\n";
 	colorc(white);
 }
 
 void lifespan_plus(int lifespanin) {
 	colorc(red);
-	if (language == cn)cout << "寿命增加所需的快乐值【+" << lifespanin << "】！\n";
-	else if (language == en)cout << "Happiness needed to increase lifespan [+" << lifespanin << "]!\n";
+	cout << "Happiness needed to increase lifespan [+" << lifespanin << "]!\n";
 	colorc(white);
 }
 
 void lifespan_minus(int lifespanout) {
 	colorc(green);
-	if (language == cn)cout << "寿命增加所需的快乐值【-" << lifespanout << "】！\n";
-	else if (language == en)cout << "Happiness needed to increase lifespan [-" << lifespanout << "]!\n";
+	cout << "Happiness needed to increase lifespan [-" << lifespanout << "]!\n";
 	colorc(white);
 }
 
 void sad_plus(int sadin) {
 	colorc(red);
-	if (language == cn)cout << "悲伤值【+" << sadin << "】！\n";
-	else if (language == en)cout << "Sadness [+" << sadin << "]!\n";
+	cout << "Sadness [+" << sadin << "]!\n";
 	colorc(white);
 }
 
 void sad_minus(int sadout) {
 	colorc(green);
-	if (language == cn)cout << "悲伤值【-" << sadout << "】！\n";
-	else if (language == en)cout << "Sadness [-" << sadout << "]!\n";
+	cout << "Sadness [-" << sadout << "]!\n";
 	colorc(white);
 }
 
 void money_plus(int monin) {
 	colorc(green);
-	if (language == cn)cout << "金钱【+" << monin << "】！\n";
-	else if (language == en)cout << "$ [+" << monin << "]!\n";
+	cout << "$ [+" << monin << "]!\n";
 	colorc(white);
 }
 
 void money_minus(int monout) {
 	colorc(red);
-	if (language == cn)cout << "金钱【-" << monout << "】！\n";
-	else if (language == en)cout << "$ [-" << monout << "]!\n";
+	cout << "$ [-" << monout << "]!\n";
 	colorc(white);
 }
 
 void money_not() {
 	colorc(red);
-	if (language == cn)cout << "抱歉，你没有足够金钱！\n";
-	else if (language == en) cout << "Sorry, but you don't have enough money!\n";
+	cout << "Sorry, but you don't have enough money!\n";
 	colorc(white);
 }
 
 void money_have() {
 	colorc(blue);
-	if (language == cn) cout << "你有" << money << "元钱！\n";
-	else if (language == en)cout << "You have $ " << money << " !\n";
+	cout << "You have $ " << money << " !\n";
 	colorc(white);
 }
 
 void bought_success() {
 	colorc(blue);
-	if (language == cn)cout << "已成功购买！\n";
-	else if (language == en) cout << "Bought successfully!\n";
+	cout << "Bought successfully!\n";
 	colorc(white);
 }
