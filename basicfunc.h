@@ -102,6 +102,7 @@ int r_events(int sss = 0, int Mranding = 0, int Lranding = 0) { //随机数生�
 }
 
 void badint() {
+	isbadint=false;
 	if (!cin.fail())isbadint = false;
 	else {
 		cin.clear();
@@ -142,7 +143,6 @@ void sure(bool besure = true) {
 
 //选择设置
 void color_choose() {
-
 	cout << "\nChoose your theme color:\nA.Defalut theme (balck background+white words)\nB.Adventure theme (pureple background+white words)\n";
 	cout << "C.Elegent theme (grey background+light white words)\nD.Normal theme (white background+black words)\n";
 	while (1) {
