@@ -136,7 +136,7 @@ void pause(int screen = 0) {
 }
 
 void sure(bool besure = true) {
-	if (besure == true)cout << "Are you sure?";
+	if (besure)cout << "Are you sure?";
 	cout << " (Press [up button] to confirm, and press [down button] to refuse)\n";
 }
 
