@@ -2,13 +2,11 @@
 * @Author: Õ½ÂÔ½ÌÊÚ
 * @Date:   2025-06-08 22:35:12
 * @Last Modified by:   Wang Ziyan
-* @Last Modified time: 2025-07-06 14:55:48
+* @Last Modified time: 2025-07-07 10:00:13
 */
-#include<windows.h>
 #include<time.h>
 #include<cstdlib>
 #include<string>
-#include<map>
 #include<vector>
 #include<fstream>
 #include<queue>
@@ -384,7 +382,9 @@ void r3() { //Ëæ»úÊÂ¼þ3£ºÍÆÏúÔ±
 		break;
 	}
 	cout << "\n\n";
-	cout << name << " showed you few items that it found:\n";
+	cout << name << " showed you few items that";
+	refer(nomin);
+	cout << "found:\n";
 	randomnum = r_events(250, 5, 1);
 	if (randomnum == 1 || randomnum == 2) {
 		cout << "A) ";
@@ -506,7 +506,9 @@ void Bback() {
 	back = true;
 	cout << "\"21st century schizoid pet!\"You see your pet is holding a electric guitar (being overwhelmed under the guitar), and the spotlight shines on its eyes.\n";
 	pause();
-	cout << "Tears run out your eyes. Few weeks later, your pet knocks on the door again, and it tells you (don't ask me how) that this performance has made a great success.\n";
+	cout << "Tears run out your eyes. Few weeks later, your pet knocks on the door again, and";
+	refer(nomin);
+	cout << "tells you (don't ask me how) that this performance has made a great success.\n";
 	randomnum = r_events(134, 5, 1);
 	if (randomnum == 5) {
 		BFS = true;
@@ -575,11 +577,19 @@ void r4() {//Ëæ»úÊÂ¼þ4£º³èÎïµÄÇ°ÎÀÒ¡¹öÀÖ¶Ó
 	Bband = true;
 	cout << "For the past few days, your pet has been listening to some strange rock music.\nYou often hear some words like 'rape' from " << name << "'s mouse (don't ask me how)\n";
 	pause();
-	cout << "One day, your pet told you through a unimaginable way that it is going to start a progressive rock band.\nBecause you have gave it too much, this band won't cost you any money.\n";
+	cout << "One day, your pet told you through a unimaginable way that";
+	refer(nomin);
+	cout << "is going to start a progressive rock band.\nBecause you have been such a good owner, this band won't cost you any money.\n";
 	pause();
 	eat = false;
 	poo = false;
-	cout << "Before it left, you feed your pet for the last time, and let it defecates for the last time.\nYou witness its leave...\n";
+	cout << "Before";
+	refer(nomin);
+	cout << "left, you feed your pet for the last time, and let";
+	refer(nomin);
+	cout << "defecates for the last time.\nYou witness";
+	refer(posses);
+	cout << "leave...\n";
 	pause();
 	hyphen(4);
 	while (1) {
@@ -640,15 +650,21 @@ void r_e() {//random events Éú³É
 //ËÀÍöº¯Êý
 void death() {//³èÎïµÄËÀÍö
 	hyphen();
-	cout << "Your pet " << name << " had been through a life of " << age << " years, and it had been through " << days << " days.\n";
+	cout << "Your pet " << name << " had been through a life of " << age << " years, and ";
+	refer(nomin);
+	cout << "had been through " << days << " days.\n";
 	cout << "When " << name << " was going to die, ";
 	if (poo) {
-		cout << "it still wants to defecate.\n";
+		refer(nomin);
+		cout << "still wants to defecate.\n";
 	}
 	if (eat) {
-		cout << "it is still very hungry.\n";
+		refer(nomin);
+		cout << "is still very hungry.\n";
 	}
-	cout << "When it was going to die, " << name << " ";
+	cout << "When";
+	refer(nomin);
+	cout << "was going to die, " << name << " ";
 	if (sad >= 38 && sad < 42 && hap < 50) {
 		cout << "was a bit sad.\n";
 	}
@@ -727,7 +743,9 @@ void e_sad() {
 		}
 	} else {
 		your_pet();
-		cout << "is so depressed that it committed suicide.\n";
+		cout << "is so depressed that";
+		refer(nomin);
+		cout << "committed suicide.\n";
 		death();
 	}
 }
@@ -1749,7 +1767,9 @@ int main() {
 	name_choose();
 	per();
 	pause();
-	cout << "You will have a great time together, won't you?\nYou look at your pet, then suddenly realize that it might become the next Michael Jackson.\n";
+	cout << "You will have a great time together, won't you?\nYou look at your pet, then suddenly realize that";
+	refer(nomin);
+	cout << "might become the next Michael Jackson.\n";
 	pause(1);
 	r_lifespan();
 	Lifespanhap = r_events(1242, 85 - 60, 60);

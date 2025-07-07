@@ -1,12 +1,18 @@
 #include<conio.h>
 #include<iostream>
+#include<windows.h>
 #include<ios>
+#include<map>
 #include<limits>
 
 //定义：语言
 enum Language {cn, en};
 //定义：性格
 enum Personality {cat, dog};
+//定义：性别
+enum GenderType {M, F};
+//定义：refertype
+enum ReferType {nomin, object, posses};
 //定义：按键
 enum KeyCode {up = 'H', down = 'P'};
 //定义：颜色
@@ -64,6 +70,7 @@ int w_poo;//排泄忍耐时间 10-满
 bool eat = false; //进食 5-满
 int w_eat;//进食忍耐时间
 bool Pab;//宠物性格
+bool gender;
 
 long long money = 50;		//金钱
 
@@ -72,14 +79,15 @@ int Mlifespan;//极限最大寿命
 int Llifespan;//最短寿命
 
 const int pers = 2; //性格随机数
+const int gens = 2; //性别个数
 const int events = 6; //随机事件的个数
 
 int randomnum;//随机数的返回值
 char key;//按键
 bool isbadint;
 
-const string vertion = "0.2.2";
-const string phase = "beta";
+const string vertion = "0.2.3";
+const string phase = "alpha";
 
 //烹饪变量
 int calr;//热量
@@ -95,6 +103,9 @@ int r_events(int sss = 0, int Mranding = 0, int Lranding = 0) { //随机数生�
 	else if (sss == 1) {
 		return rand() % (pers - 1); //生成 随机性格
 	}
+	else if(sss==2) {
+		return rand()% (gens-1);
+	}
 	else {
 		//if(Mranding<Lranding)cout <<"随机数生成错误！\n";
 		return Lranding + rand() % (Mranding); //其余的生成
@@ -102,7 +113,7 @@ int r_events(int sss = 0, int Mranding = 0, int Lranding = 0) { //随机数生�
 }
 
 void badint() {
-	isbadint=false;
+	isbadint = false;
 	if (!cin.fail())isbadint = false;
 	else {
 		cin.clear();
@@ -119,6 +130,14 @@ void hyphen(int shan = 0) {
 	else if (shan == 4)cout << "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n";
 	else if (shan == 5)cout << "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$\n";
 	else if (shan == 250)cout << "---Cheating Line-Cheating Line-Cheating Line-Cheating Line-Cheating Line---\n";
+}
+
+void refer(int refertype) {
+	cout <<" ";
+	if (refertype == nomin)gender == M ? cout << "he" : cout << "she";
+	else if (refertype == object)gender == M ? cout << "him" : cout << "her";
+	else if (refertype == posses)gender == M ? cout << "his" : cout << "her";
+	cout <<" ";
 }
 
 void colorc(int x) { //0.红 1.绿 2.蓝
@@ -256,12 +275,22 @@ void per() {	//随机生成宠物的性格
 	randomnum = r_events(1); //生成随机数
 	Pab = randomnum;
 	if (Pab == dog) {
-		cout << "You saw a puppy at a pet store. You liked its mad look, so you took it home.";
+		cout << "You saw a puppy at a pet store. You liked";
+		refer(posses);
+		cout << " mad look, so you took";
+		refer(object);
+		cout <<"home.";
 	}
 	else if (Pab == cat) {
-		cout << "You saw a snoring pussy in a carton. After giving it some saussages, you took it home.";
+		cout << "You saw a snoring pussy in a carton. After giving";
+		refer(object);
+		cout <<"some saussages, you took";
+		refer(object);
+		cout <<"home.";
 	}
-	cout << "And now you've named it.\n";
+	cout << "And now you have named";
+	refer(object);
+	cout <<".\n";
 }
 
 void r_lifespan() { //随机寿命
