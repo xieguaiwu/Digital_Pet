@@ -56,31 +56,31 @@ enum Taste {sweet, sult, mois, too_sod, flat, floy, Vsweet, Vsult, Vmois, Vfloy,
 using namespace std;
 
 //bool language;
-int theme;
+unsigned char theme;
 
 string name = "PET"; //宠物名称
 //宠物指标
-int age = 0; //年龄 10天增加1
-int hap = 50; //快乐值 初始100-满
-int max_hap = 100; //初始最大值
-int sad = 0; //悲伤值 初始50-满
-int max_sad = 50; //初始最大值
+unsigned int age = 0; //年龄 10天增加1
+unsigned int hap = 50; //快乐值 初始100-满
+unsigned int max_hap = 100; //初始最大值
+unsigned int sad = 0; //悲伤值 初始50-满
+unsigned int max_sad = 50; //初始最大值
 bool poo = false; //排泄
-int w_poo;//排泄忍耐时间 10-满
+unsigned char w_poo;//排泄忍耐时间 10-满
 bool eat = false; //进食 5-满
-int w_eat;//进食忍耐时间
+unsigned char w_eat;//进食忍耐时间
 bool Pab;//宠物性格
 bool gender;
 
-long long money = 50;		//金钱
+unsigned int money = 50;		//金钱
 
-int lifespan;//宠物寿命天数，可增加！
-int Mlifespan;//极限最大寿命
-int Llifespan;//最短寿命
+unsigned int lifespan;//宠物寿命天数，可增加！
+unsigned int Mlifespan;//极限最大寿命
+unsigned int Llifespan;//最短寿命
 
-const int pers = 2; //性格随机数
-const int gens = 2; //性别个数
-const int events = 6; //随机事件的个数
+const char pers = 2; //性格随机数
+const char gens = 2; //性别个数
+const char events = 6; //随机事件的个数
 
 int randomnum;//随机数的返回值
 char key;//按键
@@ -90,10 +90,10 @@ const string vertion = "0.2.3";
 const string phase = "alpha";
 
 //烹饪变量
-int calr;//热量
+unsigned int calr;//热量
 string Meal;//烹饪品总名称（口味+名称）
-map<int, string> meal;//烹饪品名称
-map<int, string> Tmeal;//烹饪品口味
+map<unsigned int, string> meal;//烹饪品名称
+map<unsigned int, string> Tmeal;//烹饪品口味
 map<float, string>effects;//²ËÆ·Ð§¹û´¢´æ
 
 int r_events(int sss = 0, int Mranding = 0, int Lranding = 0) { //随机数生成，用于随机事件和随机性格等

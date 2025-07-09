@@ -2,7 +2,7 @@
 * @Author: Õ½ÂÔ½ÌÊÚ
 * @Date:   2025-06-08 22:35:12
 * @Last Modified by:   Wang Ziyan
-* @Last Modified time: 2025-07-09 16:13:08
+* @Last Modified time: 2025-07-09 16:59:21
 */
 #include<time.h>
 #include<cstdlib>
@@ -16,15 +16,15 @@
 
 using namespace std;
 
-int days = 1; //ÌìÊý
+unsigned int days = 1; //ÌìÊý
 bool died = false;
 
 
-int turns = 1; //Ã¿Ò»ÌìÓÐ8´Î²Ù×÷»ú»á
+unsigned int turns = 1; //Ã¿Ò»ÌìÓÐ8´Î²Ù×÷»ú»á
 //×÷±×Âë±äÁ¿
 string cheating;
 const bool cheatable = true;
-int Mopluse;
+unsigned int Mopluse;
 bool Bband = false; //ÊÇ·ñÒÑ¾­Íê³ÉÁËËæ»úÊÂ¼þ4
 
 
@@ -32,43 +32,46 @@ bool Bband = false; //ÊÇ·ñÒÑ¾­Íê³ÉÁËËæ»úÊÂ¼þ4
 bool cheat = false;
 bool loser = false;
 bool invest = false; //Ëæ»úÊÂ¼þ¶þµÄ±äÁ¿£¬ÊÇ·ñÍ¶×Ê
-int Iinvest;//Í¶×ÊµÄ½ð¶î
-int IINVEST;
-int Dinvest;//Í¶×ÊµÈ´ýµÄÌìÊý
+unsigned int Iinvest;//Í¶×ÊµÄ½ð¶î
+unsigned int IINVEST;
+unsigned int Dinvest;//Í¶×ÊµÈ´ýµÄÌìÊý
 float Einvest;//Í¶×ÊµÄÊÕÒæÂÊ
 //Ëæ»úÊÂ¼þÈý±äÁ¿
-const int price_mouse = 90, price_slipper = 20, price_heartsaver = 10000, price_lone = 10;
+const char price_mouse = 90, price_slipper = 20, price_heartsaver = 10000, price_lone = 10;
 
 //µÀ¾ß-¼Û¸ñ
-const int price_pbutter = 35, price_mbutter = 50;
+const char price_pbutter = 35, price_mbutter = 50;
 
 //Åëâ¿±äÁ¿-¼Û¸ñ
-const int price_sug = 8, price_sod = 9, price_wat = 0, price_flo = 6;
+const char price_sug = 8, price_sod = 9, price_wat = 0, price_flo = 6;
 //Åëâ¿±äÁ¿-ÓµÓÐ
-long long sug;//ÌÇ
-long long sul;//ÑÎ
-long long sod;//ËÕ´ò
-long long wat;//Ë®
-long long flo;//Ãæ·Û
+unsigned int sug;//ÌÇ
+unsigned int sul;//ÑÎ
+unsigned int sod;//ËÕ´ò
+unsigned int wat;//Ë®
+unsigned int flo;//Ãæ·Û
 //Åëâ¿±äÁ¿-¼ÓÈë
-long long Isug;//ÌÇ
-long long Isul;//ÑÎ
-long long Isod;//ËÕ´ò
-long long Iwat;//Ë®
-long long Iflo;//Ãæ·Û
+unsigned int Isug;//ÌÇ
+unsigned int Isul;//ÑÎ
+unsigned int Isod;//ËÕ´ò
+unsigned int Iwat;//Ë®
+unsigned int Iflo;//Ãæ·Û
 
 //Åëâ¿±äÁ¿-´æ´¢
-int Cid = 0; //ÓÃÓÚ¼ÇÂ¼ÏîÊý
+unsigned int Cid = 0; //ÓÃÓÚ¼ÇÂ¼ÏîÊý
 vector<string> backpackmeal;//²ËÆ·Ãû³Æ
 vector<int> backpackcalr;//²ËÆ·¶ÔÓ¦µÄÈÈÁ¿
 vector<int> backpackspend;//²ËÆ·¶ÔÓ¦µÄÖÆ×÷³É±¾£¬ÔÚÖ®ºóµÄ½øÒ»²½¸üÐÂÖÐÊ¹ÓÃ
 vector<int> backpackall;//²ËÆ·¶ÔÓ¦µÄ×ÜÁ¿
 vector<float> backpackeffect;//²ËÆ·Ð§¹û
-int Crow;//ÓÃÓÚ½øÐÐÑ­»·
-int CTP;//ÓÃÓÚ½øÐÐÑ¡Ôñ
+unsigned int Crow;//ÓÃÓÚ½øÐÐÑ­»·
+unsigned int CTP;//ÓÃÓÚ½øÐÐÑ¡Ôñ
 
-int cook(long long Psug, long long Psul, long long Psod, long long Pwat, long long Pflo, int cs = 0) { //±äÁ¿cs£ºº¯ÊýµÄÀàÐÍ
-	Msug = Psug; Msul = Psul; Msod = Psod; Mwat = Pwat; Mflo = Pflo;
+int cook(unsigned int Psug, unsigned int Psul, unsigned int Psod, unsigned int Pwat, unsigned int Pflo, unsigned int cs = 0) { //±äÁ¿cs£ºº¯ÊýµÄÀàÐÍ
+	Msug = Psug; Msul = Psul;
+	Msod = Psod;
+	Mwat = Pwat;
+	Mflo = Pflo;
 	Camount = Psug + Psul + Psod + Pwat + Pflo;
 	if (cs == 0) { //Åëâ¿
 		if (Psug == 0 && Psul == 0 && Psod == 0 && Pwat == 0 && Pflo == 0) {

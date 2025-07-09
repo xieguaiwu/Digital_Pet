@@ -1,21 +1,21 @@
 #include<iostream>
 using namespace std;
 
-int cs;
+unsigned int cs;
 //所有食材总量
-long long Camount;
+unsigned int Camount;
 //原料
-long long Msug;//糖
-long long Msul;//盐
-long long Msod;//苏打
-long long Mwat;//水
-long long Mflo;//面粉
+unsigned int Msug;//糖
+unsigned int Msul;//盐
+unsigned int Msod;//苏打
+unsigned int Mwat;//水
+unsigned int Mflo;//面粉
 
 //热量
-int Mcalr;
+unsigned int Mcalr;
 
-int Ncook;//菜品名称
-int Tcook;//菜品口味
+unsigned short Ncook;//菜品名称
+unsigned short Tcook;//菜品口味
 float Ecook;//菜品效果
 
 void Mname() {
