@@ -2,7 +2,7 @@
 * @Author: Õ½ÂÔ½ÌÊÚ
 * @Date:   2025-06-08 22:35:12
 * @Last Modified by:   Wang Ziyan
-* @Last Modified time: 2025-07-07 10:00:13
+* @Last Modified time: 2025-07-09 16:13:08
 */
 #include<time.h>
 #include<cstdlib>
@@ -135,7 +135,7 @@ void Cpushback(string bloodyname, int bloodycalr, int bloodyspend, int bloodyall
 	backpackspend.push_back(bloodyspend);
 	backpackall.push_back(bloodyall);
 	backpackeffect.push_back(bloodyeffect);
-	Cid++;
+	++Cid;
 }
 
 void Cclean() {//Çå¿Õ
@@ -143,7 +143,7 @@ void Cclean() {//Çå¿Õ
 	while (1) {
 		if (Crow == Cid)break; //backpackmeal´Ó0¿ªÊ¼
 		backpackmeal[Crow - 1] = "";
-		Crow++;
+		++Crow;
 	}
 	Cid = 0;
 }
@@ -158,7 +158,7 @@ void Cdrop(int IDI) {//³ýÈ¥ IDI=id of the dropped item
 		backpackcalr[Crow] = backpackcalr[Crow + 1];
 		backpackspend[Crow] = backpackspend[Crow + 1];
 		backpackall[Crow] = backpackall[Crow];
-		Crow++;
+		++Crow;
 	}
 }
 
@@ -567,9 +567,9 @@ void band_days() {	//Ëæ»úÊÂ¼þ4
 		key = getch();
 		Binteract();
 		if (back)break;
-		Bturns++;
+		++Bturns;
 	}
-	Bdays++;
+	++Bdays;
 	Bturns = 1;
 }
 
@@ -721,7 +721,7 @@ void e_eat() {
 
 void e_age() {
 	if (days != 0 && days % 10 == 0) {
-		age++;
+		++age;
 		your_pet();
 		cout << "is 1 year older!\n";
 	}
@@ -768,7 +768,7 @@ void e_hap() {
 					if (turns == 2 || turns == 4 || turns == 6 || turns == 8) {
 						if (!Lifespanup_turns) {
 							cout << "Your pet's lifespan increace by 1 day!\n";
-							lifespan++;
+							++lifespan;
 							Lifespanup_turns = true;
 						}
 					} else {
@@ -1307,7 +1307,7 @@ void interact() {
 				w_poo = 0;
 				if (poo) {
 					hap_plus(1);
-					hap++;
+					++hap;
 				}
 				poo = false;
 				pause();
@@ -1426,7 +1426,7 @@ void interact() {
 				if (CDSS == Cid)break;
 				cout << CDSS << "." << backpackmeal[CDSS] << "|Energy: " << backpackcalr[CDSS] << "|Effect: " << backpackeffect[CDSS] << "|";
 				cout << "Amount: " << backpackall[CDSS] << "\n";
-				CDSS++;
+				++CDSS;
 			}
 			pause();
 			while (1) {
@@ -1678,9 +1678,10 @@ void o_days() {//Ã¿Ò»Ììº¯Êý£¬ÆÚ¼ä²åÈëËæ»úÊÂ¼þ
 		key = getch();
 		interact();
 		if (key == 'Q' || key == 'q') break; //ÍË³ö
-		turns++; w_eat++;
+		++turns;
+		++w_eat;
 		if (days != 1) {
-			w_poo++;
+			++w_poo;
 		}
 		if (w_eat > 2)eat = true;
 		if (w_poo > 4)poo = true;
@@ -1752,7 +1753,7 @@ void o_days() {//Ã¿Ò»Ììº¯Êý£¬ÆÚ¼ä²åÈëËæ»úÊÂ¼þ
 	}
 	r_e();
 	turns = 1;
-	days++;
+	++days;
 }
 
 int main() {
