@@ -103,8 +103,8 @@ int r_events(int sss = 0, int Mranding = 0, int Lranding = 0) { //随机数生�
 	else if (sss == 1) {
 		return rand() % (pers - 1); //生成 随机性格
 	}
-	else if(sss==2) {
-		return rand()% (gens-1);
+	else if (sss == 2) {
+		return rand() % (gens - 1);
 	}
 	else {
 		//if(Mranding<Lranding)cout <<"随机数生成错误！\n";
@@ -133,11 +133,11 @@ void hyphen(int shan = 0) {
 }
 
 void refer(int refertype) {
-	cout <<" ";
+	cout << " ";
 	if (refertype == nomin)gender == M ? cout << "he" : cout << "she";
 	else if (refertype == object)gender == M ? cout << "him" : cout << "her";
 	else if (refertype == posses)gender == M ? cout << "his" : cout << "her";
-	cout <<" ";
+	cout << " ";
 }
 
 void colorc(int x) { //0.红 1.绿 2.蓝
@@ -157,7 +157,7 @@ void pause(int screen = 0) {
 
 void sure(bool besure = true) {
 	if (besure)cout << "Are you sure?";
-	cout << " (Press [up button] to confirm, and press [down button] to refuse)\n";
+	cout << " (Press Y to confirm, and press N to refuse)\n";
 }
 
 //选择设置
@@ -171,11 +171,11 @@ void color_choose() {
 			sure();
 			while (1) {
 				key = getch();
-				if (key == up) {
+				if (key == 'Y' || key == 'y') {
 					theme = Tdef;
 					break;
 				}
-				else if (key == down) {
+				else if (key == 'N' || key == 'n') {
 					color_choose();
 					break;
 				}
@@ -187,11 +187,11 @@ void color_choose() {
 			sure();
 			while (1) {
 				key = getch();
-				if (key == up) {
+				if (key == 'Y' || key == 'y') {
 					theme = Tadv;
 					break;
 				}
-				else if (key == down) {
+				else if (key == 'N' || key == 'n') {
 					color_choose();
 					break;
 				}
@@ -203,11 +203,11 @@ void color_choose() {
 			sure();
 			while (1) {
 				key = getch();
-				if (key == up) {
+				if (key == 'Y' || key == 'y') {
 					theme = Tele;
 					break;
 				}
-				else if (key == down) {
+				else if (key == 'N' || key == 'n') {
 					color_choose();
 					break;
 				}
@@ -219,11 +219,11 @@ void color_choose() {
 			sure();
 			while (1) {
 				key = getch();
-				if (key == up) {
+				if (key == 'Y' || key == 'y') {
 					theme = Tnor;
 					break;
 				}
-				else if (key == down) {
+				else if (key == 'N' || key == 'n') {
 					color_choose();
 					break;
 				}
@@ -234,14 +234,14 @@ void color_choose() {
 }
 
 /*void language_choose() {
-	cout << "选择语言(Choose language)：按↑选择中文，按↓选择英文(Press [up button] to choose Chinese and press [down button] to choose English)\n";
+	cout << "选择语言(Choose language)：按↑选择中文，按↓选择英文(Press Y to choose Chinese and press N to choose English)\n";
 	while (1) {
 		key = getch();
-		if (key == up) {
+		if (key == 'Y' || key == 'y') {
 			language = cn;
 			break;
 		}
-		else if (key == down) {
+		else if (key == 'N'|| key == 'n') {
 			language = en;
 			break;
 		}
@@ -279,18 +279,18 @@ void per() {	//随机生成宠物的性格
 		refer(posses);
 		cout << " mad look, so you took";
 		refer(object);
-		cout <<"home.";
+		cout << "home.";
 	}
 	else if (Pab == cat) {
 		cout << "You saw a snoring pussy in a carton. After giving";
 		refer(object);
-		cout <<"some saussages, you took";
+		cout << "some saussages, you took";
 		refer(object);
-		cout <<"home.";
+		cout << "home.";
 	}
 	cout << "And now you have named";
 	refer(object);
-	cout <<".\n";
+	cout << ".\n";
 }
 
 void r_lifespan() { //随机寿命

@@ -2,7 +2,7 @@
 * @Author: Õ½ÂÔ½ÌÊÚ
 * @Date:   2025-06-08 22:35:12
 * @Last Modified by:   Wang Ziyan
-* @Last Modified time: 2025-07-09 16:59:21
+* @Last Modified time: 2025-07-12 02:13:57
 */
 #include<time.h>
 #include<cstdlib>
@@ -189,14 +189,14 @@ void Cincook() {
 	cout << "You have " << sug << " grams of sugar\nYou have " << sul << " grams of salt\nYou have " << sod << " grams of soda\nYou have " << wat << " milliliter of water (1000 millilitter max)\nYou have " << flo << " grams of flour\n";
 	colorc(white);
 	pause();
-	cout << "Keep cooking? (Press [up button] to continue, press [down button] to quit this menu)\n";
+	cout << "Keep cooking? (Press Y to continue, press N to quit this menu)\n";
 	while (1) {
 		key = getch();
-		if (key == up) {
+		if (key == 'Y' || key == 'y') {
 			Jcook = false;
 			break;
 		}
-		if (key == down) {
+		if (key == 'N' || key == 'n') {
 			Jcook = true;
 			break;
 		}
@@ -455,17 +455,17 @@ void r3() { //Ëæ»úÊÂ¼þ3£ºÍÆÏúÔ±
 		}
 		else if (key == 'C' || key == 'c') {
 			if (!(money < 10000)) {
-				cout << "Sorry, buy you don't have enough money! Continue? (Press [up button] to continue and press [down button] to quit)\n";
+				cout << "Sorry, buy you don't have enough money! Continue? (Press Y to continue and press N to quit)\n";
 				money = money - 10000;
 				while (1) {
 					key = getch();
-					if (key == up) {
+					if (key == 'Y' || key == 'y') {
 						cout << "MONSTER!\nHappiness = 0! Sadness maximumizes!\n";
 						hap = 0;
 						sad = max_sad;
 						break;
 					}
-					else if (key == down) {
+					else if (key == 'N' || key == 'n') {
 						cout << "You are scamed!\n";
 						break;
 					}
@@ -839,7 +839,7 @@ void M_cok() {  //Ê³²Ä
 			still_buy();
 			while (1) {
 				key = getch();
-				if (key == up) {
+				if (key == 'Y' || key == 'y') {
 					while (1) {
 						cout << "Input the number of grams you want to buy:";
 						cin >> gs;
@@ -867,7 +867,7 @@ void M_cok() {  //Ê³²Ä
 					system("cls");
 					break;
 				}
-				else if (key == down) {
+				else if (key == 'N' || key == 'n') {
 					system("cls");
 					break;
 				}
@@ -956,7 +956,7 @@ void M_cok() {  //Ê³²Ä
 			still_buy();
 			while (1) {
 				key = getch();
-				if (key == up) {
+				if (key == 'Y' || key == 'y') {
 					while (1) {
 						cout << "Input the number of milliliters you want to buy:";
 						cin >> gs;
@@ -984,7 +984,7 @@ void M_cok() {  //Ê³²Ä
 					system("cls");
 					break;
 				}
-				else if (key == down) {
+				else if (key == 'N' || key == 'n') {
 					system("cls");
 					break;
 				}
@@ -1208,7 +1208,7 @@ void M_() {
 		if (Ldet) {
 			if (Dgm) {
 				Pdet = Pdet + Edet * Pdet;
-				cout << "\n\nYou need to pay the bank $ " << Pdet << ", are you going to pay? (Press [up button] to confirm, and press [down button] to refuse)\n";
+				cout << "\n\nYou need to pay the bank $ " << Pdet << ", are you going to pay? (Press Y to confirm, and press N to refuse)\n";
 				while (1) {
 					key = getch();
 					if (key == 'H') {
@@ -1245,7 +1245,7 @@ void M_() {
 		} else {
 			if (days == Ddet) {
 				Pdet = Pdet + Edet * Pdet;
-				cout << "\n\nIt's time for you to pay back. You need to pay the bank $ " << Pdet << ", are you going to pay? (Press [up button] to confirm, and press [down button] to refuse)\n";
+				cout << "\n\nIt's time for you to pay back. You need to pay the bank $ " << Pdet << ", are you going to pay? (Press Y to confirm, and press N to refuse)\n";
 				while (1) {
 					key = getch();
 					if (key == 'H') {
