@@ -1,9 +1,4 @@
-#include<conio.h>
-#include<iostream>
-#include<windows.h>
-#include<ios>
-#include<map>
-#include<limits>
+#include"includes.h"
 
 //定义：语言
 enum Language {cn, en};
@@ -26,6 +21,11 @@ enum MealType {air, soda, indefine, flor, bread, bananas, cake};
 //定义宏-菜品口味
 enum Taste {sweet, sult, mois, too_sod, flat, floy, Vsweet, Vsult, Vmois, Vfloy, dry};
 //0甜腻1咸的2湿乎乎的3充满气体的4平淡的5软绵绵的6非常甜的7非常咸的8非常湿的9非常软绵绵的10很干的
+
+//机器人性别偏向
+enum {male,female};
+//石头剪刀布
+enum {rock,paper,scis};
 
 //定义宏-菜品效果
 #define lifeup1 0.1 //寿命【+1】 
@@ -52,8 +52,6 @@ enum Taste {sweet, sult, mois, too_sod, flat, floy, Vsweet, Vsult, Vmois, Vfloy,
 #define Sadlow10 -4.10//悲伤值上限【-10】 
 
 #define none 5.0//无效果-口味平淡 
-
-using namespace std;
 
 //bool language;
 unsigned char theme;

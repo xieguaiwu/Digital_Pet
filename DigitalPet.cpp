@@ -2,19 +2,11 @@
 * @Author: Õ½ÂÔ½ÌÊÚ
 * @Date:   2025-06-08 22:35:12
 * @Last Modified by:   Wang Ziyan
-* @Last Modified time: 2025-07-12 02:13:57
+* @Last Modified time: 2025-07-14 13:30:04
 */
-#include<time.h>
-#include<cstdlib>
-#include<string>
-#include<vector>
-#include<fstream>
-#include<queue>
 #include "basicfunc.h"
 #include "cooking.h"
 #include "event_print.h"
-
-using namespace std;
 
 unsigned int days = 1; //ÌìÊý
 bool died = false;
@@ -37,13 +29,12 @@ unsigned int IINVEST;
 unsigned int Dinvest;//Í¶×ÊµÈ´ýµÄÌìÊý
 float Einvest;//Í¶×ÊµÄÊÕÒæÂÊ
 //Ëæ»úÊÂ¼þÈý±äÁ¿
-const char price_mouse = 90, price_slipper = 20, price_heartsaver = 10000, price_lone = 10;
-
+const unsigned char price_mouse = 90, price_slipper = 20, price_lone = 10;
+const unsigned int price_heartsaver = 10000;
 //µÀ¾ß-¼Û¸ñ
-const char price_pbutter = 35, price_mbutter = 50;
-
+const unsigned char price_pbutter = 35, price_mbutter = 50;
 //Åëâ¿±äÁ¿-¼Û¸ñ
-const char price_sug = 8, price_sod = 9, price_wat = 0, price_flo = 6;
+const unsigned char price_sug = 8, price_sod = 9, price_wat = 0, price_flo = 6;
 //Åëâ¿±äÁ¿-ÓµÓÐ
 unsigned int sug;//ÌÇ
 unsigned int sul;//ÑÎ
