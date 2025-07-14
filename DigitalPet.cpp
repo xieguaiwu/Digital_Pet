@@ -2,7 +2,7 @@
 * @Author: Õ½ÂÔ½ÌÊÚ
 * @Date:   2025-06-08 22:35:12
 * @Last Modified by:   Wang Ziyan
-* @Last Modified time: 2025-07-14 13:30:04
+* @Last Modified time: 2025-07-15 02:11:29
 */
 #include "basicfunc.h"
 #include "cooking.h"
@@ -183,11 +183,11 @@ void Cincook() {
 	cout << "Keep cooking? (Press Y to continue, press N to quit this menu)\n";
 	while (1) {
 		key = getch();
-		if (key == 'Y' || key == 'y') {
+		if (yes) {
 			Jcook = false;
 			break;
 		}
-		if (key == 'N' || key == 'n') {
+		if (no) {
 			Jcook = true;
 			break;
 		}
@@ -450,13 +450,13 @@ void r3() { //Ëæ»úÊÂ¼þ3£ºÍÆÏúÔ±
 				money = money - 10000;
 				while (1) {
 					key = getch();
-					if (key == 'Y' || key == 'y') {
+					if (yes) {
 						cout << "MONSTER!\nHappiness = 0! Sadness maximumizes!\n";
 						hap = 0;
 						sad = max_sad;
 						break;
 					}
-					else if (key == 'N' || key == 'n') {
+					else if (no) {
 						cout << "You are scamed!\n";
 						break;
 					}
@@ -830,7 +830,7 @@ void M_cok() {  //Ê³²Ä
 			still_buy();
 			while (1) {
 				key = getch();
-				if (key == 'Y' || key == 'y') {
+				if (yes) {
 					while (1) {
 						cout << "Input the number of grams you want to buy:";
 						cin >> gs;
@@ -858,7 +858,7 @@ void M_cok() {  //Ê³²Ä
 					system("cls");
 					break;
 				}
-				else if (key == 'N' || key == 'n') {
+				else if (no) {
 					system("cls");
 					break;
 				}
@@ -947,7 +947,7 @@ void M_cok() {  //Ê³²Ä
 			still_buy();
 			while (1) {
 				key = getch();
-				if (key == 'Y' || key == 'y') {
+				if (yes) {
 					while (1) {
 						cout << "Input the number of milliliters you want to buy:";
 						cin >> gs;
@@ -975,7 +975,7 @@ void M_cok() {  //Ê³²Ä
 					system("cls");
 					break;
 				}
-				else if (key == 'N' || key == 'n') {
+				else if (no) {
 					system("cls");
 					break;
 				}

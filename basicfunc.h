@@ -23,9 +23,9 @@ enum Taste {sweet, sult, mois, too_sod, flat, floy, Vsweet, Vsult, Vmois, Vfloy,
 //0甜腻1咸的2湿乎乎的3充满气体的4平淡的5软绵绵的6非常甜的7非常咸的8非常湿的9非常软绵绵的10很干的
 
 //机器人性别偏向
-enum {male,female};
+enum {male, female};
 //石头剪刀布
-enum {rock,paper,scis};
+enum {rock, paper, scis};
 
 //定义宏-菜品效果
 #define lifeup1 0.1 //寿命【+1】 
@@ -52,6 +52,9 @@ enum {rock,paper,scis};
 #define Sadlow10 -4.10//悲伤值上限【-10】 
 
 #define none 5.0//无效果-口味平淡 
+
+#define yes key=='Y'||key=='y'
+#define no key=='N'||key=='n'
 
 //bool language;
 unsigned char theme;
@@ -169,11 +172,11 @@ void color_choose() {
 			sure();
 			while (1) {
 				key = getch();
-				if (key == 'Y' || key == 'y') {
+				if (yes) {
 					theme = Tdef;
 					break;
 				}
-				else if (key == 'N' || key == 'n') {
+				else if (no) {
 					color_choose();
 					break;
 				}
@@ -185,11 +188,11 @@ void color_choose() {
 			sure();
 			while (1) {
 				key = getch();
-				if (key == 'Y' || key == 'y') {
+				if (yes) {
 					theme = Tadv;
 					break;
 				}
-				else if (key == 'N' || key == 'n') {
+				else if (no) {
 					color_choose();
 					break;
 				}
@@ -201,11 +204,11 @@ void color_choose() {
 			sure();
 			while (1) {
 				key = getch();
-				if (key == 'Y' || key == 'y') {
+				if (yes) {
 					theme = Tele;
 					break;
 				}
-				else if (key == 'N' || key == 'n') {
+				else if (no) {
 					color_choose();
 					break;
 				}
@@ -217,11 +220,11 @@ void color_choose() {
 			sure();
 			while (1) {
 				key = getch();
-				if (key == 'Y' || key == 'y') {
+				if (yes) {
 					theme = Tnor;
 					break;
 				}
-				else if (key == 'N' || key == 'n') {
+				else if (no) {
 					color_choose();
 					break;
 				}
@@ -235,7 +238,7 @@ void color_choose() {
 	cout << "选择语言(Choose language)：按↑选择中文，按↓选择英文(Press Y to choose Chinese and press N to choose English)\n";
 	while (1) {
 		key = getch();
-		if (key == 'Y' || key == 'y') {
+		if (yes) {
 			language = cn;
 			break;
 		}
