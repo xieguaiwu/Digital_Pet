@@ -1,0 +1,60 @@
+Tutorial:
+
+1.  During the game, press keys to select different actions. Each day consists of 8 action turns. Pressing `S` (Clear Screen) or `C` (Check Pet Status) does not consume a turn.
+2.  Key game stats:
+    *   **Pet Needs to Excrete:** If the pet needs to excrete, each turn waited decreases Happiness and increases Sadness.
+    *   **Pet Needs to Eat:** If the pet needs to eat, each turn waited decreases Happiness and increases Sadness.
+    *   **Pet Happiness:** Ranges from 0 to 100 (100 is max).
+    *   **Pet Sadness:** Ranges from 0 to 50 (50 is max). If Sadness reaches 50, the pet dies.
+3.  **Random Events (Triggered on Day >=1 in version 0.1.1+):**
+    ①. Pet brings you random money (0~35 dollars; does not trigger if 0).
+    ②. Pet acts as your investor. Investing all money increases pet Happiness and decreases Sadness. Results appear after random days. 25% success chance. Returns 10%-50% profit.
+    ③. Pet promotes goods. Three sets of goods, triggered with 40%, 40%, and 20% probability respectively.
+    ④. Pet forms an avant-garde rock band! Earns you money! (One-time random event, triggers only once).
+    ⑤. Pet brings you one of five random cooking ingredients. Quantity is a random number between 1 and 35.
+4.  **Loans:**
+    *   Press `M` to enter the Money interface.
+    *   Loan amount cannot exceed ten times your current money. Cannot loan if money is 0.
+    *   Interest rate is random (1% to 10%). Repayment period is a random number of days.
+    *   If not repaid by the deadline, the debt increases by the original interest rate each subsequent day.
+    *   If debt collectors come and you still can't pay, each occurrence decreases Happiness and increases Sadness.
+5.  **Cooking (Instructions):**
+    ①. Press `B` on the main screen to view owned cooking ingredients. There are five types: Sugar, Salt, Baking Soda, Water, Flour.
+    ②. Press `M` to enter the Money interface to purchase ingredients. Water is free, but total water cannot exceed 1000ml. Air has no purpose; don't be fooled by shady merchants.
+    ③. Press `M` to enter the Money interface to cook. The resulting dish's name, flavor, and calories are determined by the quantities of each ingredient. Stored dishes can be viewed by pressing `O` on the main screen.
+    ④. In the next version update, selling and using cooked dishes will be added. The current "Discard" function in the `O` interface is just a test for the new inventory system.
+6.  **Cooking (Ingredients, Flavors, Calories - Current Version):**
+    *   **Foods (7):** Air, Soda Water, Wet Baking Soda, Unnameable Object, Batter, Bread, Cake.
+    *   **Flavors (11):** Slightly Sweet, Very Sweet, Slightly Salty, Very Salty, Slightly Moist, Very Moist, Slightly Soft, Very Soft, Gassy, Bland, Very Dry.
+    *   Determination is based on the quantities of ingredients added to the pot.
+    *   **Food Recipes:**
+        ①. **Air:** Add 0 of all ingredients.
+        ②. **Soda Water:** Add Water and Baking Soda (Water > Baking Soda), and ingredients don't meet recipes for other foods.
+        ③. **Wet Baking Soda:** Same as Soda Water, but Baking Soda > Water.
+        ④. **Unnameable Object:** Created when ingredients don't satisfy any other food recipe.
+        ⑤. **Batter:** Add Water and Flour, and ingredients don't meet Bread or Cake recipes.
+        ⑥. **Bread:** Water <= Baking Soda, Flour > 0, Water <= 20% of total, Flour > Baking Soda, Sugar <= all other ingredients.
+        ⑦. **Cake:** Same as Bread, but Sugar > all other ingredients.
+    *   **Flavor Recipes:**
+        ①. **Slightly Sweet:** Sugar is the largest component, and Sugar < 50% of total ingredient weight.
+        ②. **Very Sweet:** Sugar is the largest component, and Sugar >= 50% of total ingredient weight.
+        ③. **Slightly Salty:** Salt is the largest component, and Salt < 50% of total ingredient weight.
+        ④. **Very Salty:** Salt is the largest component, and Salt >= 50% of total ingredient weight.
+        ⑤. **Slightly Moist:** Water is the largest component, and Water < 50% of total ingredient weight.
+        ⑥. **Very Moist:** Water is the largest component, and Water >= 50% of total ingredient weight.
+        ⑦. **Slightly Soft:** Flour <= Water, Flour > all other ingredients, and Flour < 50% of total ingredient weight. (Note: Assumes "米粉" is typo for "面粉"/Flour based on context).
+        ⑧. **Very Soft:** Flour <= Water, Flour > all other ingredients, and Flour >= 50% of total ingredient weight.
+        ⑨. **Gassy:** Baking Soda > all other ingredients.
+        ⑩. **Bland:** Appears when none of the above flavor conditions are met.
+        ⑩+①. **Very Dry:** Flour > 0, Water = 0.
+7.  **Pet Species:**
+    *   There are two pet species: Cat and Dog.
+    *   **Lifespan (in days):**
+        *   Cat: Random between 2 years (730 days) and 4 years (1460 days).
+        *   Dog: Random between 1.5 years (548 days) and 5 years (1825 days).
+    *   Days spent during the "Pet's Avant-Garde Rock Band" random event do not count towards the pet's lifespan.
+    *   **Lifespan Extension:**
+        *   Initially, the pet has a random value between 60 and 85 as the Happiness threshold required to increase lifespan.
+        *   This threshold increases by 5 points each day until it can no longer increase.
+        *   If the pet's Happiness is greater than this threshold value at the time of checking, lifespan increases by 1 day.
+        *   Lifespan increase is only checked during **odd-numbered turns** within the day's 8 turns.

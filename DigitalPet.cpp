@@ -1,62 +1,53 @@
-/*
-* @Author: Õ½ÂÔ½ÌÊÚ
-* @Date:   2025-06-08 22:35:12
-* @Last Modified by:   Wang Ziyan
-* @Last Modified time: 2025-07-15 02:11:29
-*/
 #include "basicfunc.h"
 #include "cooking.h"
 #include "event_print.h"
 
-unsigned int days = 1; //ÌìÊý
+unsigned int days = 1;
 bool died = false;
 
 
-unsigned int turns = 1; //Ã¿Ò»ÌìÓÐ8´Î²Ù×÷»ú»á
-//×÷±×Âë±äÁ¿
+unsigned int turns = 1;
+
 string cheating;
-const bool cheatable = true;
+const bool cheatable = false;
 unsigned int Mopluse;
-bool Bband = false; //ÊÇ·ñÒÑ¾­Íê³ÉÁËËæ»úÊÂ¼þ4
+bool Bband = false; //have random event no.4 been finished or not
 
 
-//Ëæ»úÊÂ¼þ¶þ±äÁ¿£º
+//random event no.2
 bool cheat = false;
 bool loser = false;
-bool invest = false; //Ëæ»úÊÂ¼þ¶þµÄ±äÁ¿£¬ÊÇ·ñÍ¶×Ê
-unsigned int Iinvest;//Í¶×ÊµÄ½ð¶î
+bool invest = false; //invest or not
+unsigned int Iinvest;//money invested
 unsigned int IINVEST;
-unsigned int Dinvest;//Í¶×ÊµÈ´ýµÄÌìÊý
-float Einvest;//Í¶×ÊµÄÊÕÒæÂÊ
-//Ëæ»úÊÂ¼þÈý±äÁ¿
+unsigned int Dinvest;//days to wait
+float Einvest;//rate of profit
+//prices
 const unsigned char price_mouse = 90, price_slipper = 20, price_lone = 10;
 const unsigned int price_heartsaver = 10000;
-//µÀ¾ß-¼Û¸ñ
 const unsigned char price_pbutter = 35, price_mbutter = 50;
-//Åëâ¿±äÁ¿-¼Û¸ñ
 const unsigned char price_sug = 8, price_sod = 9, price_wat = 0, price_flo = 6;
-//Åëâ¿±äÁ¿-ÓµÓÐ
-unsigned int sug;//ÌÇ
-unsigned int sul;//ÑÎ
-unsigned int sod;//ËÕ´ò
-unsigned int wat;//Ë®
-unsigned int flo;//Ãæ·Û
-//Åëâ¿±äÁ¿-¼ÓÈë
-unsigned int Isug;//ÌÇ
-unsigned int Isul;//ÑÎ
-unsigned int Isod;//ËÕ´ò
-unsigned int Iwat;//Ë®
-unsigned int Iflo;//Ãæ·Û
+//ingredient you have
+unsigned int sug;
+unsigned int sul;
+unsigned int sod;
+unsigned int wat;
+unsigned int flo;
+//ingredient added
+unsigned int Isug;
+unsigned int Isul;
+unsigned int Isod;
+unsigned int Iwat;
+unsigned int Iflo;
 
-//Åëâ¿±äÁ¿-´æ´¢
-unsigned int Cid = 0; //ÓÃÓÚ¼ÇÂ¼ÏîÊý
-vector<string> backpackmeal;//²ËÆ·Ãû³Æ
-vector<int> backpackcalr;//²ËÆ·¶ÔÓ¦µÄÈÈÁ¿
-vector<int> backpackspend;//²ËÆ·¶ÔÓ¦µÄÖÆ×÷³É±¾£¬ÔÚÖ®ºóµÄ½øÒ»²½¸üÐÂÖÐÊ¹ÓÃ
-vector<int> backpackall;//²ËÆ·¶ÔÓ¦µÄ×ÜÁ¿
-vector<float> backpackeffect;//²ËÆ·Ð§¹û
-unsigned int Crow;//ÓÃÓÚ½øÐÐÑ­»·
-unsigned int CTP;//ÓÃÓÚ½øÐÐÑ¡Ôñ
+unsigned int Cid = 0; //note id
+vector<string> backpackmeal;//name
+vector<int> backpackcalr;//energy
+vector<int> backpackspend;//cost, will be used in latter versions
+vector<int> backpackall;//total amount
+vector<float> backpackeffect;//effect
+unsigned int Crow;//for circulation
+unsigned int CTP;//for circulation
 
 int cook(unsigned int Psug, unsigned int Psul, unsigned int Psod, unsigned int Pwat, unsigned int Pflo, unsigned int cs = 0) { //±äÁ¿cs£ºº¯ÊýµÄÀàÐÍ
 	Msug = Psug; Msul = Psul;
@@ -64,7 +55,7 @@ int cook(unsigned int Psug, unsigned int Psul, unsigned int Psod, unsigned int P
 	Mwat = Pwat;
 	Mflo = Pflo;
 	Camount = Psug + Psul + Psod + Pwat + Pflo;
-	if (cs == 0) { //Åëâ¿
+	if (cs == 0) {
 		if (Psug == 0 && Psul == 0 && Psod == 0 && Pwat == 0 && Pflo == 0) {
 			cout << "After precisely controlling the invisible fire, consistly modifying the temperature of the non-existent frying pan, and the combination of the imaginary delicate seasonings, you successfully made a dish of...";
 			Ncook = air;
@@ -82,10 +73,10 @@ int cook(unsigned int Psug, unsigned int Psul, unsigned int Psod, unsigned int P
 			}
 		}
 	}
-	else if (cs == 1) { //ÆÀ¶¨ÈÈÁ¿ £¨Ã¿¿ËÌÇº¬ÓÐ4µãÈÈÁ¿£»ºÍË®½»ÈÚµÄÃæ·Û³ÉÎªÃæºý£¬Ã¿¿Ëº¬ÓÐ2µãÈÈÁ¿£¬¸ÉÃæ·ÛÃ¿¿Ëº¬ÓÐ4µãÈÈÁ¿£©
-		Mcalr = Psug * 4;
-		if (Pwat > Pflo)Mcalr = Mcalr + Pflo * 2;
-		else Mcalr = Mcalr + Pwat * 2 + (Pflo - Pwat) * 4;
+	else if (cs == 1) { 
+		Mcalr = Psug * 400;//sugar per gram: 400 kcal
+		if (Pwat > Pflo)Mcalr = Mcalr + Pflo * 300;//wet flour per gram: 300 kcal
+		else Mcalr = Mcalr + Pwat * 2 + (Pflo - Pwat) * 366;//dry flour per gram: 366 kcal
 		return Mcalr;
 	}
 }
@@ -102,28 +93,8 @@ void notice() {
 	cout << "There are 8 times to press the key.\nYou have " << 8 + 1 - turns << " times left\n";
 }
 
-//Ç°Ê®Ãûµ¥º¯Êý
-fstream get_save;//¶ÁÈ¡
-int list_id;//Ç°Ê®Ãûµ¥µÄid
-int list_row;//½øÐÐÑ­»·
-void list_read() {//¶ÁÈ¡
-	get_save.open("top10\\Lid.txt");
-	get_save >> list_id; //¶ÁÈ¡list_id
-	get_save.close();
-}
-
-void list_write() {//Ð´Èë
-	get_save.open("top10\\Lid.txt");
-	get_save << list_id; //Ð´Èëlist_id
-	get_save.close();
-}
-
-/*void list_queue() {
-
-}*/
-
-//Åëâ¿º¯Êý£¨ÓÉÅëâ¿Í·ÎÄ¼þ¶øÀ´µÄ·­ÒëÆ÷£©
-void Cpushback(string bloodyname, int bloodycalr, int bloodyspend, int bloodyall, float bloodyeffect) {//´æ´¢
+//cooking functions
+void Cpushback(string bloodyname, int bloodycalr, int bloodyspend, int bloodyall, float bloodyeffect) {//storage function
 	backpackmeal.push_back(bloodyname);
 	backpackcalr.push_back(bloodycalr);
 	backpackspend.push_back(bloodyspend);
@@ -132,17 +103,17 @@ void Cpushback(string bloodyname, int bloodycalr, int bloodyspend, int bloodyall
 	++Cid;
 }
 
-void Cclean() {//Çå¿Õ
+void Cclean() {//empty
 	Crow = 1;
 	while (1) {
-		if (Crow == Cid)break; //backpackmeal´Ó0¿ªÊ¼
+		if (Crow == Cid)break; //backpackmeal starts from 0
 		backpackmeal[Crow - 1] = "";
 		++Crow;
 	}
 	Cid = 0;
 }
 
-void Cdrop(int IDI) {//³ýÈ¥ IDI=id of the dropped item
+void Cdrop(int IDI) {//IDI=id of the dropped item
 	backpackmeal[IDI] = "";
 	Cid = Cid - 1;
 	Crow = IDI;
@@ -267,7 +238,7 @@ void Cincook() {
 			cout << Meal << "!\n";
 			calr = cook(Isug, Isul, Isod, Iwat, Iflo, cr);
 			cout << "The energy of this dish is " << calr << " calories!\n";
-			Cpushback(Meal, calr, Isug * 8 + Isul * 13 + Isod * 9, meal_all(), meal_effect()); //ÑÎµÄ¼Û¸ñÊÇ6~21µÄËæ»úÊý£¬È¡ÖÐ¼äÖµ13.5µÄÕûÊý²¿·Ö13Ôª
+			Cpushback(Meal, calr, Isug * 8 + Isul * 13 + Isod * 9, meal_all(), meal_effect()); //the price of salt is $ 6~21, take 13 as the average value
 		}
 	} else {
 		Jcook = false;
@@ -275,9 +246,9 @@ void Cincook() {
 	hyphen(4);
 }
 
-//Ëæ»úÊÂ¼þÃÇ
-void r1() {		//Ëæ»úÊÂ¼þ1£º
-	randomnum = r_events(3, 35, 0);		//´ø»Ø0~35Ôª
+//random event functions
+void r1() {		//random event no.1
+	randomnum = r_events(3, 35, 0);		//brings back $ 0~35
 	if (randomnum != 0) {
 		cout << "\n This day, you find that your pet disappered. Few hours later, your pet brings you back $" << randomnum << "!\nMoney increase!\n";
 		money = money + randomnum;
@@ -285,13 +256,13 @@ void r1() {		//Ëæ»úÊÂ¼þ1£º
 	}
 }
 
-void r2() {		//Ëæ»úÊÂ¼þ2£º³èÎïµÄ·çÏÕÍ¶×Ê
+void r2() {		//random event no.2: venture capital
 	your_pet();
 	cout << "walks to you with a paper, which said:\nVENTURE INVESTMENT\nInvestor:" << name << "\nVoucher: You\nSignature:________\n";
 	sure();
 	while (1) {
 		key = getch();
-		if (key == 'H') {
+		if (yes) {
 			cout << "You sign your name.\n";
 			invest = true;
 			while (1) {
@@ -336,7 +307,7 @@ void r2() {		//Ëæ»úÊÂ¼þ2£º³èÎïµÄ·çÏÕÍ¶×Ê
 				invest = false;
 			}
 		}
-		else if (key == 'P') {
+		else if (no) {
 			cout << "Your pet is looking at you as if you are a retard.\n";
 			break;
 			invest = false;
@@ -345,16 +316,16 @@ void r2() {		//Ëæ»úÊÂ¼þ2£º³èÎïµÄ·çÏÕÍ¶×Ê
 	}
 }
 
-bool Phouse = false; //³èÎïÊÇ·ñÓÐ·¿×Ó
-bool Pmouse = false; //ÊÇ·ñ¹ºÂòÁË³èÎïµÄÀÏÊó
-int Pmouse_plus;//ÀÏÊ¦¸ø³èÎïÔö¼ÓµÄ¿ìÀÖÖµ£¨1-10Ëæ»úÊý£©
-void r3() { //Ëæ»úÊÂ¼þ3£ºÍÆÏúÔ±
+bool Phouse = false; //having a house or not
+bool Pmouse = false; //having a mouse or not
+int Pmouse_plus;//the happiness increased by mouse
+void r3() { //random event no.3
 	cout << "Your pet runs out of the house.\nFew hours later, your pet " << name << " starts to knock on the door.\n";
 	cout << "Open the door?\n";
 	sure();
 	while (1) {
 		key = getch();
-		if (key == 'H') {
+		if (yes) {
 			cout << "You open the door, just to realize that";
 			randomnum = r_events(114514, 5, 1);
 			if (randomnum == 2) {
@@ -365,7 +336,7 @@ void r3() { //Ëæ»úÊÂ¼þ3£ºÍÆÏúÔ±
 			}
 			break;
 		}
-		else if (key == 'P') {
+		else if (no) {
 			cout << "You pretend that your can't hear " << name << "'s knocking, so your pet eats up the door!\nYour pet feels refreshed.\n";
 		}
 		hap_plus(2);
@@ -519,7 +490,7 @@ void Bback() {
 	hyphen(4);
 }
 
-void Binteract() { //Ëæ»úÊÂ¼þ4
+void Binteract() { //a function for random event no.4
 	if (key == 'T' || key == 't') {
 		cout << "You open the YV.\n";
 		pause(1);
@@ -550,7 +521,7 @@ void Binteract() { //Ëæ»úÊÂ¼þ4
 	}
 }
 
-void band_days() {	//Ëæ»úÊÂ¼þ4
+void band_days() {	//a function for random event no.4
 	hyphen(2);
 	cout << "ÕâÊÇµÚ" << Bdays << "Ìì\n";
 	while (1) {
@@ -567,7 +538,7 @@ void band_days() {	//Ëæ»úÊÂ¼þ4
 	Bturns = 1;
 }
 
-void r4() {//Ëæ»úÊÂ¼þ4£º³èÎïµÄÇ°ÎÀÒ¡¹öÀÖ¶Ó
+void r4() {//random event no.4: you pet's prog rock band
 	Bband = true;
 	cout << "For the past few days, your pet has been listening to some strange rock music.\nYou often hear some words like 'rape' from " << name << "'s mouse (don't ask me how)\n";
 	pause();
@@ -592,41 +563,40 @@ void r4() {//Ëæ»úÊÂ¼þ4£º³èÎïµÄÇ°ÎÀÒ¡¹öÀÖ¶Ó
 	}
 }
 
-void r5() {//Ëæ»úÊÂ¼þ5
+void r5() {//random event no.5
 	randomnum = r_events(123, 5, 1);
 	cout << "\nToday, you can't find your pet anywhere. Few hours later, your pet brings you back ";
-	if (randomnum == 1) { //ÌÇ
-		randomnum = r_events(1234, 35, 1); //´øÀ´1-35¸öÊ³²Ä
+	if (randomnum == 1) { //sugar
+		randomnum = r_events(1234, 35, 1);
 		cout << randomnum << " grams of sugar!\n";
 		sug += randomnum;
 	}
-	else if (randomnum == 2) { //ÑÎ
-		randomnum = r_events(1234, 35, 1); //´øÀ´1-35¸öÊ³²Ä
+	else if (randomnum == 2) { //salt
+		randomnum = r_events(1234, 35, 1);
 		cout << randomnum << " grams of salt!\n";
 		sul += randomnum;
 	}
-	else if (randomnum == 3) { //ËÕ´ò
-		randomnum = r_events(1234, 35, 1); //´øÀ´1-35¸öÊ³²Ä
+	else if (randomnum == 3) { //soda
+		randomnum = r_events(1234, 35, 1);
 		cout << randomnum << " grams of soda!\n";
 		sod += randomnum;
 	}
-	else if (randomnum == 4) { //Ë®
-		randomnum = r_events(1234, 35, 1); //´øÀ´1-35¸öÊ³²Ä
+	else if (randomnum == 4) { //water
+		randomnum = r_events(1234, 35, 1);
 		cout << randomnum << " milliliters of water!\n";
 		if (wat + randomnum <= 1000)wat += randomnum;
 	}
-	else if (randomnum == 5) { //Ãæ·Û
-		randomnum = r_events(1234, 35, 1); //´øÀ´1-35¸öÊ³²Ä
+	else if (randomnum == 5) { //flour
+		randomnum = r_events(1234, 35, 1);
 		cout << randomnum << " grams of flour!\n";
 		flo += randomnum;
 	}
 	pause();
 }
 
-void r_e() {//random events Éú³É
+void r_e() {
 	if (days >= 1) {
 		randomnum = r_events();
-		//cout <<randomnum<<"\n";//²âÊÔ´úÂë
 		if (!(randomnum > events)) {
 			if (randomnum == 1) r1();
 			else if (randomnum == 2) {
@@ -641,8 +611,7 @@ void r_e() {//random events Éú³É
 	}
 }
 
-//ËÀÍöº¯Êý
-void death() {//³èÎïµÄËÀÍö
+void death() {
 	hyphen();
 	cout << "Your pet " << name << " had been through a life of " << age << " years, and ";
 	refer(nomin);
@@ -678,7 +647,7 @@ void death() {//³èÎïµÄËÀÍö
 	pause(1);
 }
 
-//Çé¸Ðº¯Êý
+//emotion function
 void e_poo() {
 	if (w_poo > 10) {
 		w_poo == 10;
@@ -744,8 +713,8 @@ void e_sad() {
 	}
 }
 
-bool Lifespanup_turns = false; //ÊÇ·ñÔÚµ¥»ØºÏÄÚÒÑ¾­Ôö¼ÓÁËÊÙÃü
-int Lifespanhap;//ÉúÃüÉÏÏÞËùÐèµÄ¿ìÀÖÖµµÄ³õÊ¼ÖµÊÇÒ»¸ö85-60Ö®¼äµÄËæ»úÊý
+bool Lifespanup_turns = false; //lifespan increased within a single turn or not
+int Lifespanhap;//the hapiness needed to increase lifespan is initially between 60~85
 void e_hap() {
 	if (hap < 0)hap = 0;
 	if (hap > max_hap)hap = max_hap;
@@ -758,7 +727,7 @@ void e_hap() {
 			if (hap >= 76) {
 				hap += 4;
 				sad = sad - 5;
-				if (hap >= Lifespanhap && sad <= 15) { //¿ìÀÖÖµ>=ÊÙÃüÔö¼ÓËùÐèµÄ¿ìÀÖÖµÇÒ±¯ÉËÖµÐ¡ÓÚµÈÓÚ15£¬ÊÙÃüÔö¼ÓÒ»Ìì
+				if (hap >= Lifespanhap && sad <= 15) { //condition to increase lifespan
 					if (turns == 2 || turns == 4 || turns == 6 || turns == 8) {
 						if (!Lifespanup_turns) {
 							cout << "Your pet's lifespan increace by 1 day!\n";
@@ -776,10 +745,9 @@ void e_hap() {
 	}
 }
 
-//½ðÇ®º¯Êý
 int cheatmoney;
-int uglyprice;//Ëæ»úÊý¼Û¸ñ
-int gs;//¹ºÂò¿ËÊý
+int uglyprice;//random price
+int gs;//grams to but
 void M_notice() {
 	if (gs < 0) {
 		cout << "Please input again!\n";
@@ -789,7 +757,7 @@ void M_notice() {
 	}
 }
 
-void M_cok() {  //Ê³²Ä
+void M_cok() {  //buying cooking ingredients 
 	while (1) {
 		money_have();
 		cout << "Cooking ingredients:\nA) Sugar $ " << price_sug << " per gram\nB) Salt $ 6~12 per gram\nC) Soda $ " << price_sod << " per gram\n";
@@ -988,7 +956,7 @@ void M_cok() {  //Ê³²Ä
 	}
 }
 
-void M_stu() {	//µÀ¾ß
+void M_stu() {	//buying props
 	while (1) {
 		money_have();
 		cout << "Props:\nA) Buttercup - a kind of plant (Sadness [-8]) $ " << price_pbutter << "\nB) Buttercup - a kind of madness (Sadness [-15]) $ " << price_mbutter << "\n";
@@ -1033,7 +1001,7 @@ void M_stu() {	//µÀ¾ß
 				sure();
 				while (1) {
 					key = getch();
-					if (key == 'H') {
+					if (yes) {
 						if (!(money < cheatmoney)) {
 							if (!invest) {
 								cout << "Sorry, but you don't have any investment!\n";
@@ -1058,7 +1026,7 @@ void M_stu() {	//µÀ¾ß
 						system("cls");
 						break;
 					}
-					if (key == 'P') {
+					if (no) {
 						system("cls");
 						break;
 					}
@@ -1075,7 +1043,7 @@ void M_stu() {	//µÀ¾ß
 				still_buy();
 				while (1) {
 					key = getch();
-					if (key == 'H') {
+					if (yes) {
 						if (!(money < money * 10)) {
 							cout << "What the hell have you done to the code?!\n";
 							hyphen(250);
@@ -1101,7 +1069,7 @@ void M_stu() {	//µÀ¾ß
 						}
 						break;
 					}
-					if (key == 'P') {
+					if (no) {
 						system("cls");
 						break;
 					}
@@ -1120,13 +1088,13 @@ void M_stu() {	//µÀ¾ß
 	}
 }
 
-bool det = false; //ÊÇ·ñ½è´û
-int Mdet;//½è´û½ð¶î
-int Pdet;//»¹Õ®½ð¶î
-float Edet;//½è´ûÀûÏ¢
-int Ddet;//»¹Õ®ÆÚÏÞ
-bool Ldet = false; //ÊÇ·ñÍÏÇ·´û¿î
-void M_det() {		//借贷
+bool det = false; //applied for loan or not
+int Mdet;//applied for
+int Pdet;//pay back
+float Edet;//interest
+int Ddet;//terms
+bool Ldet = false;//be in arrears or not
+void M_det() {//loan
 	hyphen();
 	if (!det) {
 		while (1) {
@@ -1138,13 +1106,12 @@ void M_det() {		//借贷
 				if (!(Mdet > 10 * money) && money != 0) {
 					Ddet = r_events(3, 10, 1);
 					Edet = r_events(3, 10, 1);
-					{
-						cout << "Loan $ " << Mdet << "/Total interest " << Edet << "%/On the terms of " << Ddet << " days\nEach day after that [+" << Edet << "]%!\n";
-					}
+					cout << "Loan $ " << Mdet << "/Total interest " << Edet << "%/On the terms of " << Ddet << " days\n";
+					cout <<"Each day after that [+" << Edet << "]%!\n";
 					sure();
 					while (1) {
 						key = getch();
-						if (key == 'H') {
+						if (yes) {
 							money_plus(Mdet);
 							money = money + Mdet;
 							Ddet = Ddet + days;
@@ -1152,7 +1119,7 @@ void M_det() {		//借贷
 							det = true;
 							Edet = Edet / 100;
 							break;
-						} if (key == 'P') {
+						} if (no) {
 							cout << "You give up the contract.\n";
 							Mdet = 0;
 							Edet = 0;
@@ -1202,7 +1169,7 @@ void M_() {
 				cout << "\n\nYou need to pay the bank $ " << Pdet << ", are you going to pay? (Press Y to confirm, and press N to refuse)\n";
 				while (1) {
 					key = getch();
-					if (key == 'H') {
+					if (yes) {
 						if (money >= Pdet) {
 							cout << "You have pay off the loan.\n";
 							det = false;
@@ -1221,7 +1188,7 @@ void M_() {
 						Dgm = false;
 						break;
 					}
-					if (key == 'P') {
+					if (no) {
 						cout << "You refuse to pay.\nA few bank clerks are scolding you and your pet at your front door.\n";
 						sad_plus(15);
 						hap_minus(10);
@@ -1239,7 +1206,7 @@ void M_() {
 				cout << "\n\nIt's time for you to pay back. You need to pay the bank $ " << Pdet << ", are you going to pay? (Press Y to confirm, and press N to refuse)\n";
 				while (1) {
 					key = getch();
-					if (key == 'H') {
+					if (yes) {
 						if (money >= Pdet) {
 							cout << "You pay off the load. Because of your honesty,\n";
 							hap_plus(2);
@@ -1261,7 +1228,7 @@ void M_() {
 						hyphen(3);
 						break;
 					}
-					if (key == 'P') {
+					if (no) {
 						cout << "You refuse to pay!\nEach day after this, your debt [+" << Edet << "]%!\n";
 						Ldet = true;
 						Mdet = 0;
@@ -1275,7 +1242,6 @@ void M_() {
 	}
 }
 
-//²Ù×÷º¯Êý
 void interact() {
 	cout << "\n";
 	if (key == 'Q' || key == 'q') {
@@ -1429,7 +1395,7 @@ void interact() {
 				badint();
 				if (isbadint || (CTP >= Cid || CTP < 0)) {
 					break;
-				} else {
+				} else {//waiting to update
 					hyphen(4);
 					cout << "A) Sell this dish\nB) Feed this dish to your pet\nC) Dump this dish\nD) Quit this menu\n";
 					while (1) {
@@ -1612,7 +1578,7 @@ void interact() {
 	}
 }
 
-void o_days() {//Ã¿Ò»Ììº¯Êý£¬ÆÚ¼ä²åÈëËæ»úÊÂ¼þ
+void o_days() {
 	hyphen(2);
 	Cfour();
 	e_hap();
@@ -1642,7 +1608,7 @@ void o_days() {//Ã¿Ò»Ììº¯Êý£¬ÆÚ¼ä²åÈëËæ»úÊÂ¼þ
 		money_plus(Msenting);
 		money = money + Msenting;
 	}
-	if (lifespan < 0)lifespan = 0; //·ÀÖ¹ÊÙÃüÐ¡ÓÚ0
+	if (lifespan < 0)lifespan = 0;
 	if (days == lifespan) {
 		cout << "If nothing goes wrong, this is the last day of your pet.\n";
 	}
@@ -1656,10 +1622,10 @@ void o_days() {//Ã¿Ò»Ììº¯Êý£¬ÆÚ¼ä²åÈëËæ»úÊÂ¼þ
 		Lifespanhap = max_hap;
 	}
 	while (1) {
-		//cout <<turns<<"\n";//²âÊÔ
-		if (lifespan < 0)lifespan = 0; //·ÀÖ¹ÊÙÃüÐ¡ÓÚ0
-		if (days >= lifespan + 1) { //³èÎïÊÙÃü½áÊø£¬>=ÊÇÎªÁË·ÀÖ¹ÊÙÃüÔÚÄ³ÖÖÇé¿öÏÂ³ÉÎª¸ºÊý
-			death(); died = true;
+		if (lifespan < 0)lifespan = 0;
+		if (days >= lifespan + 1) {
+			death();
+			died = true;
 		}
 		M_();
 		Cfour();
@@ -1667,11 +1633,11 @@ void o_days() {//Ã¿Ò»Ììº¯Êý£¬ÆÚ¼ä²åÈëËæ»úÊÂ¼þ
 		e_sad();
 		e_poo();
 		e_eat();
-		if (died) break; //ËÀÍö
+		if (died) break;
 		notice();
 		key = getch();
 		interact();
-		if (key == 'Q' || key == 'q') break; //ÍË³ö
+		if (key == 'Q' || key == 'q') break; //quit
 		++turns;
 		++w_eat;
 		if (days != 1) {
@@ -1695,7 +1661,7 @@ void o_days() {//Ã¿Ò»Ììº¯Êý£¬ÆÚ¼ä²åÈëËæ»úÊÂ¼þ
 			hyphen();
 		}
 	}
-	if (invest  && days == Dinvest) { //Ëæ»úÊÂ¼þ¶þ£¬Í¶×Ê
+	if (invest  && days == Dinvest) { //random event no.2
 		invest = false;
 		Dinvest = 0;
 		randomnum = r_events(3, 4, 1);
@@ -1753,7 +1719,7 @@ void o_days() {//Ã¿Ò»Ììº¯Êý£¬ÆÚ¼ä²åÈëËæ»úÊÂ¼þ
 int main() {
 	srand(time(NULL));
 	Mname();
-	Mname1(); //Åëâ¿±äÁ¿¸³Öµ
+	Mname1();
 	cout << "Digital Pet\n" << vertion << " " << phase;
 	if (cheatable)cout << "*";
 	hyphen(4);
