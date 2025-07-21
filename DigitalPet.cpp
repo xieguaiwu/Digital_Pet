@@ -150,7 +150,7 @@ void Cincook() {
 	colorc(blue);
 	cout << "You have " << sug << " grams of sugar\nYou have " << sul << " grams of salt\nYou have " << sod << " grams of soda\nYou have " << wat << " milliliter of water (1000 millilitter max)\nYou have " << flo << " grams of flour\n";
 	colorc(white);
-	pause();
+	pausers::pause();
 	cout << "Keep cooking? (Press Y to continue, press N to quit this menu)\n";
 	while (1) {
 		key = getch();
@@ -252,14 +252,14 @@ void r1() {		//random event no.1
 	if (randomnum != 0) {
 		cout << "\n This day, you find that your pet disappered. Few hours later, your pet brings you back $" << randomnum << "!\nMoney increase!\n";
 		money = money + randomnum;
-		pause();
+		pausers::pause();
 	}
 }
 
 void r2() {		//random event no.2: venture capital
-	your_pet();
+	notices::your_pet();
 	cout << "walks to you with a paper, which said:\nVENTURE INVESTMENT\nInvestor:" << name << "\nVoucher: You\nSignature:________\n";
-	sure();
+	pausers::sure();
 	while (1) {
 		key = getch();
 		if (yes) {
@@ -267,7 +267,7 @@ void r2() {		//random event no.2: venture capital
 			invest = true;
 			while (1) {
 				cout << "Input the money you want to invest";
-				money_have();
+				notices::money_have();
 				cin >> Iinvest;
 				badint();
 				if (!isbadint) {
@@ -291,8 +291,8 @@ void r2() {		//random event no.2: venture capital
 				cout << "You invest $ " << Iinvest << ".\n";
 				if (Iinvest == money) {
 					cout << "Your pet is very pleased when seeing you invested all your money.\n";
-					hap_plus(2);
-					sad_minus(3);
+					notices::hap_plus(2);
+					notices::sad_minus(3);
 					hap += 2;
 					sad -= 3;
 				}
@@ -322,7 +322,7 @@ int Pmouse_plus;//the happiness increased by mouse
 void r3() { //random event no.3
 	cout << "Your pet runs out of the house.\nFew hours later, your pet " << name << " starts to knock on the door.\n";
 	cout << "Open the door?\n";
-	sure();
+	pausers::sure();
 	while (1) {
 		key = getch();
 		if (yes) {
@@ -339,8 +339,8 @@ void r3() { //random event no.3
 		else if (no) {
 			cout << "You pretend that your can't hear " << name << "'s knocking, so your pet eats up the door!\nYour pet feels refreshed.\n";
 		}
-		hap_plus(2);
-		sad_minus(3);
+		notices::hap_plus(2);
+		notices::sad_minus(3);
 		hap += 2;
 		sad -= 3;
 		poo = true;
@@ -372,7 +372,7 @@ void r3() { //random event no.3
 					}
 					money += randomnum;
 				} else {
-					money_not();
+					notices::money_not();
 				}
 				break;
 			}
@@ -397,7 +397,7 @@ void r3() { //random event no.3
 					cout << "Sorry, but your pet already have one!\n";
 				}
 			} else {
-				money_not();
+				notices::money_not();
 			}
 			break;
 		}
@@ -411,7 +411,7 @@ void r3() { //random event no.3
 					cout << "Sorry, but your pet already have one!\n";
 				}
 			} else {
-				money_not();
+				notices::money_not();
 			}
 			break;
 		}
@@ -433,7 +433,7 @@ void r3() { //random event no.3
 					}
 				}
 			} else {
-				money_not();
+				notices::money_not();
 			}
 			break;
 		}
@@ -450,7 +450,7 @@ void r3() { //random event no.3
 					money = money - 10;
 					cout << "You have bought... lonliness...\n";
 				} else {
-					money_not();
+					notices::money_not();
 				}
 				break;
 			}
@@ -470,7 +470,7 @@ int Msenting;
 void Bback() {
 	back = true;
 	cout << "\"21st century schizoid pet!\"You see your pet is holding a electric guitar (being overwhelmed under the guitar), and the spotlight shines on its eyes.\n";
-	pause();
+	pausers::pause();
 	cout << "Tears run out your eyes. Few weeks later, your pet knocks on the door again, and";
 	refer(nomin);
 	cout << "tells you (don't ask me how) that this performance has made a great success.\n";
@@ -485,7 +485,7 @@ void Bback() {
 	}
 	money = money + randomnum;
 	cout << "The performance earns you $ " << randomnum << " in total. In order to show thankfulness, your pet hands you all the money.\n";
-	pause();
+	pausers::pause();
 	cout << "And so, the both of you come back to your ordinary life.\n";
 	hyphen(4);
 }
@@ -493,7 +493,7 @@ void Bback() {
 void Binteract() { //a function for random event no.4
 	if (key == 'T' || key == 't') {
 		cout << "You open the YV.\n";
-		pause(1);
+		pausers::pausers::pause(1);
 		randomnum = r_events(1874298, 2, 1);
 		if (randomnum == 1)Btv1();
 		else if (randomnum == 2)Btv2();
@@ -502,19 +502,19 @@ void Binteract() { //a function for random event no.4
 		randomnum = r_events(82734, 4, 1);
 		if (randomnum == 2) {
 			cout << "You are switching channels, and suddenly, you see...\n\nYour pet!\n";
-			pause();
+			pausers::pause();
 			Bback();
 			return;
 		}
 		else {
 			cout << "You keep changing the channels, but can't find any information about your pet...\n";
-			pause(1);
+			pausers::pausers::pause(1);
 		}
 	}
 	else {
 		hyphen(3);
 		cout << "\n";
-		choose_again();
+		notices::choose_again();
 		cout << "\nPress 't' to watch TV\nThere are 1 chance to watch TV everyday\nYou have " << 1 + 1 - Bturns << " time left\n";
 		key = getch();
 		Binteract();
@@ -527,7 +527,7 @@ void band_days() {	//a function for random event no.4
 	while (1) {
 		if (Bturns == 2)break;
 		cout << "\n";
-		choose_again();
+		notices::choose_again();
 		cout << "\nPlease choose again!\nPress 't' to watch TV\nThere are 1 chance to watch TV everyday\nYou have " << 1 + 1 - Bturns << " time left\n";
 		key = getch();
 		Binteract();
@@ -541,11 +541,11 @@ void band_days() {	//a function for random event no.4
 void r4() {//random event no.4: you pet's prog rock band
 	Bband = true;
 	cout << "For the past few days, your pet has been listening to some strange rock music.\nYou often hear some words like 'rape' from " << name << "'s mouse (don't ask me how)\n";
-	pause();
+	pausers::pause();
 	cout << "One day, your pet told you through a unimaginable way that";
 	refer(nomin);
 	cout << "is going to start a progressive rock band.\nBecause you have been such a good owner, this band won't cost you any money.\n";
-	pause();
+	pausers::pause();
 	eat = false;
 	poo = false;
 	cout << "Before";
@@ -555,7 +555,7 @@ void r4() {//random event no.4: you pet's prog rock band
 	cout << "defecates for the last time.\nYou witness";
 	refer(posses);
 	cout << "leave...\n";
-	pause();
+	pausers::pause();
 	hyphen(4);
 	while (1) {
 		band_days();
@@ -591,7 +591,7 @@ void r5() {//random event no.5
 		cout << randomnum << " grams of flour!\n";
 		flo += randomnum;
 	}
-	pause();
+	pausers::pause();
 }
 
 void r_e() {
@@ -644,7 +644,7 @@ void death() {
 		cout << "was confused.\n";
 	}
 	died = true;
-	pause(1);
+	pausers::pausers::pause(1);
 }
 
 //emotion function
@@ -685,7 +685,7 @@ void e_eat() {
 void e_age() {
 	if (days != 0 && days % 10 == 0) {
 		++age;
-		your_pet();
+		notices::your_pet();
 		cout << "is 1 year older!\n";
 	}
 }
@@ -705,7 +705,7 @@ void e_sad() {
 			}
 		}
 	} else {
-		your_pet();
+		notices::your_pet();
 		cout << "is so depressed that";
 		refer(nomin);
 		cout << "committed suicide.\n";
@@ -759,7 +759,7 @@ void M_notice() {
 
 void M_cok() {  //buying cooking ingredients 
 	while (1) {
-		money_have();
+		notices::money_have();
 		cout << "Cooking ingredients:\nA) Sugar $ " << price_sug << " per gram\nB) Salt $ 6~12 per gram\nC) Soda $ " << price_sod << " per gram\n";
 		cout << "D) Water $ " << price_wat << " per milliliter\nE) Flour $ " << price_flo << " per gram\nF.Air $ 20~900 per square meter\nG.Quit this menu\n";
 		key = getch();
@@ -772,7 +772,7 @@ void M_cok() {  //buying cooking ingredients
 				if (isbadint)gs = 0;
 				M_notice();
 				if (gs == 0) {
-					pause();
+					pausers::pause();
 					turns--;
 					break;
 				}
@@ -781,11 +781,11 @@ void M_cok() {  //buying cooking ingredients
 						cout << "You have successfully bought " << gs << " grams of sugar!\n";
 						money = money - gs * uglyprice;
 						sug += gs;
-						pause();
+						pausers::pause();
 						break;
 					} else {
-						money_not();
-						pause();
+						notices::money_not();
+						pausers::pause();
 						break;
 					}
 				}
@@ -795,7 +795,7 @@ void M_cok() {  //buying cooking ingredients
 		else if (key == 'B' || key == 'b') {
 			uglyprice = r_events(123, 21 - 6, 6);
 			cout << "Price: $ " << uglyprice << "\n";
-			still_buy();
+			notices::still_buy();
 			while (1) {
 				key = getch();
 				if (yes) {
@@ -806,7 +806,7 @@ void M_cok() {  //buying cooking ingredients
 						if (isbadint)gs = 0;
 						M_notice();
 						if (gs == 0) {
-							pause();
+							pausers::pause();
 							turns--;
 							break;
 						} else {
@@ -814,11 +814,11 @@ void M_cok() {  //buying cooking ingredients
 								cout << "You have successfully bought " << gs << " grams of salt!\n";
 								money = money - gs * uglyprice;
 								sul += gs;
-								pause();
+								pausers::pause();
 								break;
 							} else {
-								money_not();
-								pause();
+								notices::money_not();
+								pausers::pause();
 								break;
 							}
 						}
@@ -841,7 +841,7 @@ void M_cok() {  //buying cooking ingredients
 				if (isbadint)gs = 0;
 				M_notice();
 				if (gs == 0) {
-					pause();
+					pausers::pause();
 					turns--;
 					break;
 				}
@@ -850,11 +850,11 @@ void M_cok() {  //buying cooking ingredients
 						cout << "You have successfully bought " << gs << " grams of soda!\n";
 						money = money - gs * uglyprice;
 						sod += gs;
-						pause();
+						pausers::pause();
 						break;
 					} else {
-						money_not();
-						pause();
+						notices::money_not();
+						pausers::pause();
 						break;
 					}
 				}
@@ -879,7 +879,7 @@ void M_cok() {  //buying cooking ingredients
 					break;
 				}
 			}
-			pause();
+			pausers::pause();
 			system("cls");
 		}
 		else if (key == 'E' || key == 'e') {
@@ -889,7 +889,7 @@ void M_cok() {  //buying cooking ingredients
 				cin >> gs;
 				M_notice();
 				if (gs == 0) {
-					pause();
+					pausers::pause();
 					turns--;
 					break;
 				}
@@ -898,11 +898,11 @@ void M_cok() {  //buying cooking ingredients
 						cout << "You have successfully bought " << gs << " grams of flour!\n";
 						money = money - gs * uglyprice;
 						flo += gs;
-						pause();
+						pausers::pause();
 						break;
 					} else {
-						money_not();
-						pause();
+						notices::money_not();
+						pausers::pause();
 						break;
 					}
 				}
@@ -912,7 +912,7 @@ void M_cok() {  //buying cooking ingredients
 		else if (key == 'F' || key == 'f') {
 			uglyprice = r_events(123, 900 - 20, 20);
 			cout << "Price: $ " << uglyprice << "\n";
-			still_buy();
+			notices::still_buy();
 			while (1) {
 				key = getch();
 				if (yes) {
@@ -923,7 +923,7 @@ void M_cok() {  //buying cooking ingredients
 						if (isbadint)gs = 0;
 						M_notice();
 						if (gs == 0) {
-							pause();
+							pausers::pause();
 							turns--;
 							break;
 						}
@@ -931,11 +931,11 @@ void M_cok() {  //buying cooking ingredients
 							if (money >= gs * uglyprice) {
 								cout << "You have successfully bought " << gs << " square meters of air!\n";
 								money = money - gs * uglyprice;
-								pause();
+								pausers::pause();
 								break;
 							} else {
-								money_not();
-								pause();
+								notices::money_not();
+								pausers::pause();
 								break;
 							}
 						}
@@ -958,7 +958,7 @@ void M_cok() {  //buying cooking ingredients
 
 void M_stu() {	//buying props
 	while (1) {
-		money_have();
+		notices::money_have();
 		cout << "Props:\nA) Buttercup - a kind of plant (Sadness [-8]) $ " << price_pbutter << "\nB) Buttercup - a kind of madness (Sadness [-15]) $ " << price_mbutter << "\n";
 		cout << "C) Arsenic (Use it when investing. Rate of success [+50]%) Price: (all the money you have, including money for investment)/5, then minus a random number (1~(money you have)/20)";
 		cout << "\nD) Diamond (use it when investing, so the [investment will fail 100%]) Price: (all the money you have, including money for investment)*10\nE) Quit this menu\n";
@@ -967,12 +967,12 @@ void M_stu() {	//buying props
 			if (!(money < 35)) {
 				money = money - 35;
 				sad = sad - 8;
-				bought_success();
-				sad_minus(8);
+				notices::bought_success();
+				notices::sad_minus(8);
 				hyphen(4);
 				break;
 			} else {
-				money_not();
+				notices::money_not();
 				hyphen(4);
 			}
 		}
@@ -980,12 +980,12 @@ void M_stu() {	//buying props
 			if (!(money < 50)) {
 				money = money - 50;
 				sad = sad - 15;
-				bought_success();
-				sad_minus(15);
+				notices::bought_success();
+				notices::sad_minus(15);
 				hyphen(4);
 				break;
 			} else {
-				money_not();
+				notices::money_not();
 				hyphen(4);
 			}
 		}
@@ -998,7 +998,7 @@ void M_stu() {	//buying props
 					if (!(cheatmoney <= 0))break;
 				}
 				cout << "This time the price is $ " << cheatmoney << "\n";
-				sure();
+				pausers::sure();
 				while (1) {
 					key = getch();
 					if (yes) {
@@ -1014,14 +1014,14 @@ void M_stu() {	//buying props
 								}
 								else {
 									money = money - cheatmoney;
-									bought_success();
+									notices::bought_success();
 									cheat = true;
 								}
 							}
-							pause();
+							pausers::pause();
 						} else {
-							money_not();
-							pause();
+							notices::money_not();
+							pausers::pause();
 						}
 						system("cls");
 						break;
@@ -1040,7 +1040,7 @@ void M_stu() {	//buying props
 		else if (key == 'D' || key == 'd') {
 			if (!(money <= 0)) {
 				cout << "This time the price is $ " << money * 10 << "\n";
-				still_buy();
+				notices::still_buy();
 				while (1) {
 					key = getch();
 					if (yes) {
@@ -1058,14 +1058,14 @@ void M_stu() {	//buying props
 								}
 								else {
 									money = money - money * 10;
-									bought_success();
+									notices::bought_success();
 									loser = true;
 								}
 							}
-							pause(1);
+							pausers::pausers::pause(1);
 						} else {
-							money_not();
-							pause(1);
+							notices::money_not();
+							pausers::pausers::pause(1);
 						}
 						break;
 					}
@@ -1108,11 +1108,11 @@ void M_det() {//loan
 					Edet = r_events(3, 10, 1);
 					cout << "Loan $ " << Mdet << "/Total interest " << Edet << "%/On the terms of " << Ddet << " days\n";
 					cout <<"Each day after that [+" << Edet << "]%!\n";
-					sure();
+					pausers::sure();
 					while (1) {
 						key = getch();
 						if (yes) {
-							money_plus(Mdet);
+							notices::money_plus(Mdet);
 							money = money + Mdet;
 							Ddet = Ddet + days;
 							Pdet = Mdet;
@@ -1179,8 +1179,8 @@ void M_() {
 							money = money - Pdet;
 						} else {
 							cout << "Sorry, but you don't have enough money to pay!\nA few bank clerks are scolding you and your pet at your front door.\n";
-							sad_plus(15);
-							hap_minus(10);
+							notices::sad_plus(15);
+							notices::hap_minus(10);
 							hap = hap - 10;
 							sad += 15;
 						}
@@ -1190,8 +1190,8 @@ void M_() {
 					}
 					if (no) {
 						cout << "You refuse to pay.\nA few bank clerks are scolding you and your pet at your front door.\n";
-						sad_plus(15);
-						hap_minus(10);
+						notices::sad_plus(15);
+						notices::hap_minus(10);
 						sad += 15;
 						hap = hap - 10;
 						hyphen(3);
@@ -1209,8 +1209,8 @@ void M_() {
 					if (yes) {
 						if (money >= Pdet) {
 							cout << "You pay off the load. Because of your honesty,\n";
-							hap_plus(2);
-							sad_minus(1);
+							notices::hap_plus(2);
+							notices::sad_minus(1);
 							hap += 2;
 							sad -= 1;
 							money -= Pdet;
@@ -1246,17 +1246,17 @@ void interact() {
 	cout << "\n";
 	if (key == 'Q' || key == 'q') {
 		cout << "You quit the game.\n";
-		pause(4);
+		pausers::pausers::pause(4);
 	}
 	else if (key == 'F' || key == 'f') {
 		cout << "You feed your pet.\n";
 		w_eat = 0;
 		if (eat) {
 			hap += 2;
-			hap_plus(2);
+			notices::hap_plus(2);
 		}
 		eat = false;
-		pause();
+		pausers::pause();
 	}
 	else if (key == 'I' || key == 'i') {
 		while (1) {
@@ -1266,20 +1266,20 @@ void interact() {
 				cout << "You let your pet " << name << " defecates\n";
 				w_poo = 0;
 				if (poo) {
-					hap_plus(1);
+					notices::hap_plus(1);
 					++hap;
 				}
 				poo = false;
-				pause();
+				pausers::pause();
 				break;
 			}
 			else if (key == 'B' || key == 'b') {
 				cout << "You pat your pet " << name << "\n";
 				hap += 4;
 				sad = sad - 3;
-				hap_plus(4);
-				sad_minus(3);
-				pause();
+				notices::hap_plus(4);
+				notices::sad_minus(3);
+				pausers::pause();
 				break;
 			}
 			else if (key == 'C' || key == 'c') {
@@ -1291,20 +1291,20 @@ void interact() {
 			}
 			else {
 				cout << "\n";
-				choose_again();
+				notices::choose_again();
 			}
 		}
 		cout << "\n\n";
 	}
 	else if (key == 'C' || key == 'c') {
 		cout << "---LIFESPAN---\n";
-		your_pet();
+		notices::your_pet();
 		Pab == cat ? cout << "is a cat.\n" : cout << "is a dog.\n";
-		your_pet();
+		notices::your_pet();
 		cout << "is " << age << " years old now\n";
-		your_pet();
+		notices::your_pet();
 		cout << "can still live for " << lifespan - days + 1 << " days\n";
-		your_pet();
+		notices::your_pet();
 		cout << "need to have at least reach to [Happiness: " << Lifespanhap << "] to prolong lifespan\n";
 		cout << "---EMOTION---\n";
 		cout << "[Happiness: " << hap << "/" << max_hap << "]\n[Sadness: " << sad << "/" << max_sad << "]\n";
@@ -1314,7 +1314,7 @@ void interact() {
 		cout << "Wants to eat:";
 		eat == true ? cout << "[YES]\n" : cout << "[NO]\n";
 		turns--;
-		pause();
+		pausers::pause();
 	}
 	else if (key == 'S' || key == 's') {
 		system("cls");
@@ -1352,7 +1352,7 @@ void interact() {
 			}
 			else {
 				cout << "\n";
-				choose_again();
+				notices::choose_again();
 			}
 		}
 	}
@@ -1374,7 +1374,7 @@ void interact() {
 		colorc(blue);
 		cout << "You have " << sug << " grams of sugar\nYou have " << sul << " grams of salt\nYou have " << sod << " grams of soda\nYou have " << wat << " milliliter of water (1000 milliliter max)\nYou have " << flo << " grams of flour\n";
 		colorc(white);
-		pause(1);
+		pausers::pausers::pause(1);
 		turns--;
 		hyphen(4);
 	}
@@ -1388,7 +1388,7 @@ void interact() {
 				cout << "Amount: " << backpackall[CDSS] << "\n";
 				++CDSS;
 			}
-			pause();
+			pausers::pause();
 			while (1) {
 				cout << "Input the number of item you want to choose (insert negative number to quit this menu):";
 				cin >> CTP;
@@ -1421,13 +1421,13 @@ void interact() {
 			}
 		} else {
 			cout << "You don't have any dish!\n";
-			pause();
+			pausers::pause();
 		}
 		turns--;
 		hyphen(4);
 	}
 	else if (key == 'X' || key == 'x') {
-		color_choose();
+		options::color_choose();
 		turns --;
 	}
 	/*else if (key == '?') {
@@ -1441,7 +1441,7 @@ void interact() {
 				cout << "¢Ù.ÇëÔÚ¿ªÊ¼ÓÎÏ·Ê±ÇÐ»»ÎªÓ¢ÎÄÊäÈë·¨\n";
 				cout << "¢Ú.Äã¿ÉÒÔÔÚÓÎÏ·ÖÐ°´ÏÂ°´¼üÑ¡Ôñ²»Í¬ÐÐ¶¯£¬Ò»ÌìÓÐ8¸ö»ØºÏÑ¡ÔñÐÐ¶¯£¬µ«°´S£¨ÇåÆÁ£©»ò°´C£¨²é¿´³èÎï×´Ì¬£©²¢²»Õ¼ÓÃ»ØºÏ¡£\n";
 				cout << "¢Û.ÓÎÏ·ÖÐÓÐÕâÑù¼¸¸öÊýÖµ£º³èÎïÊÇ·ñÏëÒªÅÅÐ¹£¨Èç¹û³èÎïÏëÒªÅÅÐ¹£¬Ã¿µÈ´ýÒ»»ØºÏ»á¿Û³ý¿ìÀÖÖµ¡¢Ôö¼Ó±¯ÉËÖµ£©¡¢³èÎïÊÇ·ñ\nÏëÒª½øÊ³£¨Èç¹û³èÎïÏëÒª½øÊ³£¬Ã¿µÈ´ýÒ»»ØºÏ»á¿Û³ý¿ìÀÖÖµ¡¢Ôö¼Ó±¯ÉËÖµ£©¡¢³èÎï¿ìÀÖÖµ£¨100Âú£©\n¡¢³èÎï±¯ÉËÖµ£¨50Âú£¬±¯ÉËÖµ³äÂúºó³èÎïËÀÍö£©\n";
-				pause();
+				pausers::pause();
 				break;
 			}
 			else if (key == 'C' || key == 'c') {
@@ -1449,26 +1449,26 @@ void interact() {
 				cout << "µ±ÓÎÏ·ÌìÊý>=1Ê±£¬0.1.1¼°ÒÔÉÏµÄ°æ±¾»á´¥·¢Ëæ»úÊÂ¼þ¡£Ëæ»úÊÂ¼þÓÐ£º\n";
 				cout << "¢Ù.³èÎïÎªÄã´øÀ´Ëæ»ú´óÐ¡µÄ½ðÇ®£¨0~35Ôª£¬Îª0ÔªÊ±²»´¥·¢£© \n¢Ú.³èÎïµ£µ±ÄãµÄÍ¶×ÊÈË£¬Èç¹ûÍ¶ÈëÈ«²¿½ðÇ®£¬»áÔö¼Ó³èÎïµÄ¿ìÀÖÖµºÍ¼õÉÙ±¯ÉËÖµ¡£½á¹û»áÔÚËæ»úÌìÊýºó³öÏÖ£¬ÓÐ25%¸ÅÂÊ³É¹¦£¬½ðÇ®»Ø±¨ÂÊ10%-50%\n";
 				cout << "¢Û.³èÎïÍÆÏúÉÌÆ·£¬ÓÐÈýÌ×ÉÌÆ·£¬·Ö±ðÓÐ40%¡¢40%ºÍ20%µÄ¸ÅÂÊ´¥·¢\n¢Ü.³èÎï´´Á¢ÁËÒ»¸öÇ°ÎÀÒ¡¹öÀÖ¶Ó¡£¿ÉÒÔÎªÄã´øÀ´½ðÇ®£¡£¨Ò»´ÎÐÔËæ»úÊÂ¼þ£¬Ö»¿ÉÒÔ´¥·¢Ò»´Î£©\n¢Ý.³èÎïÎªÄã´øÀ´ÎåÖÖÊ³²ÄÖÐµÄÈÎÒâÒ»ÖÖ£¬ÊýÁ¿ÊÇÒ»¸ö1~35µÄËæ»úÊý\n";
-				pause();
+				pausers::pause();
 				break;
 			}
 			else if (key == 'D' || key == 'd') {
 				hyphen(4);
 				cout << "°´ÏÂM¼üºó½øÈë½ðÇ®½çÃæ¡£½è´ûµÄ½ð¶î²»ÄÜ´óÓÚ±¾Éí½ðÇ®µÄÊ®±¶£¬Èç¹û±¾Éí½ðÇ®Îª0£¬Ôò²»¿É½è´û¡£\n½è´ûµÄÀûÏ¢ÔÚ1%µ½10%Ö®¼ä£¬»¹Õ®ÆÚÏÞÎªËæ»úÌìÊý¡£Èç¹ûµ½¹æ¶¨ÆÚÏÞÈÔÎ´»¹Õ®£¬ÔòÃ¿¶àÒ»ÌìÕ®¿îÔö¼ÓÔ­ÏÈÀûÂÊ¡£Èç¹û´ßÕ®²»»»£¬ÔòÃ¿Ò»´Î¼õÉÙ¿ìÀÖÖµ¡¢Ôö¼Ó±¯ÉËÖµ\n";
-				pause();
+				pausers::pause();
 				break;
 			}
 			else if (key == 'E' || key == 'e') {
 				hyphen(4);
 				cout << "Î´¿ª·Å£¡\n";
-				pause();
+				pausers::pause();
 				break;
 			}
 			else if (key == 'F' || key == 'f') {
 				hyphen(4);
 				cout << "ÓÎÏ·ÄÚ£¬³èÎïÒ»¹²ÓÐÃ¨¹·Á½¸öÎïÖÖ¡£Á½¸öÎïÖÖµÄ¼«ÏÞÊÙÃü£¨ÌìÊý£©²»Í¬£¬Ã¨µÄ¼«ÏÞÊÙÃüÊÇ2Ëêµ½4ËêµÄËæ»úÊý£»¹·µÄ¼«ÏÞÊÙÃüÊÇ1Ëê°ëµ½5ËêµÄËæ»úÊý\n";
 				cout << "\nÔÚËæ»úÊÂ¼þ¡°³èÎïµÄÇ°ÎÀÒ¡¹öÀÖ¶Ó¡±ÖÐ¶È¹ýµÄÌìÊý²»ËãÔÚ³èÎïµÄÊÙÃüÄÚ¡£Äã¿ÉÒÔÔÚ°´ÏÂCºó²é¿´³èÎïµÄÊÙÃü¡£µ«ÊÙÃü²¢²»ÊÇ²»¿ÉÌáÉýµÄ£¬³èÎïÔÚÒ»¿ªÊ¼ÓµÓÐÒ»¸ö85-60¼äµÄËæ»úÊý×÷ÎªÊÙÃüÔö¼ÓËùÐèÒª´ïµ½µÄ¿ìÀÖÖµµÄµãÊý£¬¶øÃ¿Ìì£¬Õâ¸öÊýÖµ¶¼»á¡¾+5¡¿£¬Ò»Ö±µ½ÎÞ·¨ÔÙ´ÎÔö¼ÓÎªÖ¹¡£Èç¹û³èÎïµÄ¿ìÀÖÖµ´óÓÚÕâ¸öÖµ£¬ÇÒ³èÎïµÄ±¯ÉËÖµÐ¡ÓÚ15£¬ÔòÊÙÃü¡¾+1¡¿£¬Ò»ÌìµÄ°Ë»ØºÏÄÚ£¬Ö»ÓÐÆæÊý»ØºÏÊÙÃüÔö¼Ó¡£\n";
-				pause();
+				pausers::pause();
 				break;
 			}
 		}
@@ -1489,7 +1489,7 @@ void interact() {
 			}
 			else if(key=='D'||key=='d') break;
 		}
-		pause(1);
+		pausers::pausers::pause(1);
 	}*/
 	else if ((key == 'L' || key == 'l') && cheatable) {
 		hyphen(250);
@@ -1571,7 +1571,7 @@ void interact() {
 	else {
 		hyphen(3);
 		cout << "\n";
-		choose_again();
+		notices::choose_again();
 		notice();
 		key = getch();
 		interact();
@@ -1599,13 +1599,13 @@ void o_days() {
 	if (Pmouse) {
 		Pmouse_plus = r_events(1784, 5, 1);
 		cout << "Your pet is playing with the toy mouse.\n";
-		hap_plus(Pmouse_plus);
+		notices::hap_plus(Pmouse_plus);
 		hap += Pmouse_plus;
 	}
 	if (BFS) {
 		Msenting = r_events(1321, 500, 20);
 		cout << "Some fans want " << name << " to keep performing, so they put $ " << Msenting << " .\n";
-		money_plus(Msenting);
+		notices::money_plus(Msenting);
 		money = money + Msenting;
 	}
 	if (lifespan < 0)lifespan = 0;
@@ -1613,12 +1613,12 @@ void o_days() {
 		cout << "If nothing goes wrong, this is the last day of your pet.\n";
 	}
 	if (Lifespanhap + 5 <= max_hap && days != 1) {
-		your_pet();
-		lifespan_plus(5);
+		notices::your_pet();
+		notices::lifespan_plus(5);
 		Lifespanhap += 5;
 	} else if (days != 1 && Lifespanhap != max_hap) {
-		your_pet();
-		lifespan_plus(max_hap - Lifespanhap);
+		notices::your_pet();
+		notices::lifespan_plus(max_hap - Lifespanhap);
 		Lifespanhap = max_hap;
 	}
 	while (1) {
@@ -1647,11 +1647,11 @@ void o_days() {
 		if (w_poo > 4)poo = true;
 		cout << "\n\n";
 		if (eat) {
-			your_pet();
+			notices::your_pet();
 			cout << "is hungry\n";
 		}
 		if (poo) {
-			your_pet();
+			notices::your_pet();
 			cout << "wants to defecate\n\n\n";
 		}
 		hyphen(1);
@@ -1669,16 +1669,16 @@ void o_days() {
 		if (!cheat) {
 			if (!loser) {
 				if (randomnum == 2) {
-					your_pet();
+					notices::your_pet();
 					cout << "has made a successful investment!\nRate of profit " << Einvest << "%!\n";
-					money_plus(IINVEST + Einvest / 100 * IINVEST);
-					hap_plus(2);
+					notices::money_plus(IINVEST + Einvest / 100 * IINVEST);
+					notices::hap_plus(2);
 					money = money + IINVEST + Einvest / 100 * IINVEST; hap += 2;
 				} else {
-					your_pet();
+					notices::your_pet();
 					cout << "has failed the investment!\n";
-					hap_minus(1);
-					sad_plus(2);
+					notices::hap_minus(1);
+					notices::sad_plus(2);
 					hap -= 1;
 					sad += 2;
 				}
@@ -1688,17 +1688,17 @@ void o_days() {
 			}
 		}
 		else {
-			your_pet();
+			notices::your_pet();
 			if (randomnum != 1) {
 				cout << "has made a successful investment!\nRate of profit: " << Einvest << "!\n";
-				money_plus(IINVEST + Einvest / 100 * IINVEST);
-				hap_plus(2);
+				notices::money_plus(IINVEST + Einvest / 100 * IINVEST);
+				notices::hap_plus(2);
 				money = money + IINVEST + Einvest / 100 * IINVEST;
 				hap += 2;
 			} else {
 				cout << "has failed in the investment!\n";
-				hap_minus(1);
-				sad_plus(2);
+				notices::hap_minus(1);
+				notices::sad_plus(2);
 				hap -= 1;
 				sad += 2;
 			}
@@ -1708,7 +1708,7 @@ void o_days() {
 		IINVEST = 0;
 		Einvest = 0;
 		hyphen();
-		pause();
+		pausers::pause();
 		cout << "\n\n";
 	}
 	r_e();
@@ -1723,15 +1723,15 @@ int main() {
 	cout << "Digital Pet\n" << vertion << " " << phase;
 	if (cheatable)cout << "*";
 	hyphen(4);
-	pause();
-	color_choose();
-	name_choose();
+	pausers::pause();
+	options::color_choose();
+	options::name_choose();
 	per();
-	pause();
+	pausers::pause();
 	cout << "You will have a great time together, won't you?\nYou look at your pet, then suddenly realize that";
 	refer(nomin);
 	cout << "might become the next Michael Jackson.\n";
-	pause(1);
+	pausers::pausers::pause(1);
 	r_lifespan();
 	Lifespanhap = r_events(1242, 85 - 60, 60);
 	while (1) {

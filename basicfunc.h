@@ -87,8 +87,8 @@ int randomnum;//随机数的返回值
 char key;//按键
 bool isbadint;
 
-const string vertion = "0.2.3";
-const string phase = "alpha";
+const string vertion = "0.2.2";
+const string phase = "beta";
 
 //烹饪变量
 unsigned int calr;//热量
@@ -150,125 +150,134 @@ void colorc(int x) { //0.红 1.绿 2.蓝
 	}
 }
 
-void pause(int screen = 0) {
-	cout << " (Press any key to continue...)\n";
-	getch();
-	if (screen == 1)system("cls");
-}
+class pausers {
+public:
+	static void pause(int screen = 0) {
+		cout << " (Press any key to continue...)\n";
+		getch();
+		if (screen == 1)system("cls");
+	}
 
-void sure(bool besure = true) {
-	if (besure)cout << "Are you sure?";
-	cout << " (Press Y to confirm, and press N to refuse)\n";
-}
+	static void sure(bool besure = true) {
+		if (besure)cout << "Are you sure?";
+		cout << " (Press Y to confirm, and press N to refuse)\n";
+	}
+};
+
+
 
 //选择设置
-void color_choose() {
-	cout << "\nChoose your theme color:\nA.Defalut theme (balck background+white words)\nB.Adventure theme (pureple background+white words)\n";
-	cout << "C.Elegent theme (grey background+light white words)\nD.Normal theme (white background+black words)\n";
-	while (1) {
-		key = getch();
-		if (key == 'A' || key == 'a') {
-			system("color 07");
-			sure();
-			while (1) {
-				key = getch();
-				if (yes) {
-					theme = Tdef;
-					break;
+class options {
+public:
+	static void color_choose() {
+		cout << "\nChoose your theme color:\nA.Defalut theme (balck background+white words)\nB.Adventure theme (pureple background+white words)\n";
+		cout << "C.Elegent theme (grey background+light white words)\nD.Normal theme (white background+black words)\n";
+		while (1) {
+			key = getch();
+			if (key == 'A' || key == 'a') {
+				system("color 07");
+				pausers::sure();
+				while (1) {
+					key = getch();
+					if (yes) {
+						theme = Tdef;
+						break;
+					}
+					else if (no) {
+						color_choose();
+						break;
+					}
 				}
-				else if (no) {
-					color_choose();
-					break;
-				}
+				break;
 			}
-			break;
-		}
-		else if (key == 'B' || key == 'b') {
-			system("color df");
-			sure();
-			while (1) {
-				key = getch();
-				if (yes) {
-					theme = Tadv;
-					break;
+			else if (key == 'B' || key == 'b') {
+				system("color df");
+				pausers::sure();
+				while (1) {
+					key = getch();
+					if (yes) {
+						theme = Tadv;
+						break;
+					}
+					else if (no) {
+						color_choose();
+						break;
+					}
 				}
-				else if (no) {
-					color_choose();
-					break;
-				}
+				break;
 			}
-			break;
-		}
-		else if (key == 'C' || key == 'c') {
-			system("color 8f");
-			sure();
-			while (1) {
-				key = getch();
-				if (yes) {
-					theme = Tele;
-					break;
+			else if (key == 'C' || key == 'c') {
+				system("color 8f");
+				pausers::sure();
+				while (1) {
+					key = getch();
+					if (yes) {
+						theme = Tele;
+						break;
+					}
+					else if (no) {
+						color_choose();
+						break;
+					}
 				}
-				else if (no) {
-					color_choose();
-					break;
-				}
+				break;
 			}
-			break;
-		}
-		else if (key == 'D' || key == 'd') {
-			system("color 70");
-			sure();
-			while (1) {
-				key = getch();
-				if (yes) {
-					theme = Tnor;
-					break;
+			else if (key == 'D' || key == 'd') {
+				system("color 70");
+				pausers::sure();
+				while (1) {
+					key = getch();
+					if (yes) {
+						theme = Tnor;
+						break;
+					}
+					else if (no) {
+						color_choose();
+						break;
+					}
 				}
-				else if (no) {
-					color_choose();
-					break;
-				}
+				break;
 			}
-			break;
 		}
 	}
-}
 
-/*void language_choose() {
-	cout << "选择语言(Choose language)：按↑选择中文，按↓选择英文(Press Y to choose Chinese and press N to choose English)\n";
-	while (1) {
-		key = getch();
-		if (yes) {
-			language = cn;
-			break;
+	/*static void language_choose() {
+		cout << "选择语言(Choose language)：按↑选择中文，按↓选择英文(Press Y to choose Chinese and press N to choose English)\n";
+		while (1) {
+			key = getch();
+			if (yes) {
+				language = cn;
+				break;
+			}
+			else if (key == 'N'|| key == 'n') {
+				language = en;
+				break;
+			}
 		}
-		else if (key == 'N'|| key == 'n') {
-			language = en;
-			break;
-		}
-	}
-}*/
+	}*/
 
-void name_choose() {
-	cout << "\nInput the name of your digital pet:\n";
-	getline(cin, name);
-	while (1) {
-		if (name != "" && name != " " && name != "  " && name != "   " && name != "    ")break;
+	static void name_choose() {
+		cout << "\nInput the name of your digital pet:\n";
+		getline(cin, name);
+		while (1) {
+			if (name != "" && name != " " && name != "  " && name != "   " && name != "    ")break;
+			else {
+				cout << "Please input again:";
+				getline(cin, name);
+			}
+		}
+		if (name == "毛茛" || name == "毛艮" || name == "morgan" || name == "Morgan") name = "比利";
+		if (name == "Rick" || name == "Joker") name = "杀人犯";
+		pausers::pause(1);
+		cout << "'" << name << "' you thought.";
+		if (name == "比利")cout << "What a crazy name.\n";
+		else if (name == "杀人犯")cout << "This sounds murderous.\n";
 		else {
-			cout << "Please input again:";
-			getline(cin, name);
+			cout << "What a good name this is.\n";
 		}
 	}
-	if (name == "毛茛" || name == "毛艮" || name == "morgan" || name == "Morgan") name = "比利";
-	if (name == "Rick" || name == "Joker") name = "杀人犯";
-	pause(1);
-	cout << "'" << name << "' you thought.";
-	if (name == "比利")cout << "What a crazy name.\n";
-	else if (name == "杀人犯")cout << "This sounds murderous.\n";
-	else {
-		cout << "What a good name this is.\n";
-	}
-}
+};
+
 
 //宠物性格生成
 void per() {	//随机生成宠物的性格
@@ -300,84 +309,87 @@ void r_lifespan() { //随机寿命
 }
 
 //提示
-void still_buy() {
-	cout << "Continue to buy?";
-	sure(false);
-}
+class notices {
+public:
+	static void still_buy() {
+		cout << "Continue to buy?";
+		pausers::sure(false);
+	}
 
-void choose_again() {
-	cout << "Please choose again!\n";
-}
+	static void choose_again() {
+		cout << "Please choose again!\n";
+	}
 
-void your_pet() {
-	cout << "Your pet ";
-	cout << name;
-	//if (language == en)
-	cout << " ";
-}
+	static void your_pet() {
+		cout << "Your pet ";
+		cout << name;
+		//if (language == en)
+		cout << " ";
+	}
 
-void hap_plus(int hapin) {
-	colorc(green);
-	cout << "Happiness [+" << hapin << "]!\n";
-	colorc(white);
-}
+	static void hap_plus(int hapin) {
+		colorc(green);
+		cout << "Happiness [+" << hapin << "]!\n";
+		colorc(white);
+	}
 
-void hap_minus(int hapout) {
-	colorc(red);
-	cout << "Happiness [-" << hapout << "]!\n";
-	colorc(white);
-}
+	static void hap_minus(int hapout) {
+		colorc(red);
+		cout << "Happiness [-" << hapout << "]!\n";
+		colorc(white);
+	}
 
-void lifespan_plus(int lifespanin) {
-	colorc(red);
-	cout << "Happiness needed to increase lifespan [+" << lifespanin << "]!\n";
-	colorc(white);
-}
+	static void lifespan_plus(int lifespanin) {
+		colorc(red);
+		cout << "Happiness needed to increase lifespan [+" << lifespanin << "]!\n";
+		colorc(white);
+	}
 
-void lifespan_minus(int lifespanout) {
-	colorc(green);
-	cout << "Happiness needed to increase lifespan [-" << lifespanout << "]!\n";
-	colorc(white);
-}
+	static void lifespan_minus(int lifespanout) {
+		colorc(green);
+		cout << "Happiness needed to increase lifespan [-" << lifespanout << "]!\n";
+		colorc(white);
+	}
 
-void sad_plus(int sadin) {
-	colorc(red);
-	cout << "Sadness [+" << sadin << "]!\n";
-	colorc(white);
-}
+	static void sad_plus(int sadin) {
+		colorc(red);
+		cout << "Sadness [+" << sadin << "]!\n";
+		colorc(white);
+	}
 
-void sad_minus(int sadout) {
-	colorc(green);
-	cout << "Sadness [-" << sadout << "]!\n";
-	colorc(white);
-}
+	static void sad_minus(int sadout) {
+		colorc(green);
+		cout << "Sadness [-" << sadout << "]!\n";
+		colorc(white);
+	}
 
-void money_plus(int monin) {
-	colorc(green);
-	cout << "$ [+" << monin << "]!\n";
-	colorc(white);
-}
+	static void money_plus(int monin) {
+		colorc(green);
+		cout << "$ [+" << monin << "]!\n";
+		colorc(white);
+	}
 
-void money_minus(int monout) {
-	colorc(red);
-	cout << "$ [-" << monout << "]!\n";
-	colorc(white);
-}
+	static void money_minus(int monout) {
+		colorc(red);
+		cout << "$ [-" << monout << "]!\n";
+		colorc(white);
+	}
 
-void money_not() {
-	colorc(red);
-	cout << "Sorry, but you don't have enough money!\n";
-	colorc(white);
-}
+	static void money_not() {
+		colorc(red);
+		cout << "Sorry, but you don't have enough money!\n";
+		colorc(white);
+	}
 
-void money_have() {
-	colorc(blue);
-	cout << "You have $ " << money << " !\n";
-	colorc(white);
-}
+	static void money_have() {
+		colorc(blue);
+		cout << "You have $ " << money << " !\n";
+		colorc(white);
+	}
 
-void bought_success() {
-	colorc(blue);
-	cout << "Bought successfully!\n";
-	colorc(white);
-}
+	static void bought_success() {
+		colorc(blue);
+		cout << "Bought successfully!\n";
+		colorc(white);
+	}
+};
