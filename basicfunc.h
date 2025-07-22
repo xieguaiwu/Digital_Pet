@@ -87,8 +87,8 @@ int randomnum;//随机数的返回值
 char key;//按键
 bool isbadint;
 
-const string vertion = "0.2.2";
-const string phase = "beta";
+const string vertion = "0.2.3";
+const string phase = "alpha";
 
 //烹饪变量
 unsigned int calr;//热量
