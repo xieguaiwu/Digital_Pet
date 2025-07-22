@@ -73,11 +73,11 @@ unsigned char w_eat;//进食忍耐时间
 bool Pab;//宠物性格
 bool gender;
 
-unsigned int money = 50;		//金钱
-
 unsigned int lifespan;//宠物寿命天数，可增加！
 unsigned int Mlifespan;//极限最大寿命
 unsigned int Llifespan;//最短寿命
+
+unsigned int money = 50;		//金钱
 
 const char pers = 2; //性格随机数
 const char gens = 2; //性别个数
@@ -95,7 +95,7 @@ unsigned int calr;//热量
 string Meal;//烹饪品总名称（口味+名称）
 map<unsigned int, string> meal;//烹饪品名称
 map<unsigned int, string> Tmeal;//烹饪品口味
-map<float, string>effects;//²ËÆ·Ð§¹û´¢´æ
+map<float, string>effects;
 
 int r_events(int sss = 0, int Mranding = 0, int Lranding = 0) { //随机数生成，用于随机事件和随机性格等
 	if (sss == 0) {

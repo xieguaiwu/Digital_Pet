@@ -1,4 +1,5 @@
 #include "basicfunc.h"
+#include "body.h"
 #include "cooking.h"
 #include "event_print.h"
 
@@ -23,10 +24,8 @@ unsigned int IINVEST;
 unsigned int Dinvest;//days to wait
 float Einvest;//rate of profit
 //prices
-const unsigned char price_mouse = 90, price_slipper = 20, price_lone = 10;
-const unsigned int price_heartsaver = 10000;
-const unsigned char price_pbutter = 35, price_mbutter = 50;
-const unsigned char price_sug = 8, price_sod = 9, price_wat = 0, price_flo = 6;
+const unsigned int price_mouse = 90, price_slipper = 20, price_lone = 10, price_heartsaver = 10000;
+const unsigned int price_pbutter = 35, price_mbutter = 50, price_sug = 8, price_sod = 9, price_wat = 0, price_flo = 6;
 //ingredient you have
 unsigned int sug;
 unsigned int sul;
@@ -1720,6 +1719,7 @@ int main() {
 	srand(time(NULL));
 	Mname();
 	Mname1();
+	have_body_ini();
 	cout << "Digital Pet\n" << vertion << " " << phase;
 	if (cheatable)cout << "*";
 	hyphen(4);
