@@ -1,51 +1,7 @@
-#include<iostream>
-
-//定义：身体
-enum BodyType {
-	head,
-	neck,
-	torso
-};//0~body_pieces-1
-
-const char body_pieces = 3;
-
-enum FaceType {
-	left_eye = body_pieces,
-	right_eye,
-	nose,
-	mouth,
-	face
-};//body_pieces~body_pieces+face_pieces-1
-
-const char face_pieces = 5;
-
-enum ArmType {
-	left_arm = body_pieces + face_pieces,
-	right_arm,
-	left_hand,
-	left_hand_finger,
-	left_hand_finger_nail,
-	right_hand,
-	right_hand_finger,
-	right_hand_finger_nail
-};//body_pieces+face_pieces~body_pieces+face_pieces+arm_pieces-1
-
-const char arm_pieces = 8;
-
-enum LegType {
-	left_leg = body_pieces + face_pieces + arm_pieces,
-	left_foot,
-	left_foot_toes,
-	right_leg,
-	right_foot,
-	right_foot_toes
-};
-
-const char leg_pieces = 6;
-
-const unsigned char all_parts = body_pieces + face_pieces + arm_pieces + leg_pieces;
+#include"basicfunc.h"
 
 bool have_parts[all_parts];
+bool parts_changed;
 
 void have_body_ini() {
 	for (int i = 0; i < all_parts; ++i) {
@@ -74,6 +30,7 @@ public:
 	}
 };
 
+//直接在此函数下增加对器官的描述
 void have_body() {
 	if (!have_parts[head]) {
 		TypesGive::face_type_give(false);
@@ -123,6 +80,10 @@ void have_body() {
 	}
 }
 
+
+//编辑宠物身体时修改parts_changes
 void body_describe() {
+	if (parts_changed)have_body();
+	notices::your_pet();
 
 }

@@ -27,6 +27,51 @@ enum {male, female};
 //石头剪刀布
 enum {rock, paper, scis};
 
+//定义：身体
+enum BodyType {
+	head,
+	neck,
+	torso
+};//0~body_pieces-1
+
+const unsigned char body_pieces = 3;
+
+enum FaceType {
+	left_eye = body_pieces,
+	right_eye,
+	nose,
+	mouth,
+	face
+};//body_pieces~body_pieces+face_pieces-1
+
+const unsigned char face_pieces = 5;
+
+enum ArmType {
+	left_arm = body_pieces + face_pieces,
+	right_arm,
+	left_hand,
+	left_hand_finger,
+	left_hand_finger_nail,
+	right_hand,
+	right_hand_finger,
+	right_hand_finger_nail
+};//body_pieces+face_pieces~body_pieces+face_pieces+arm_pieces-1
+
+const unsigned char arm_pieces = 8;
+
+enum LegType {
+	left_leg = body_pieces + face_pieces + arm_pieces,
+	left_foot,
+	left_foot_toes,
+	right_leg,
+	right_foot,
+	right_foot_toes
+};
+
+const unsigned char leg_pieces = 6;
+
+const unsigned char all_parts = body_pieces + face_pieces + arm_pieces + leg_pieces;
+
 //定义宏-菜品效果
 #define lifeup1 0.1 //寿命【+1】 
 #define lifeup2 0.2 //寿命【+2】
