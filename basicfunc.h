@@ -222,14 +222,6 @@ void colorc(int x) { //0.红 1.绿 2.蓝
 		if (x == green)SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY | FOREGROUND_GREEN);
 		if (x == blue)SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY | FOREGROUND_BLUE);
 		if (x == white)SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
-#else
-		switch (x) {
-		case red: std::cout << "\033[31m"; break;
-		case green: std::cout << "\033[32m"; break;
-		case blue: std::cout << "\033[34m"; break;
-		case white: std::cout << "\033[0m"; break; // 重置为默认
-		default: break;
-		}
 #endif
 	}
 }

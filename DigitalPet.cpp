@@ -72,7 +72,7 @@ int cook(unsigned int Psug, unsigned int Psul, unsigned int Psod, unsigned int P
 			}
 		}
 	}
-	else if (cs == 1) { 
+	else if (cs == 1) {
 		Mcalr = Psug * 400;//sugar per gram: 400 kcal
 		if (Pwat > Pflo)Mcalr = Mcalr + Pflo * 300;//wet flour per gram: 300 kcal
 		else Mcalr = Mcalr + Pwat * 2 + (Pflo - Pwat) * 366;//dry flour per gram: 366 kcal
@@ -756,7 +756,7 @@ void M_notice() {
 	}
 }
 
-void M_cok() {  //buying cooking ingredients 
+void M_cok() {  //buying cooking ingredients
 	while (1) {
 		notices::money_have();
 		cout << "Cooking ingredients:\nA) Sugar $ " << price_sug << " per gram\nB) Salt $ 6~12 per gram\nC) Soda $ " << price_sod << " per gram\n";
@@ -1106,7 +1106,7 @@ void M_det() {//loan
 					Ddet = r_events(3, 10, 1);
 					Edet = r_events(3, 10, 1);
 					cout << "Loan $ " << Mdet << "/Total interest " << Edet << "%/On the terms of " << Ddet << " days\n";
-					cout <<"Each day after that [+" << Edet << "]%!\n";
+					cout << "Each day after that [+" << Edet << "]%!\n";
 					pausers::sure();
 					while (1) {
 						key = getch();
@@ -1724,7 +1724,9 @@ int main() {
 	if (cheatable)cout << "*";
 	hyphen(4);
 	pausers::pause();
+#ifdef _WIN32
 	options::color_choose();
+#endif
 	options::name_choose();
 	per();
 	pausers::pause();
