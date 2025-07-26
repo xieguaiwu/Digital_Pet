@@ -1,8 +1,4 @@
 #include"includes.h"
-#ifdef _WIN32
-#include<windows.h>
-#include<conio.h>
-#endif
 //定义：语言
 enum Language {cn, en};
 //定义：性格
@@ -194,8 +190,6 @@ void clear_screen() {
 	system("clear");
 #endif
 }
-
-
 
 void hyphen(int shan = 0) {
 	if (shan == 0)cout << "----------------------------------------\n";
