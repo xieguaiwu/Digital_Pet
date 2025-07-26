@@ -1,5 +1,8 @@
 #include"includes.h"
-
+#ifdef _WIN32
+#include<windows.h>
+#include<conio.h>
+#endif
 //定义：语言
 enum Language {cn, en};
 //定义：性格
@@ -142,6 +145,22 @@ map<unsigned int, string> meal;//烹饪品名称
 map<unsigned int, string> Tmeal;//烹饪品口味
 map<float, string>effects;
 
+#ifdef _WIN32
+#include <conio.h>
+#else
+int getch() {
+    struct termios oldt, newt;
+    int ch;
+    tcgetattr(STDIN_FILENO, &oldt);
+    newt = oldt;
+    newt.c_lflag &= ~(ICANON | ECHO);
+    tcsetattr(STDIN_FILENO, TCSANOW, &newt);
+    ch = getchar();
+    tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
+    return ch;
+}
+#endif
+
 int r_events(int sss = 0, int Mranding = 0, int Lranding = 0) { //随机数生成，用于随机事件和随机性格等
 	if (sss == 0) {
 		return 1 + rand() % (events); //生成 随机事件
@@ -168,6 +187,16 @@ void badint() {
 	}
 }
 
+void clear_screen() {
+#ifdef _WIN32
+	system("cls");
+#else
+	system("clear");
+#endif
+}
+
+
+
 void hyphen(int shan = 0) {
 	if (shan == 0)cout << "----------------------------------------\n";
 	else if (shan == 1)cout << "****************************************\n";
@@ -188,10 +217,20 @@ void refer(int refertype) {
 
 void colorc(int x) { //0.红 1.绿 2.蓝
 	if (theme == Tdef) {
+#ifdef _WIN32
 		if (x == red)SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY | FOREGROUND_RED);
 		if (x == green)SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY | FOREGROUND_GREEN);
 		if (x == blue)SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY | FOREGROUND_BLUE);
 		if (x == white)SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+#else
+		switch (x) {
+		case red: std::cout << "\033[31m"; break;
+		case green: std::cout << "\033[32m"; break;
+		case blue: std::cout << "\033[34m"; break;
+		case white: std::cout << "\033[0m"; break; // 重置为默认
+		default: break;
+		}
+#endif
 	}
 }
 
@@ -200,7 +239,7 @@ public:
 	static void pause(int screen = 0) {
 		cout << " (Press any key to continue...)\n";
 		getch();
-		if (screen == 1)system("cls");
+		if (screen == 1)clear_screen();
 	}
 
 	static void sure(bool besure = true) {
@@ -208,8 +247,6 @@ public:
 		cout << " (Press Y to confirm, and press N to refuse)\n";
 	}
 };
-
-
 
 //选择设置
 class options {

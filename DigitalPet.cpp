@@ -789,7 +789,7 @@ void M_cok() {  //buying cooking ingredients
 					}
 				}
 			}
-			system("cls");
+			clear_screen();
 		}
 		else if (key == 'B' || key == 'b') {
 			uglyprice = r_events(123, 21 - 6, 6);
@@ -822,11 +822,11 @@ void M_cok() {  //buying cooking ingredients
 							}
 						}
 					}
-					system("cls");
+					clear_screen();
 					break;
 				}
 				else if (no) {
-					system("cls");
+					clear_screen();
 					break;
 				}
 			}
@@ -858,7 +858,7 @@ void M_cok() {  //buying cooking ingredients
 					}
 				}
 			}
-			system("cls");
+			clear_screen();
 		}
 		else if (key == 'D' || key == 'd') {
 			while (1) {
@@ -879,7 +879,7 @@ void M_cok() {  //buying cooking ingredients
 				}
 			}
 			pausers::pause();
-			system("cls");
+			clear_screen();
 		}
 		else if (key == 'E' || key == 'e') {
 			uglyprice = 6;
@@ -906,7 +906,7 @@ void M_cok() {  //buying cooking ingredients
 					}
 				}
 			}
-			system("cls");
+			clear_screen();
 		}
 		else if (key == 'F' || key == 'f') {
 			uglyprice = r_events(123, 900 - 20, 20);
@@ -939,11 +939,11 @@ void M_cok() {  //buying cooking ingredients
 							}
 						}
 					}
-					system("cls");
+					clear_screen();
 					break;
 				}
 				else if (no) {
-					system("cls");
+					clear_screen();
 					break;
 				}
 			}
@@ -1022,11 +1022,11 @@ void M_stu() {	//buying props
 							notices::money_not();
 							pausers::pause();
 						}
-						system("cls");
+						clear_screen();
 						break;
 					}
 					if (no) {
-						system("cls");
+						clear_screen();
 						break;
 					}
 				}
@@ -1069,7 +1069,7 @@ void M_stu() {	//buying props
 						break;
 					}
 					if (no) {
-						system("cls");
+						clear_screen();
 						break;
 					}
 				}
@@ -1316,7 +1316,7 @@ void interact() {
 		pausers::pause();
 	}
 	else if (key == 'S' || key == 's') {
-		system("cls");
+		clear_screen();
 		turns--;
 	}
 	else if (key == 'M' || key == 'm') {
@@ -1471,7 +1471,7 @@ void interact() {
 				break;
 			}
 		}
-		system("cls");
+		clear_screen();
 		turns--;
 	}*/
 	/*else if(key=='K'||key=='k') {
@@ -1552,7 +1552,7 @@ void interact() {
 		}
 		/*
 		else if (cheating == "Walk") {
-			system("cls");
+			clear_screen();
 			start();
 		}
 		*/

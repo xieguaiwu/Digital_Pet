@@ -32,7 +32,7 @@ void game1() {
 	computer.life=2;
 	cout <<"游戏是猜拳，三局两胜！（按任意键继续）";
 	getch();
-	system("cls");
+	clear_screen();
 	while(1) {
 		if(player.life==0) {
 			cout <<"死神的血盆大口露出狞笑，尖牙利齿闪烁着光芒……（按任意键继续）";
@@ -123,6 +123,6 @@ void game1() {
 		++rounds;
 		cout <<"（按下任意键继续……）\n";
 		getch();
-		system("cls");
+		clear_screen();
 	}
 }
