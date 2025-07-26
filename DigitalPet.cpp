@@ -84,7 +84,11 @@ bool Vacheve = false;
 void notice() {
 	cout << "\nPRESS 'Q' TO QUIT\nPRESS 'F' TO FEED YOUR PET\nPRESS 'I' TO INTERACT WITH YOUR PET\nPRESS 'C' TO CHECK YOUR PET'S STATUS\n";
 	cout << "PRESS 'S' TO CLEAR THE SCREEN\nPRESS 'M' TO [PURCHASE], [APPLY FOR LOAN] OR [COOK]\nPRESS 'B' TO CHECK THE [COOKING INGREDIENT] YOU ALREADY HAD\n";
-	cout << "PRESS 'O' TO CHECK THE DISHES YOU ALREADY COOKED\nPRESS 'X' TO RESET THE THEME COLOR\nPRESS '?' TO CHECK THE INSTRUCTIONS\n";
+	cout << "PRESS 'O' TO CHECK THE DISHES YOU ALREADY COOKED\n";
+#ifdef _WIN32
+	cout << "PRESS 'X' TO RESET THE THEME COLOR\n";
+#endif
+	cout << "PRESS '?' TO CHECK THE INSTRUCTIONS\n";
 	if (invest) {
 		cout << "PRESS 'V' TO CHECK THE [STATUS OF INVESTMENT]\n";
 		Vacheve = true;
@@ -1425,10 +1429,12 @@ void interact() {
 		turns--;
 		hyphen(4);
 	}
+#ifdef _WIN32
 	else if (key == 'X' || key == 'x') {
 		options::color_choose();
 		turns --;
 	}
+#endif
 	/*else if (key == '?') {
 		hyphen(4);
 		cout << "A) ÍË³ö´Ë½çÃæ\nB) »ù´¡²Ù×÷½Ì³Ì\nC) Ëæ»úÊÂ¼þ²Ù×÷½Ì³Ì\nD) ½è´ûÏµÍ³²Ù×÷½Ì³Ì\nE) Åëâ¿ÏµÍ³²Ù×÷½Ì³Ì\nF.³èÎïËÀÍö\n";
