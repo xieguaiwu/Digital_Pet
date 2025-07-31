@@ -85,5 +85,5 @@ void have_body() {
 void body_describe() {
 	if (parts_changed)have_body();
 	notices::your_pet();
-
+	if(have_parts[head]) cout <<"";
 }

@@ -48,13 +48,13 @@ vector<float> backpackeffect;//effect
 unsigned int Crow;//for circulation
 unsigned int CTP;//for circulation
 
-int cook(unsigned int Psug, unsigned int Psul, unsigned int Psod, unsigned int Pwat, unsigned int Pflo, unsigned int cs = 0) { //±äÁ¿cs£ºº¯ÊýµÄÀàÐÍ
+int cook(unsigned int Psug, unsigned int Psul, unsigned int Psod, unsigned int Pwat, unsigned int Pflo, bool CookOrCal = 0) { //±äÁ¿cs£ºº¯ÊýµÄÀàÐÍ
 	Msug = Psug; Msul = Psul;
 	Msod = Psod;
 	Mwat = Pwat;
 	Mflo = Pflo;
 	Camount = Psug + Psul + Psod + Pwat + Pflo;
-	if (cs == 0) {
+	if (CookOrCal == false) {
 		if (Psug == 0 && Psul == 0 && Psod == 0 && Pwat == 0 && Pflo == 0) {
 			cout << "After precisely controlling the invisible fire, consistly modifying the temperature of the non-existent frying pan, and the combination of the imaginary delicate seasonings, you successfully made a dish of...";
 			Ncook = air;
@@ -72,7 +72,7 @@ int cook(unsigned int Psug, unsigned int Psul, unsigned int Psod, unsigned int P
 			}
 		}
 	}
-	else if (cs == 1) {
+	else {
 		Mcalr = Psug * 400;//sugar per gram: 400 kcal
 		if (Pwat > Pflo)Mcalr = Mcalr + Pflo * 300;//wet flour per gram: 300 kcal
 		else Mcalr = Mcalr + Pwat * 2 + (Pflo - Pwat) * 366;//dry flour per gram: 366 kcal
