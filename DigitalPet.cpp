@@ -70,6 +70,7 @@ int cook(unsigned int Psug, unsigned int Psul, unsigned int Psod, unsigned int P
 			if (Rcook == 3) {
 				cout << "After throwing a bunch of disgusting inorganic substance, you are chocked by the smoke for two whole hours, and you find yourself totally cooked. In the mean time, you successfully invented...";
 			}
+            return 0;
 		}
 	}
 	else {
