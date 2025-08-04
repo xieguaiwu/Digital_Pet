@@ -1722,6 +1722,7 @@ void o_days() {
 }
 
 int main() {
+	ios::sync_with_stdio(false), cin.tie(nullptr), cout.tie(nullptr);
 	srand(time(NULL));
 	Mname();
 	Mname1();
